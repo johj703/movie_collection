@@ -1,0 +1,23 @@
+.container {
+}
+
+.title {
+  background-color: deepskyblue;
+  border: 1px none black;
+  text-align: center;
+  padding: 10px;
+}
+
+.search_container {
+  position: relative;
+}
+
+.search {
+  display: flex;
+  position: relative;
+  text-align: center;
+  justify-content: space-between;
+  width: 370px;
+  margin: 15px auto;
+  font-size: x-large;
+}
