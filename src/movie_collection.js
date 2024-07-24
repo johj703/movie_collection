@@ -29,3 +29,15 @@ function createMovieCard(movie) {
   card.addEventListener("click", () => alert(`Movie ID: ${movie.id}`));
   return card;
 }
+
+fetch(URL)
+  .then((response) => response.json())
+  .then((data) => {
+    const movies = data.results;
+    const movieContainer = document.getElementById("movie-container");
+    movies.forEach((movie) => {
+      const card = createMovieCard(movie);
+      movieContainer.appendChild(card);
+    });
+  })
+  .catch((error) => console.log("Error : ", error));
