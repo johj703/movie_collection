@@ -14,7 +14,7 @@ function fetchMovieData(movieName) {
   )
     .then((response) => response.json())
     .then((response) => console.log(response))
-    .catch((err) => console.error(err));
+    .catch((error) => console.error("Error: ", error));
 }
 
 function createMovieCard(movie) {
