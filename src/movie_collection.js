@@ -15,6 +15,23 @@ function fetchMovieData(movieName) {
     .then((response) => response.json())
     .then((response) => console.log(response))
     .catch((error) => console.error("Error: ", error));
+
+  fetch(
+    "https://api.themoviedb.org/3/search/movie?api_key=${AniKey}&language=ko-KR&page=1",
+    options
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      const movies = data.results;
+      const movieContainer = document.getElementById("movie-container");
+      movies.forEach((movies) => {
+        const card = createMovieCard(movies);
+        movieContainer.appendChild(card);
+      });
+    })
+    .catch((error) => console.log("Error : ", error));
+
+  console.log();
 }
 
 function createMovieCard(movie) {
@@ -29,15 +46,3 @@ function createMovieCard(movie) {
   card.addEventListener("click", () => alert(`Movie ID: ${movie.id}`));
   return card;
 }
-
-fetch(URL)
-  .then((response) => response.json())
-  .then((data) => {
-    const movies = data.results;
-    const movieContainer = document.getElementById("movie-container");
-    movies.forEach((movie) => {
-      const card = createMovieCard(movie);
-      movieContainer.appendChild(card);
-    });
-  })
-  .catch((error) => console.log("Error : ", error));
