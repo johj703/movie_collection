@@ -34,14 +34,14 @@ async function getMovies() {
     let image = movie["poster_path"];
     let title = movie["title"];
     let overview = movie["overview"];
-    let vote_count = movie["vote_count"];
+    let vote_average = movie["vote_average"];
 
     let temp_html = `
       <div class="movies">
         <img src="https://image.tmdb.org/t/p/w500/${image}" alt="영화 이미지" />
         <h3>${title}</h3>
         <p>${overview}</p>
-        <p>평점: ${vote_count}</p>
+        <p>평점: ${vote_average}</p>
       </div>
     `;
     const container = document.getElementById("movies_container");
@@ -51,7 +51,7 @@ async function getMovies() {
       a.textContent = movie.image;
       a.textContent = movie.title;
       a.textContent = movie.overview;
-      a.textContent = movie.vote_count;
+      a.textContent = movie.vote_average;
       movies_container.appendChild(a);
     });
   });
