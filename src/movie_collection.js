@@ -47,11 +47,31 @@ async function getMovies() {
     const container = document.getElementById("movies_container");
     const a = document.createElement("div");
     movies.forEach((movie) => {
+      // 새 div 요소를 생성
       const a = document.createElement("div");
-      a.textContent = movie.image;
-      a.textContent = movie.title;
-      a.textContent = movie.overview;
-      a.textContent = movie.vote_average;
+
+      // 영화 포스터 이미지 설정
+      const poster = document.createElement("img");
+      poster.src = movie.poster_path;
+      poster.alt = movie.title;
+      a.appendChild(poster);
+
+      // 영화 제목 설정
+      const title = document.createElement("h2");
+      title.textContent = movie.title;
+      a.appendChild(title);
+
+      // 영화 내용 요약 설정
+      const overview = document.createElement("p");
+      overview.textContent = movie.overview;
+      a.appendChild(overview);
+
+      // 영화 평점 설정
+      const rating = document.createElement("p");
+      rating.textContent = `Rating: ${movie.vote_average}`;
+      a.appendChild(rating);
+
+      // 생성한 div 요소를 movies_container에 추가
       movies_container.appendChild(a);
     });
   });
