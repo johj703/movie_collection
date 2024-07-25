@@ -14,7 +14,6 @@
 
 .search {
   display: flex;
-  position: relative;
   text-align: center;
   justify-content: space-between;
   width: 370px;
