@@ -52,7 +52,7 @@ async function getMovies() {
 
       // 영화 포스터 이미지 설정
       const poster = document.createElement("img");
-      poster.src = movie.poster_path;
+      poster.src = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
       poster.alt = movie.title;
       a.appendChild(poster);
 
