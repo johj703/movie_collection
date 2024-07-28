@@ -92,6 +92,7 @@ getMovies();
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 
+// 문제점: 검색창에서 해당 제목을 타이핑, 엔터(검색 버튼 클릭)를 했음에도 영화 필터링이 되지 않는 이유 찾기
 searchButton.addEventListener("click", () => {
   const searchTerm = searchInput.value.toLowerCase();
   const filteredMovies = movies.filter((movie) =>
