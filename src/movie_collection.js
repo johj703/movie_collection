@@ -78,6 +78,11 @@ async function getMovies() {
 
       // 생성한 div 요소를 movies_container에 추가
       movies_container.appendChild(card);
+
+      // 카드를 클릭했을 때, ID를 나타내는 이벤트 리스너 추가
+      card.addEventListener("click", () => {
+        alert(`영화 ID: ${movie.id}`);
+      });
     });
   });
 }
@@ -93,6 +98,18 @@ searchButton.addEventListener("click", () => {
     movie.title.toLowerCase().includes(searchTerm)
   );
   renderMovies(filteredMovies);
+});
+
+// 입력 필드에서 Enter key를 눌렀을 때 검색 하는 기능
+searchInput.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const searchTerm = searchInput.value.toLowerCase();
+    const filteredMovies = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(searchTerm)
+    );
+    renderMovies(filteredMovies);
+  }
 });
 
 // 검색 구현
