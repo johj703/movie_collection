@@ -73,7 +73,7 @@ async function getMovies() {
 
       // 영화 평점 설정
       const rating = document.createElement("p");
-      rating.textContent = `Rating: ${movie.vote_average}`;
+      rating.textContent = `평점: ${movie.vote_average}`;
       card.appendChild(rating);
 
       // 생성한 div 요소를 movies_container에 추가
