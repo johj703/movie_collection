@@ -36,10 +36,12 @@
   overflow: hidden; /* overflow: hidden => 요소의 내용이 요소의 크기를 초과할 때, 초과 부분을 잘라내어 보이지 않도록 한다. */
   width: 300px;
   transition: transform 0.2s; /* 카드에 마우스를 올렸을 때, hover 기능이 0.2초 느리게 작동되게 해서 자연스럽게 표현이 되도록 효과를 준다!*/
-  cursor: pointer; /* 카드 위에 마우스를 올렸을 때, 마우스 커서가 손가락으로 변경 */
+  cursor: pointer; /* 카드 위에 마우스를 올렸을 때, 마우스 커서가 손가락으로 변경된다! */
   margin-bottom: 20px;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(
+    1.05
+  ); /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
 }
