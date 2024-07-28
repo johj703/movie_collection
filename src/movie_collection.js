@@ -44,17 +44,22 @@ async function getMovies() {
         <p>평점: ${vote_average}</p>
       </div>
     `;
-    const container = document.getElementById("movies_container");
     const card = document.createElement("div");
     movies.forEach((movie) => {
       // 새 div 요소를 생성
       const card = document.createElement("div");
+      card.classList.add("card");
 
       // 영화 포스터 이미지 설정
       const poster = document.createElement("img");
       poster.src = "https://image.tmdb.org/t/p/w500/" + movie.poster_path;
       poster.alt = movie.title;
+      poster.classList.add("card-img");
       card.appendChild(poster);
+
+      // // 카드 컨텐츠를 담을 div 생성
+      // const cardContent = document.createElement('div');
+      // cardContent.classList.add('card-content'); // card-contents 클래스 추가
 
       // 영화 제목 설정
       const title = document.createElement("h2");
