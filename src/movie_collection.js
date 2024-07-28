@@ -100,7 +100,7 @@ searchButton.addEventListener("click", () => {
   getMovies(filteredMovies);
 });
 
-// 입력 필드에서 Enter key를 눌렀을 때 검색 하는 기능
+// 영화 검색 input태그에서 Enter key를 눌렀을 때 검색 하는 기능
 searchInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
     event.preventDefault();
