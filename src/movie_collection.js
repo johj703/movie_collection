@@ -97,7 +97,7 @@ searchButton.addEventListener("click", () => {
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchTerm)
   );
-  renderMovies(filteredMovies);
+  getMovies(filteredMovies);
 });
 
 // 입력 필드에서 Enter key를 눌렀을 때 검색 하는 기능
@@ -108,7 +108,7 @@ searchInput.addEventListener("keypress", (event) => {
     const filteredMovies = movies.filter((movie) =>
       movie.title.toLowerCase().includes(searchTerm)
     );
-    renderMovies(filteredMovies);
+    getMovies(filteredMovies);
   }
 });
 
