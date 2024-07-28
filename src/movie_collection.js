@@ -83,6 +83,18 @@ async function getMovies() {
 }
 getMovies();
 
+// 검색 기능 구현
+const searchInput = document.getElementById("search-input");
+const searchButton = document.getElementById("search-button");
+
+searchButton.addEventListener("click", () => {
+  const searchTerm = searchInput.value.toLowerCase();
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchTerm)
+  );
+  renderMovies(filteredMovies);
+});
+
 // 검색 구현
 // 1. 영화 카드 리스트 선택하기
 
