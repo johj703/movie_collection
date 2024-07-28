@@ -17,3 +17,19 @@
   margin: 15px auto;
   font-size: x-large;
 }
+
+.search-label {
+  text-align: center;
+}
+
+#movies_container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.card {
+  border: 1px solid black;
+  width: 500px;
+  margin-bottom: 10px;
+}
