@@ -20,6 +20,7 @@ const options = {
 // 3. response를 JSON 객체로 바꿔서 Data 변수에 담기.
 // 4. movies_container 가져오기
 // 5. Data 변수를 순회하면서 HTML코드를 movies_container에 넣기
+let movies = [];
 
 async function getMovies() {
   const response = await fetch(
@@ -28,9 +29,8 @@ async function getMovies() {
   );
   const data = await response.json();
   // console.log(data.results);
-  const movies = data.results;
+  movies = data.results;
   movies.forEach((movie) => {
-    console.log(movie);
     let image = movie["poster_path"];
     let title = movie["title"];
     let overview = movie["overview"];
@@ -44,6 +44,8 @@ async function getMovies() {
         <p>평점: ${vote_average}</p>
       </div>
     `;
+
+    // 영화 카드 컴포넌트를 렌더링 하는 함수
     const card = document.createElement("div");
     movies.forEach((movie) => {
       // 새 div 요소를 생성
@@ -92,15 +94,24 @@ getMovies();
 const searchInput = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
 
-// 문제점: 검색창에서 해당 제목을 타이핑, 엔터(검색 버튼 클릭)를 했음에도 영화 필터링이 되지 않는 이유 찾기
+// 검색 버튼 클릭 이벤트 리스너 추가
 searchButton.addEventListener("click", () => {
+  makeMovieCards();
+});
+
+// 검색 입력 필드에 타이핑 할 때마다 필터링된 영화를 표시
+searchInput.addEventListener("input", makeMovieCards);
+
+// 영화 제목을 검색어에 맞게 필터링하고 화면에 표시하는 함수
+function makeMovieCards() {
   const searchTerm = searchInput.value.toLowerCase();
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(searchTerm)
   );
   getMovies(filteredMovies);
-});
+}
 
+makeMovieCards();
 // 영화 검색 input태그에서 Enter key를 눌렀을 때 검색 하는 기능
 searchInput.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
