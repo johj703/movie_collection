@@ -12,3 +12,14 @@
 .search-container input{
     margin-right: 5px;
 }
+
+.navigation-container {
+    background-color: green;
+    display: flex;
+}
+
+.navigation-container a {
+    margin-right: 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
