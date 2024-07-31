@@ -47,3 +47,8 @@
     background-color: #575757;
     border-radius: 3px;
 }
+
+.navigation-container img {
+    width: 114px;
+    height: 100px;
+}
