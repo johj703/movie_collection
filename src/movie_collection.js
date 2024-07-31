@@ -23,8 +23,9 @@ const options = {
 let movies = [];
 
 async function getMovies() {
+  const API_KEY = '485a7d173048113813de904df9f34a7f';
   const response = await fetch(
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
     options
   );
   const data = await response.json();
