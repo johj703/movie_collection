@@ -84,7 +84,7 @@ async function getMovies() {
       // 카드를 클릭했을 때, ID를 나타내는 이벤트 리스너 추가
       card.addEventListener("click", () => {
         // 영화 상세 페이지로 이동
-        window.location.href = `detail.html?id=${movie.id}`;
+        window.location.href = `pages/movie_detail.html?id=${movie.id}`;
       });
     });
   });
