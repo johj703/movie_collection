@@ -1,0 +1,14 @@
+.header-container {
+    background-color: #080414;
+}
+
+.search-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.search-container input{
+    margin-right: 5px;
+}
