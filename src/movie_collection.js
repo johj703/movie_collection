@@ -23,8 +23,9 @@ const options = {
 let movies = [];
 
 async function getMovies() {
+  const API_KEY = '485a7d173048113813de904df9f34a7f';
   const response = await fetch(
-    "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1",
+    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
     options
   );
   const data = await response.json();
@@ -83,7 +84,8 @@ async function getMovies() {
 
       // 카드를 클릭했을 때, ID를 나타내는 이벤트 리스너 추가
       card.addEventListener("click", () => {
-        alert(`영화 ID: ${movie.id}`);
+        // 영화 상세 페이지로 이동
+        window.location.href = `pages/movie_detail.html?id=${movie.id}`;
       });
     });
   });
