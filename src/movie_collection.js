@@ -81,9 +81,9 @@ async function getMovies() {
       // 생성한 div 요소를 movies_container에 추가
       movies_container.appendChild(card);
 
-      // 카드를 클릭했을 때, ID를 나타내는 이벤트 리스너 추가
+      // 카드를 클릭했을 때, 해당 카드의 상세 정보 페이지로 이동하는 이벤트 리스너 추가
       card.addEventListener("click", () => {
-        alert(`영화 ID: ${movie.id}`);
+        window.location.href = `pages/movie_detail.html?id=${movie.id}`;
       });
     });
   });
