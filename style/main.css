@@ -44,3 +44,30 @@ body {
   -webkit-backdrop-filter: blur(3.9px);
   border: 1px solid rgba(255, 215, 0, 0.55);
 }
+
+.movie-carousel-nav {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+.movie-carousel-nav button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.movie-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.movie-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}

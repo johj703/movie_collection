@@ -14,37 +14,32 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
     />
-
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <body>
-    <header>
-      <div class="header-container">
-        <div class="navigation-container">
-          <img src="/assets/logo/logo.png" alt="logo" />
-          <a href="#Hot">인기급상승</a>
-          <a href="#Views">조회수 급등</a>
-          <a href="#Choice">너이영 추천</a>
-        </div>
-        <form class="search-container">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="제목, 제작사, 감독으로 검색"
-          />
-          <button type="button" id="search-button">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-container">
+      <div class="navigation-container">
+        <img src="/assets/logo/logo.png" alt="logo" id="logo">
+        <a href="#Hot">인기급상승</a>
+        <a href="#Views">조회수 급등</a>
+        <a href="#Choice">너이영 추천</a>
       </div>
-    </header>
-
+      <form class="search-container">
+        <input type="text" id="search-input" placeholder="제목, 제작사, 감독으로 검색" />
+        <button type="button" id="search-button"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </header>
     <div class="container">
       <div class="carousel-container">
         <div class="carousel-subcontainer" aria-live="polite">
@@ -60,13 +55,26 @@
           </div>
         </div>
       </div>
-
       <section class="movies_container" id="movies_container"></section>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/src/carousel.js"></script>
-    <script type="module" src="/src/movie_popular.js"></script>
-    <script type="module" src="src/apikey.js"></script>
-    <script type="module" src="src/movie_collection.js"></script>
-  </body>
+
+    <div class="movie-carousel" id="movie-carousel">
+      <div class="movie-carousel-track" id="movie-carousel-track"></div>
+      <div class="movie-carousel-nav">
+        <button id="prevMovieBtn"><i class="fas fa-chevron-left"></i></button>
+        <button id="nextMovieBtn"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  
+    <section class="movies_container" id="movies_container"></section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/src/carousel.js"></script>
+  <script type="module" src="/src/movie_popular.js"></script>
+  <script type="module" src="src/apikey.js"></script>
+  <script type="module" src="src/movie_collection.js"></script>
+
+</body>
+
 </html>
