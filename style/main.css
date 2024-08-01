@@ -33,3 +33,16 @@ body {
   min-width: 290px;
   min-height: 515.5px;
 } 
+
+/* 평점 뱃지 스타일 */
+.reating_badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #FFD700; /* 배경색 노랑색으로 설정 */
+  color: #000;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
