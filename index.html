@@ -4,26 +4,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>내배캠 최고 평점 영화_조현준</title>
+  <title>너는 이미 영화를 보고있다. (너이영) </title>
+  <link rel="icon" href="/assets/logo/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="style/reset.css" />
   <link rel="stylesheet" href="style/style.css" />
   <link rel="stylesheet" href="style/navigation.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 
 <body>
 
   <header>
     <div class="header-container">
+      <div class="navigation-container">
+        <img src="/assets/logo/logo.png" alt="logo">
+        <a href="#Hot">인기급상승</a>
+        <a href="#Views">조회수 급등</a>
+        <a href="#Choice">너이영 추천</a>
+      </div>
       <form class="search-container">
         <input type="text" id="search-input" placeholder="제목, 제작사, 감독으로 검색" />
-        <button type="button" id="search-button">검색</button>
+        <button type="button" id="search-button"><i class="fas fa-search"></i></button>
       </form>
-      <div class="navigation-container">
-        <a href="#">인기급상승</a>
-        <a href="#">인기급상승</a>
-        <a href="#">인기급상승</a>
-      </div>
-
     </div>
   </header>
 
@@ -31,8 +35,10 @@
     <hr />
     <section id="movies_container"></section>
   </div>
-  <script src="src/movie_collection.js"></script>
-
+  
+  <script type = "module" src="src/apikey.js"></script>
+  <script type = "module" src="src/movie_collection.js"></script>
+  
 </body>
 
 </html>
