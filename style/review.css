@@ -1,0 +1,21 @@
+.review-Form .text {
+border-radius: 20px;
+display: center;
+}
+
+body {
+background-color: white;
+margin: 0 auto;
+padding: auto;
+display: flex;
+justify-content: center;
+align-items: center;
+height: auto;
+flex-direction: column;
+}
+
+.submit-button{
+    border-radius: 20px;
+    display: center;
+    width: auto;
+}
