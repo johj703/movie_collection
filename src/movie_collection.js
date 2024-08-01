@@ -1,6 +1,6 @@
 // API키와 옵션 임포트
-import { defanikey } from "./apikey.js";
-const { API_KEY, options } = defanikey;
+import { DEFAPIKEY } from "./apikey.js";
+const { API_KEY, options } = DEFAPIKEY;
 
 // 영화 데이터를 저장할 전역 배열
 let $movies = [];
@@ -15,12 +15,18 @@ const SEARCH_BUTTON = document.getElementById("search-button");
 // 영화 데이터를 가져오는 비동기 함수
 async function getMovies() {
   try {
-    const RESPONSE = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`,
-      options
-    );
+    const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
+    console.log(`Fetching data from: ${URL}`);
+    
+    const RESPONSE = await fetch(URL, options);
+    
+    if (!RESPONSE.ok) {
+      throw new Error(`HTTP error! status: ${RESPONSE.status}`);
+    }
 
     const DATA = await RESPONSE.json();
+    console.log('Received data:', DATA);
+    
     // 파싱된 데이터에서 영화 목록을 추출하여 전역 변수에 저장
     $movies = DATA.results;
     // 영화를 화면에 표시하는 함수를 호출
@@ -29,7 +35,6 @@ async function getMovies() {
     console.log("Error fetching movies:", error);
   }
 }
-
 // 영화를 화면에 출력하는 함수
 function displayMovies() {
   // 기존 내용 지우기

@@ -9,4 +9,4 @@ const options = {
   }
 }
 
-export const defanikey = { API_KEY, options };
+export const  DEFAPIKEY= { API_KEY, options };
