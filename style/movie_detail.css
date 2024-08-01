@@ -1,0 +1,26 @@
+/* 영화 상세 카드 스타일 */
+.detail-card {
+    max-width: 800px;
+    margin: 2px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.detail-card h2 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.detail-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.detail-card p {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
