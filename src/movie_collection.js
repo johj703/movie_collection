@@ -69,9 +69,21 @@ function displayMovies() {
     // OVERVIEW.innerText = movie.overview;
     // CARD.appendChild(OVERVIEW);
 
+<<<<<<< HEAD
     // 카드 클릭 이벤트 추가
     CARD.addEventListener("click", () => {
       alert(`영화 ID: ${movie.id}`);
+=======
+    // 영화 평점 생성
+    const RATING = document.createElement("p");
+    RATING.innerText = `평점: ${movie.vote_average}`;
+    CARD.appendChild(RATING);
+
+    // 카드 클릭 이벤트 추가
+    CARD.addEventListener("click", () => {
+      alert(`영화 ID: ${movie.id}`);
+
+>>>>>>> 63b5b36940694882239bbb77868700a8809bf927
     });
 
     // 완성된 카드를 컨테이너에 추가
