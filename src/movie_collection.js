@@ -55,23 +55,24 @@ function displayMovies() {
     CARD.appendChild(POSTER);
 
     // 영화 제목
-    const TITLE = document.createElement("h2");
-    TITLE.innerText = movie.title;
-    CARD.appendChild(TITLE);
+    // const TITLE = document.createElement("h2");
+    // TITLE.innerText = movie.title;
+    // CARD.appendChild(TITLE);
 
+    // 영화 평점 뱃지 생성
+    const RETIMG_BADGE = document.createElement("div");
+    RETIMG_BADGE.innerText = `평점 : 10 / ${movie.vote_average.toFixed(1)}`;
+    RETIMG_BADGE.classList.add("reating_badge");
+    CARD.appendChild(RETIMG_BADGE);
     // // 영화 개요
     // const OVERVIEW = document.createElement("p");
     // OVERVIEW.innerText = movie.overview;
     // CARD.appendChild(OVERVIEW);
 
-    // 영화 평점 생성
-    const RATING = document.createElement("p");
-    RATING.innerText = `평점: ${movie.vote_average}`;
-    CARD.appendChild(RATING);
-
     // 카드 클릭 이벤트 추가
     CARD.addEventListener("click", () => {
       alert(`영화 ID: ${movie.id}`);
+
     });
 
     // 완성된 카드를 컨테이너에 추가
