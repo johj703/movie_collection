@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#movie_detail_container {
+    width: 80%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+#movie_header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+#movie_poster {
+    width: 200px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+#movie_info {
+    flex-grow: 1;
+}
+
+#movie_title {
+    font-size: 2em;
+    margin: 0;
+}
+
+#movie_tagline {
+    font-style: italic;
+    color: #777;
+}
+
+#movie_rating {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #f39c12;
+}
+
+#movie_genres {
+    margin: 10px 0;
+}
+
+#movie_genres span {
+    background-color: #3498db;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+#movie_release_date,
+#movie_runtime {
+    margin: 5px 0;
+}
+
+#movie_overview {
+    margin-top: 20px;
+}
+
+#movie_overview h2 {
+    margin-top: 0;
+}

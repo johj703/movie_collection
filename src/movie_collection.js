@@ -78,7 +78,7 @@ function displayMovies() {
 
     // 카드 클릭 이벤트 추가
     CARD.addEventListener("click", () => {
-      alert(`영화 ID: ${movie.id}`);
+      window.location.href = `/html/movie_detail.html?id=${movie.id}`;
     });
 
     // 완성된 카드를 컨테이너에 추가
