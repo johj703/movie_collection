@@ -5,15 +5,17 @@ body {
     display: flex;
     justify-content: center;
     background-color: transparent;
-    width: 100%;
+    
 }
 
 .carousel {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1500px;
+    height: 500px;
     overflow: hidden;
     position: relative;
     border-radius: 15px;
+    margin: 70px;
 }
 
 .carousel-slide {
