@@ -79,7 +79,7 @@ function displayMovies() {
   });
 }
 
-// 문열에서 모든 공백을 제거하는 함수
+// 문자열에서 모든 공백을 제거하는 함수
 function removeAllSpaces(str) {
   return str.replace(/\s+/g, "");
 }
@@ -87,29 +87,31 @@ function removeAllSpaces(str) {
 // 개선된 검색 기능
 function searchMovies() {
   const QUERY = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
-
   // 유효성 검사: 검색어가 비어있는지 확인
   if (!QUERY) {
     alert("검색어를 입력하세요.");
     showAllCards();
     return;
   }
-
   // 모든 영화 카드 선택 및 검색결과가 있는지 추적하는 변수 세팅
   const CARDS = document.querySelectorAll(".card");
   let $hasResult = false;
-
+  let $matchedMovies = []; // 일치하는 영화 제목을 저장할 배열
   // 검색어와 일치하는지 확인하는 함수
   CARDS.forEach((card, index) => {
     const TITLE = removeAllSpaces($movies[index].title.toLowerCase());
     if (TITLE.includes(QUERY)) {
       card.style.display = "block";
       $hasResult = true;
+      $matchedMovies.push($movies[index].title); // 원래 영화 제목을 배열에 추가
     } else {
       card.style.display = "none";
     }
   });
-
+  // 일치하는 영화 제목들을 로컬 스토리지에 저장
+  if ($hasResult) {
+    localStorage.setItem("matchedMovies", JSON.stringify($matchedMovies));
+  }
   // 검색 결과가 없을 경우 팝업창으로 알림
   if (!$hasResult) {
     alert("검색 결과가 없습니다.");
