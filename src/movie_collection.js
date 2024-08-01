@@ -58,10 +58,10 @@ function displayMovies() {
     const TITLE = document.createElement("h2");
     TITLE.innerText = movie.title;
     CARD.appendChild(TITLE);
-    
+
     // 영화 평점 뱃지 생성
     const RETIMG_BADGE = document.createElement("div");
-    RETIMG_BADGE.innerText = `평점 : 10 / ${movie.vote_average}`;
+    RETIMG_BADGE.innerText = `평점 : 10 / ${movie.vote_average.toFixed(1)}`;
     RETIMG_BADGE.classList.add("reating_badge");
     CARD.appendChild(RETIMG_BADGE);
     // // 영화 개요
