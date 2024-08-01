@@ -17,16 +17,16 @@ async function getMovies() {
   try {
     const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
     console.log(`Fetching data from: ${URL}`);
-    
+
     const RESPONSE = await fetch(URL, options);
-    
+
     if (!RESPONSE.ok) {
       throw new Error(`HTTP error! status: ${RESPONSE.status}`);
     }
 
     const DATA = await RESPONSE.json();
-    console.log('Received data:', DATA);
-    
+    console.log("Received data:", DATA);
+
     // 파싱된 데이터에서 영화 목록을 추출하여 전역 변수에 저장
     $movies = DATA.results;
     // 영화를 화면에 표시하는 함수를 호출
@@ -59,10 +59,10 @@ function displayMovies() {
     TITLE.innerText = movie.title;
     CARD.appendChild(TITLE);
 
-    // 영화 개요
-    const OVERVIEW = document.createElement("p");
-    OVERVIEW.innerText = movie.overview;
-    CARD.appendChild(OVERVIEW);
+    // // 영화 개요
+    // const OVERVIEW = document.createElement("p");
+    // OVERVIEW.innerText = movie.overview;
+    // CARD.appendChild(OVERVIEW);
 
     // 영화 평점 생성
     const RATING = document.createElement("p");
@@ -79,37 +79,39 @@ function displayMovies() {
   });
 }
 
-// 문자열에서 모든 공백을 제거하는 함수
+// 문열에서 모든 공백을 제거하는 함수
 function removeAllSpaces(str) {
   return str.replace(/\s+/g, "");
 }
 
 // 개선된 검색 기능
 function searchMovies() {
-  const query = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
+  const QUERY = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
 
-  // 유효성 검사: 검색어가 비어 있는지 확인
-  if (!query) {
+  // 유효성 검사: 검색어가 비어있는지 확인
+  if (!QUERY) {
     alert("검색어를 입력하세요.");
     showAllCards();
     return;
   }
 
-  const cards = document.querySelectorAll(".card");
-  let hasResults = false;
+  // 모든 영화 카드 선택 및 검색결과가 있는지 추적하는 변수 세팅
+  const CARDS = document.querySelectorAll(".card");
+  let $hasResult = false;
 
-  cards.forEach((card, index) => {
-    const title = removeAllSpaces($movies[index].title.toLowerCase());
-    if (title.includes(query)) {
+  // 검색어와 일치하는지 확인하는 함수
+  CARDS.forEach((card, index) => {
+    const TITLE = removeAllSpaces($movies[index].title.toLowerCase());
+    if (TITLE.includes(QUERY)) {
       card.style.display = "block";
-      hasResults = true;
+      $hasResult = true;
     } else {
       card.style.display = "none";
     }
   });
 
   // 검색 결과가 없을 경우 팝업창으로 알림
-  if (!hasResults) {
+  if (!$hasResult) {
     alert("검색 결과가 없습니다.");
     showAllCards();
   }
@@ -117,17 +119,15 @@ function searchMovies() {
 
 // 모든 카드를 표시하는 함수
 function showAllCards() {
-  const cards = document.querySelectorAll(".card");
-  cards.forEach((card) => (card.style.display = "block"));
+  const CARDS = document.querySelectorAll(".card");
+  CARDS.forEach((card) => (card.style.display = "block"));
 }
 
-// 검색 버튼 클릭 이벤트 리스너 추가
+// 검색 버튼 클릭시 이벤트리스너 추가
 SEARCH_BUTTON.addEventListener("click", searchMovies);
-
-// 검색 입력 필드에서 엔터 키 이벤트 리스너 추가
 SEARCH_INPUT.addEventListener("keypress", (event) => {
   if (event.key === "Enter") {
-    event.preventDefault(); // 폼 제출 방지
+    event.preventDefault();
     searchMovies();
   }
 });
