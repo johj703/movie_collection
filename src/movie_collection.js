@@ -1,13 +1,6 @@
-// API키
-const API_KEY = "485a7d173048113813de904df9f34a7f";
-const options = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ODVhN2QxNzMwNDgxMTM4MTNkZTkwNGRmOWYzNGE3ZiIsIm5iZiI6MTcyMTg2NzkxNS4wNjczNywic3ViIjoiNjVmZDRjYWQ3NzA3MDAwMTdjMGE4MTZmIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.cbkZQGyQg8TkXQEW93ZyqtaR4dVrGhw2j-1FJPufuus",
-  }
-}
+// API키와 옵션 임포트
+import { DEFAPIKEY } from "./apikey.js";
+const { API_KEY, options } = DEFAPIKEY;
 
 // 영화 데이터를 저장할 전역 배열
 let $movies = [];
@@ -22,12 +15,18 @@ const SEARCH_BUTTON = document.getElementById("search-button");
 // 영화 데이터를 가져오는 비동기 함수
 async function getMovies() {
   try {
-    const RESPONSE = await fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`,
-      options
-    );
+    const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
+    console.log(`Fetching data from: ${URL}`);
+    
+    const RESPONSE = await fetch(URL, options);
+    
+    if (!RESPONSE.ok) {
+      throw new Error(`HTTP error! status: ${RESPONSE.status}`);
+    }
 
     const DATA = await RESPONSE.json();
+    console.log('Received data:', DATA);
+    
     // 파싱된 데이터에서 영화 목록을 추출하여 전역 변수에 저장
     $movies = DATA.results;
     // 영화를 화면에 표시하는 함수를 호출
@@ -36,7 +35,6 @@ async function getMovies() {
     console.log("Error fetching movies:", error);
   }
 }
-
 // 영화를 화면에 출력하는 함수
 function displayMovies() {
   // 기존 내용 지우기
@@ -44,7 +42,7 @@ function displayMovies() {
 
   // 각 영화 객체에 대해 반복함(forEach 사용)
   $movies.forEach((movie) => {
-    //새로운 div요소를 생성하여 카드를 만듬
+    // 새로운 div 요소를 생성하여 카드를 만듬
     const CARD = document.createElement("div");
     // CARD div 요소에 클래스네임 추가
     CARD.classList.add("card");
@@ -71,7 +69,7 @@ function displayMovies() {
     RATING.innerText = `평점: ${movie.vote_average}`;
     CARD.appendChild(RATING);
 
-    //카드 클릭 이벤트 추가
+    // 카드 클릭 이벤트 추가
     CARD.addEventListener("click", () => {
       alert(`영화 ID: ${movie.id}`);
     });

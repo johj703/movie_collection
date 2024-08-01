@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>너는 이미 영화를 보고있다. (너이영) </title>
-  <link rel="icon" href="./logo/logo.png" type="image/x-icon">
+  <link rel="icon" href="/assets/logo/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="style/reset.css" />
   <link rel="stylesheet" href="style/style.css" />
   <link rel="stylesheet" href="style/navigation.css" />
@@ -19,10 +19,10 @@
   <header>
     <div class="header-container">
       <div class="navigation-container">
-        <img src="./logo/logo.png" alt="logo">
+        <img src="/assets/logo/logo.png" alt="logo">
         <a href="#Hot">인기급상승</a>
         <a href="#Views">조회수 급등</a>
-        <a href="#Choice">네이영 추천</a>
+        <a href="#Choice">너이영 추천</a>
       </div>
       <form class="search-container">
         <input type="text" id="search-input" placeholder="제목, 제작사, 감독으로 검색" />
@@ -35,8 +35,10 @@
     <hr />
     <section id="movies_container"></section>
   </div>
-  <script src="src/movie_collection.js"></script>
-
+  
+  <script type = "module" src="src/apikey.js"></script>
+  <script type = "module" src="src/movie_collection.js"></script>
+  
 </body>
 
 </html>
