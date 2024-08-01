@@ -35,10 +35,10 @@ async function getMovieDetails() {
         MOVIEPOSTER.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
         MOVIETITLE.textContent = movie.title;
         MOIVETAHLINE.textContent = movie.tagline;
-        MOIVEVOTEAVERAGE.textContent = movie.vote_average.toFixed(1);
+        MOIVEVOTEAVERAGE.textContent = "평점 : " + movie.vote_average.toFixed(1);
         MOVIEGENRES.innerHTML = movie.genres.map(genre => `<span class="genre">${genre.name}</span>`).join(', ');
-        MOIVERELEASEDATE.textContent = `Release Date: ${movie.release_date}`;
-        MOIVERUNTIME.textContent = `Runtime: ${movie.runtime} minutes`;
+        MOIVERELEASEDATE.textContent = `상영날짜 ${movie.release_date}`;
+        MOIVERUNTIME.textContent = `상영시간: ${movie.runtime} 분`;
         MOIVEOVERVIEWTEXT.textContent = movie.overview;
     } catch (error) {
         console.log("Error fetching movie details:", error);
