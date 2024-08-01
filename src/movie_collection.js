@@ -69,11 +69,6 @@ function displayMovies() {
     // OVERVIEW.innerText = movie.overview;
     // CARD.appendChild(OVERVIEW);
 
-<<<<<<< HEAD
-    // 카드 클릭 이벤트 추가
-    CARD.addEventListener("click", () => {
-      alert(`영화 ID: ${movie.id}`);
-=======
     // 영화 평점 생성
     const RATING = document.createElement("p");
     RATING.innerText = `평점: ${movie.vote_average}`;
@@ -82,8 +77,6 @@ function displayMovies() {
     // 카드 클릭 이벤트 추가
     CARD.addEventListener("click", () => {
       alert(`영화 ID: ${movie.id}`);
-
->>>>>>> 63b5b36940694882239bbb77868700a8809bf927
     });
 
     // 완성된 카드를 컨테이너에 추가
@@ -101,7 +94,13 @@ function searchMovies() {
   const QUERY = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
   // 유효성 검사: 검색어가 비어있는지 확인
   if (!QUERY) {
-    alert("검색어를 입력하세요.");
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "검색어를 입력하세요.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     showAllCards();
     return;
   }
@@ -136,7 +135,7 @@ function searchMovies() {
 
   // 검색 결과가 없을 경우 팝업창으로 알림
   if (!$hasResult) {
-    alert("검색 결과가 없습니다.");
+    Swal.fire("검색 결과가 없습니다!", "정확히 입력해주세요.", "warning");
     showAllCards();
   }
 }
