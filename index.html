@@ -7,7 +7,7 @@
   <title>너는 이미 영화를 보고있다. (너이영) </title>
   <link rel="icon" href="/assets/logo/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="style/reset.css" />
-  <link rel="stylesheet" href="style/style.css" />
+  <link rel="stylesheet" href="style/main.css" />
   <link rel="stylesheet" href="style/navigation.css" />
   <link rel="stylesheet" href="/style/carousel.css">
 
@@ -32,21 +32,20 @@
     </div>
   </header>
 
-  <div class="carousel" aria-live="polite">
-    <div class="carousel-slide">
-      <img src="/assets/Slide1.jpg" alt="">
-      <img src="/assets/Slide2.jpg" alt="">
-      <img src="/assets/Slide3.jpg" alt="">
-    </div>
-    <div class="carousel-nav">
-      <span class="nav-dot" onclick="navigateToSlide(0)"></span>
-      <span class="nav-dot" onclick="navigateToSlide(1)"></span>
-      <span class="nav-dot" onclick="navigateToSlide(2)"></span>
-    </div>
-  </div>
-
 
   <div class="container">
+    <div class="carousel-container" aria-live="polite">
+      <div class="carousel-slide">
+        <img src="/assets/Slide1.jpg" alt="">
+        <img src="/assets/Slide2.jpg" alt="">
+        <img src="/assets/Slide3.jpg" alt="">
+      </div>
+      <div class="carousel-nav">
+        <span class="nav-dot" onclick="navigateToSlide(0)"></span>
+        <span class="nav-dot" onclick="navigateToSlide(1)"></span>
+        <span class="nav-dot" onclick="navigateToSlide(2)"></span>
+      </div>
+    </div>
     <section class="movies_container" id="movies_container"></section>
   </div>
 

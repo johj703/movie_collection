@@ -1,4 +1,4 @@
-body {
+.carousel-container {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,9 +8,10 @@ body {
     
 }
 
-.carousel {
+.carousel-subcontainer {
     width: 100%;
-    max-width: 1500px;
+    min-width: 1500px;
+    max-width: 1600px;
     height: 500px;
     overflow: hidden;
     position: relative;
