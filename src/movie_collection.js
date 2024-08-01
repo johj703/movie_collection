@@ -55,9 +55,9 @@ function displayMovies() {
     CARD.appendChild(POSTER);
 
     // 영화 제목
-    const TITLE = document.createElement("h2");
-    TITLE.innerText = movie.title;
-    CARD.appendChild(TITLE);
+    // const TITLE = document.createElement("h2");
+    // TITLE.innerText = movie.title;
+    // CARD.appendChild(TITLE);
 
     // 영화 평점 뱃지 생성
     const RETIMG_BADGE = document.createElement("div");
