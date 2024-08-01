@@ -97,21 +97,31 @@ function searchMovies() {
   const CARDS = document.querySelectorAll(".card");
   let $hasResult = false;
   let $matchedMovies = []; // 일치하는 영화 제목을 저장할 배열
+  const now = new Date().toISOString(); // 현재 시간을 ISO 형식으로 저장
+
   // 검색어와 일치하는지 확인하는 함수
   CARDS.forEach((card, index) => {
     const TITLE = removeAllSpaces($movies[index].title.toLowerCase());
     if (TITLE.includes(QUERY)) {
       card.style.display = "block";
       $hasResult = true;
-      $matchedMovies.push($movies[index].title); // 원래 영화 제목을 배열에 추가
+      $matchedMovies.push({ title: $movies[index].title, time: now }); // 영화 제목과 검색 시간 추가
     } else {
       card.style.display = "none";
     }
   });
+
   // 일치하는 영화 제목들을 로컬 스토리지에 저장
   if ($hasResult) {
-    localStorage.setItem("matchedMovies", JSON.stringify($matchedMovies));
+    let $storedMovies = JSON.parse(localStorage.getItem("matchedMovies")) || [];
+    $storedMovies = $storedMovies.concat($matchedMovies); // 기존 검색 결과에 추가
+    // 검색 결과가 100개를 넘으면 오래된 항목 삭제
+    if ($storedMovies.length > 100) {
+      $storedMovies = $storedMovies.slice($storedMovies.length - 100);
+    }
+    localStorage.setItem("matchedMovies", JSON.stringify($storedMovies));
   }
+
   // 검색 결과가 없을 경우 팝업창으로 알림
   if (!$hasResult) {
     alert("검색 결과가 없습니다.");
