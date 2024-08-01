@@ -9,4 +9,14 @@ const options = {
   }
 }
 
-export const  DEFAPIKEY= { API_KEY, options };
+const FIREBASECONFIG = {
+  apiKey: "AIzaSyBbu7PSND0vXhPLkmxmPS5PQyrZbE9oOTo",
+  authDomain: "teammovie-66f0f.firebaseapp.com",
+  projectId: "teammovie-66f0f",
+  storageBucket: "teammovie-66f0f.appspot.com",
+  messagingSenderId: "607236733584",
+  appId: "1:607236733584:web:62d6974161c28ffa187615",
+  measurementId: "G-TJ9V2VGZZ6"
+};
+
+export const  DEFAPIKEY= { API_KEY, options, FIREBASECONFIG };
