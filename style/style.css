@@ -1,19 +1,7 @@
-.title {
-  background-color: deepskyblue;
-  border: 1px none black;
-  text-align: center;
-  padding: 10px;
-}
-
-.search-label {
-  text-align: center;
-}
-
 .movies_container {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
+  justify-content: center;
 }
 
 .card {
@@ -26,9 +14,9 @@
   transform: scale(0.75);
 }
 .card h2 {
+  max-width: 300px;
   overflow: hidden; /* overflow: hidden => 요소의 내용이 요소의 크기를 초과할 때, 초과 부분을 잘라내어 보이지 않도록 한다. */
 }
-
 
 .card:hover {
   transform: scale(0.85); /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
@@ -40,5 +28,4 @@
 
   min-width: 290px;
   min-height: 515.5px;
-  
 } 

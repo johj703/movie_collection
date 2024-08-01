@@ -14,6 +14,7 @@
     bottom: auto;
     position: fixed;
     bottom: 92.5%;
+    z-index: 1002;
 }
 
 .search-container {

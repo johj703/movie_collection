@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style/reset.css" />
   <link rel="stylesheet" href="style/style.css" />
   <link rel="stylesheet" href="style/navigation.css" />
+  <link rel="stylesheet" href="/style/carousel.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -31,14 +32,28 @@
     </div>
   </header>
 
-  <div class="container">
-    <hr />
-    <section class = "movies_container" id="movies_container"></section>
+  <div class="carousel" aria-live="polite">
+    <div class="carousel-slide">
+      <img src="/assets/Slide1.jpg" alt="">
+      <img src="/assets/Slide2.jpg" alt="">
+      <img src="/assets/Slide3.jpg" alt="">
+    </div>
+    <div class="carousel-nav">
+      <span class="nav-dot" onclick="navigateToSlide(0)"></span>
+      <span class="nav-dot" onclick="navigateToSlide(1)"></span>
+      <span class="nav-dot" onclick="navigateToSlide(2)"></span>
+    </div>
   </div>
-  
-  <script type = "module" src="src/apikey.js"></script>
-  <script type = "module" src="src/movie_collection.js"></script>
-  
+
+
+  <div class="container">
+    <section class="movies_container" id="movies_container"></section>
+  </div>
+
+  <script src="/src/carousel.js"></script>
+  <script type="module" src="src/apikey.js"></script>
+  <script type="module" src="src/movie_collection.js"></script>
+
 </body>
 
 </html>
