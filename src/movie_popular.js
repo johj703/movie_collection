@@ -5,7 +5,7 @@ const { API_KEY, options } = DEFAPIKEY;
 async function getPopularMovie() {
   try {
     const RESPONSE = await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=ko-KR&page=1`
     );
     const DATA = await RESPONSE.json();
     console.log("Popular movies:", DATA);
