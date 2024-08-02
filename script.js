@@ -1,6 +1,7 @@
 const slides = document.querySelectorAll('.carousel-slide img');
 const navDots = document.querySelectorAll('.nav-dot');
 let currentIndex = 0;
+let slideInterval;
 
 function showNextSlide() {
     currentIndex = (currentIndex + 1) % slides.length;
@@ -10,6 +11,7 @@ function showNextSlide() {
 function navigateToSlide(index) {
     currentIndex = index;
     updateCarousel();
+    clearInterval(slideInterval);
 }
 
 function updateCarousel() {
@@ -20,6 +22,10 @@ function updateCarousel() {
     });
 }
 
-setInterval(showNextSlide, 2000);
+slideInterval = setInterval(showNextSlide, 2000);
 
 updateCarousel();
+
+navDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => navigateToSlide(index));
+});
