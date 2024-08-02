@@ -37,7 +37,7 @@ document.querySelector('.review-Form').addEventListener('submit', async (event) 
 
 
 import { collection, addDoc } from "firebase/firestore"; 
-
+//리뷰를firestore에추가 
 try {
   const docRef = await addDoc(collection(db, "reviews"), {
     user: "user",//작성자
@@ -55,3 +55,5 @@ const querySnapshot = await getDocs(collection(db, "reviews"));
 querySnapshot.forEach((doc) => { //가져온 데이터 반복 
   console.log(`${doc.id} => ${doc.data()}`);  //id 와 데이터를 콘솔에출력
 });
+
+fetchReviews();
