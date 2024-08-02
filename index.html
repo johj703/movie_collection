@@ -1,52 +1,69 @@
 <!DOCTYPE html>
 <html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>너는 이미 영화를 보고있다. (너이영)</title>
+    <link rel="icon" href="/assets/logo/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" href="style/reset.css" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="style/navigation.css" />
+    <link rel="stylesheet" href="/style/carousel.css" />
+    <link rel="stylesheet" href="/style/movie_popular.css" />
+    <!-- SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>너는 이미 영화를 보고있다. (너이영) </title>
-  <link rel="icon" href="/assets/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="style/reset.css" />
-  <link rel="stylesheet" href="style/main.css" />
-  <link rel="stylesheet" href="style/navigation.css" />
-  <link rel="stylesheet" href="/style/carousel.css">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-</head>
-
-<body>
-
-  <header>
-    <div class="header-container">
-      <div class="navigation-container">
-        <img src="/assets/logo/logo.png" alt="logo" id="logo">
-        <a href="#Hot">인기급상승</a>
-        <a href="#Views">조회수 급등</a>
-        <a href="#Choice">너이영 추천</a>
-      </div>
-      <form class="search-container">
-        <input type="text" id="search-input" placeholder="제목, 제작사, 감독으로 검색" />
-        <button type="button" id="search-button"><i class="fas fa-search"></i></button>
-      </form>
-    </div>
-  </header>
-
-
-  <div class="container">
-    <div class="carousel-container">
-      <div class="carousel-subcontainer" aria-live="polite">
-        <div class="carousel-slide">
-          <img src="/assets/Slide1.jpg" alt="Page_1">
-          <img src="/assets/Slide2.jpg" alt="Page_2">
-          <img src="/assets/Slide3.jpg" alt="Page_3">
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="navigation-container">
+          <img src="/assets/logo/logo.png" alt="logo" id="logo" />
+          <a href="#Hot">인기급상승</a>
+          <a href="#Views" id="views-link">조회수 급등</a>
+          <a href="#Choice">너이영 추천</a>
         </div>
-        <div class="carousel-nav">
-          <span class="nav-dot" onclick="navigateToSlide(0)"></span>
-          <span class="nav-dot" onclick="navigateToSlide(1)"></span>
-          <span class="nav-dot" onclick="navigateToSlide(2)"></span>
+        <form class="search-container">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="제목, 제작사, 감독으로 검색"
+          />
+          <button type="button" id="search-button">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </header>
+    <div class="container">
+      <div class="carousel-container">
+        <div class="carousel-subcontainer" aria-live="polite">
+          <div class="carousel-slide">
+            <img src="/assets/Slide1.jpg" alt="" />
+            <img src="/assets/Slide2.jpg" alt="" />
+            <img src="/assets/Slide3.jpg" alt="" />
+          </div>
+          <div class="carousel-nav">
+            <span class="nav-dot" onclick="navigateToSlide(0)"></span>
+            <span class="nav-dot" onclick="navigateToSlide(1)"></span>
+            <span class="nav-dot" onclick="navigateToSlide(2)"></span>
+          </div>
         </div>
       </div>
+      <section class="movies_container" id="movies_container"></section>
     </div>
 
     <div class="movie-carousel" id="movie-carousel">
@@ -56,14 +73,16 @@
         <button id="nextMovieBtn"><i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
-  
+
     <section class="movies_container" id="movies_container"></section>
-  </div>
 
-  <script src="/src/carousel.js"></script>
-  <script type="module" src="src/apikey.js"></script>
-  <script type="module" src="src/movie_collection.js"></script>
+    <!-- 평점 높은 영화 추가 -->
+    <div class="movies-container2" id="movies-container2"></div>
 
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/src/carousel.js"></script>
+    <script type="module" src="/src/movie_popular.js"></script>
+    <script type="module" src="src/apikey.js"></script>
+    <script type="module" src="src/movie_collection.js"></script>
+  </body>
 </html>

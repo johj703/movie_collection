@@ -7,7 +7,9 @@ let $movies = [];
 
 // HTML에서 영화 카드를 표시할 컨테이너 요소를 가져옴
 const MOVIE_CAROUSEL_TRACK = document.getElementById("movie-carousel-track");
-const MAIN_CAROUSEL_CONTAINER = document.getElementById("main-carousel-container");
+const MAIN_CAROUSEL_CONTAINER = document.getElementById(
+  "main-carousel-container"
+);
 const MOVIE_CAROUSEL = document.getElementById("movie-carousel");
 const SEARCH_INPUT = document.getElementById("search-input");
 const SEARCH_BUTTON = document.getElementById("search-button");
@@ -76,6 +78,11 @@ function displayMovies() {
     // OVERVIEW.innerText = movie.overview;
     // CARD.appendChild(OVERVIEW);
 
+    // 영화 평점 생성
+    const RATING = document.createElement("p");
+    RATING.innerText = `평점: ${movie.vote_average}`;
+    CARD.appendChild(RATING);
+
     // 카드 클릭 이벤트 추가
     CARD.addEventListener("click", () => {
       window.location.href = `/html/movie_detail.html?id=${movie.id}`;
@@ -91,7 +98,9 @@ function displayMovies() {
 function updateCarousel() {
   const TRACK_WIDTH = MOVIE_CAROUSEL_TRACK.offsetWidth;
   const CARD_WIDTH = TRACK_WIDTH / 4; // 4개 카드가 한 줄에 표시되므로
-  MOVIE_CAROUSEL_TRACK.style.transform = `translateX(-${$currentIndex * CARD_WIDTH}px)`;
+  MOVIE_CAROUSEL_TRACK.style.transform = `translateX(-${
+    $currentIndex * CARD_WIDTH
+  }px)`;
 }
 
 // 이전 버튼 클릭 이벤트 리스너 추가
@@ -121,7 +130,13 @@ function searchMovies() {
 
   // 유효성 검사: 검색어가 비어있는지 확인
   if (!QUERY) {
-    alert("검색어를 입력하세요.");
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "검색어를 입력하세요.",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     showAllCards();
     MAIN_CAROUSEL_CONTAINER.style.display = "block";
     MOVIE_CAROUSEL.style.display = "block";
@@ -130,22 +145,25 @@ function searchMovies() {
 
   // 모든 영화 카드 선택 및 검색결과가 있는지 추적하는 변수 세팅
   const CARDS = document.querySelectorAll(".card");
-  let hasResult = false;
+  let $hasResult = false;
+  let $matchedMovies = []; // 일치하는 영화 제목을 저장할 배열
+  const now = new Date().toISOString(); // 현재 시간을 ISO 형식으로 저장
 
   // 검색어와 일치하는지 확인하는 함수
   CARDS.forEach((card, index) => {
     const TITLE = removeAllSpaces($movies[index].title.toLowerCase());
     if (TITLE.includes(QUERY)) {
       card.style.display = "block";
-      hasResult = true;
+      $hasResult = true;
+      $matchedMovies.push({ title: $movies[index].title, time: now }); // 영화 제목과 검색 시간 추가
     } else {
       card.style.display = "none";
     }
   });
 
   // 검색 결과가 없을 경우 팝업창으로 알림
-  if (!hasResult) {
-    alert("검색 결과가 없습니다.");
+  if (!$hasResult) {
+    Swal.fire("검색 결과가 없습니다!", "정확히 입력해주세요.", "warning");
     showAllCards();
   }
 
