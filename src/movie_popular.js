@@ -29,9 +29,7 @@ function createMovieCard(movie) {
 
   // 카드의 HTML 내용 설정
   CARD.innerHTML = `
-  <img class="movie-poster" src="${posterPath}" alt="${
-    movie.title
-  }" style="width: 200px; height: auto;">
+  <img class="movie-poster" src="${posterPath}" alt="${movie.title}" 
   <div class="movie-info">
     <div class="movie-title">${movie.title}</div>
     <div class="movie-overview">${movie.overview.slice(0, 100)}...</div>
@@ -45,7 +43,7 @@ function createMovieCard(movie) {
 // 영화 데이터를 가져와서 화면에 표시하는 비동기 함수
 async function displayMovies() {
   const MOVIES = await getPopularMovie();
-  const CONTAINER = document.getElementById("movei-container2");
+  const CONTAINER = document.getElementById("movies-container2");
 
   MOVIES.forEach((movie) => {
     const CARD = createMovieCard(movie);
