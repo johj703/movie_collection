@@ -30,11 +30,7 @@ function createMovieCard(movie) {
   // 카드의 HTML 내용 설정
   CARD.innerHTML = `
   <img class="movie-poster" src="${posterPath}" alt="${movie.title}" 
-  <div class="movie-info">
-    <div class="movie-title">${movie.title}</div>
-    <div class="movie-overview">${movie.overview.slice(0, 100)}...</div>
-    <div class="movie-rating">★ ${movie.vote_average.toFixed(1)}</div>
-  </div>
+    <div class="movie-rating">평점 : ${movie.vote_average.toFixed(1)} / 10</div>
 `;
 
   return CARD;
