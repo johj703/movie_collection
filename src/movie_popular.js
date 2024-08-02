@@ -16,6 +16,13 @@ async function getPopularMovie() {
   }
 }
 
+document.getElementById("views-link").addEventListener("click", function () {
+  // document.querySelector(".container").style.display = "none";
+  document.querySelector(".movie-carousel").style.display = "none";
+  document.querySelector(".movies_container").style.display = "flex";
+  // history.pushState(null, "", "#Views");
+});
+
 // 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
 function createMovieCard(movie) {
   //새로운 div 요소 생성
