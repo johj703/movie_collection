@@ -1,19 +1,57 @@
 import { DEFAPIKEY } from "./apikey.js";
 const { API_KEY, options } = DEFAPIKEY;
 
-const options1 = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzM0ZWFlY2M2MDcyMDg3NGE5YzFjNWI0NTkwYTAxZiIsIm5iZiI6MTcyMjUyMDExOS4yODUwNTYsInN1YiI6IjY2OWY1YTc4ZjE3YTkxMjZkMjRjNzllOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.d0pENm2q3n3vZUPg6xEWiFd06FnbKa72W0-OuJl-ZvM",
-  },
-};
+// API 데이터 불러오기
+async function getPopularMovie() {
+  try {
+    const RESPONSE = await fetch(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`
+    );
+    const DATA = await RESPONSE.json();
+    console.log("Popular movies:", DATA); // 여기에 콘솔 로그 추가
+    return DATA.results;
+  } catch (error) {
+    console.log("Error fetching populr movies:", error);
+    return [];
+  }
+}
 
-fetch(
-  `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
-  options1
-)
-  .then((response) => response.json())
-  .then((response) => console.log(response))
-  .catch((err) => console.error(err));
+// 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
+function createMovieCard(movie) {
+  //새로운 div 요소 생성
+  const CARD = document.createElement("div");
+  CARD.className = "movie-card";
+
+  // 영화 포스터 경로를 설정합니다. 포스터가 없으면 플레이스홀더 이미지를 사용합니다.
+  const posterPath = movie.poster_path
+    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    : "https://via.placeholder.com/200x300";
+
+  // 카드의 HTML 내용 설정
+  CARD.innerHTML = `
+  <img class="movie-poster" src="${posterPath}" alt="${
+    movie.title
+  }" style="width: 200px; height: auto;">
+  <div class="movie-info">
+    <div class="movie-title">${movie.title}</div>
+    <div class="movie-overview">${movie.overview.slice(0, 100)}...</div>
+    <div class="movie-rating">★ ${movie.vote_average.toFixed(1)}</div>
+  </div>
+`;
+
+  return CARD;
+}
+
+// 영화 데이터를 가져와서 화면에 표시하는 비동기 함수
+async function displayMovies() {
+  const MOVIES = await getPopularMovie();
+  const CONTAINER = document.getElementById("movei-container2");
+
+  MOVIES.forEach((movie) => {
+    const CARD = createMovieCard(movie);
+    CONTAINER.appendChild(CARD);
+  });
+}
+
+// 페이지 로드 시 영화를 표시하는 함수를 호출
+displayMovies();
