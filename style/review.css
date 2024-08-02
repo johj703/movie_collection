@@ -12,10 +12,28 @@ justify-content: center;
 align-items: center;
 height: auto;
 flex-direction: column;
+text-align: center;
 }
 
 .submit-button{
     border-radius: 20px;
     display: center;
     width: auto;
+}
+
+button{
+    padding :10px;
+    border: none;
+    border-radius: 5px;
+    coolor:white;
+    cursor:pointer;
+}
+
+.review-Form {
+    display: flex;
+    flex-direction: column;
+}
+
+.infobox {
+    width: 100%;
 }

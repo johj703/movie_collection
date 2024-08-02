@@ -1,14 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import (getFirestone, query,orderBy , addDoc),   from "firebase/firestore";
+import { getFirestore , collection, addDoc, query, orderBy ,onSnapshot }from 'firebase/firestore';
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = 
+const firebaseConfig = {
   apiKey: "AIzaSyBbu7PSND0vXhPLkmxmPS5PQyrZbE9oOTo",
   authDomain: "teammovie-66f0f.firebaseapp.com",
   projectId: "teammovie-66f0f",
@@ -18,34 +16,53 @@ const firebaseConfig =
   measurementId: "G-TJ9V2VGZZ6"
 };
 
-// Initialize Firebase
+
+// Firebase 인스턴스 초기화
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-// Initialize Cloud Firestore and get a reference to the service
-const db= getFirestone (app);
-
+//리뷰폼제출 버튼에 이벤트 리스너 추가 . 
 document.querySelector('.review-Form').addEventListener('submit', async (event) => {
  //새로고침막아주기 
   event.preventDefault();
 
-  //html 가져오기 
+  //작성자 , 비밀번호 리뷰 ,html 가져오기 
   const user =document.getElementById ('user').value;
   const password =document.getElementById('password').value;
-  const review = document.getElementById('review').value
+  const reviewContent = document.getElementById('review').value
 
-  user:user , 
-  password: password,
-  review:review,
-}};
+let doc={
+  user:user, //작성자
+  password:password , //비밀번호 
+  content: reviewContent//리뷰내용 
+};
 
-console.log()
-catch ( )
+try {
+  // 리뷰 문서 추가 
+  await addDoc(collection(db, 'reviews'), doc);
+  console.log('리뷰가 추가되었습니다.');
+} catch (e) {
+  // 에러 발생시 에러 메세지
+  console.error('ERROR 404 ', e);
+}
+});
 
-
-  
-.catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
+// Function to load and display reviews
+const loadReviews = () => {
+  const q = query(collection(db, 'reviews'), orderBy('author', 'asc'));  //작성자 기준으로 정렬 
+  const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    reviewsContainer.innerHTML = ''; // Clear previous reviews
+    querySnapshot.forEach((doc) => {
+      const review = doc.data();
+      const reviewElement = document.createElement('div');
+      reviewElement.textContent = `${review.author}: ${review.content}`;
+      reviewsContainer.appendChild(reviewElement);
+    });
   });
+};
+
+// Call loadReviews to load and display reviews when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  loadReviews();
+});
