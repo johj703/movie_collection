@@ -50,9 +50,9 @@ document
         password: "password", //비밀번호
         reviewContent: "review", //리뷰내용
       });
-      console.log("리뷰가 등록되었습니다: ", docRef.id); //리뷰추가시
+      alert("리뷰가 등록되었습니다."); // alert창 띄워주기
     } catch (e) {
-      console.error("Error 404: ", e); //리뷰에러시
+      console.error("Error adding review: ", e); // 실패시 에러 표시 
     }
   });
 
