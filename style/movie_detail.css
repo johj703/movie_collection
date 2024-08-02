@@ -1,73 +1,118 @@
+/* 기본 스타일 */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #0a0a1a;
+    color: #fff;
     margin: 0;
     padding: 0;
 }
 
-#movie_detail_container {
-    width: 80%;
-    margin: 50px auto;
-    background-color: #fff;
+/* 컨테이너 스타일 */
+.movie_detail_container {
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
-#movie_header {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-}
-
-#movie_poster {
-    width: 200px;
-    border-radius: 10px;
+.logo {
+    width: 114px;
+    height: auto;
     margin-right: 20px;
 }
 
-#movie_info {
-    flex-grow: 1;
+/* 영화 헤더 스타일 */
+.movie_header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-#movie_title {
-    font-size: 2em;
-    margin: 0;
+.movie_title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-#movie_tagline {
-    font-style: italic;
-    color: #777;
+.movie_rating {
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-#movie_rating {
-    font-size: 1.2em;
-    margin: 10px 0;
-    color: #f39c12;
+.movie_poster {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-#movie_genres {
-    margin: 10px 0;
+.movie_overview {
+    background-color: #120F1E;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-#movie_genres span {
-    background-color: #3498db;
-    color: #fff;
-    padding: 5px 10px;
+.movie_overview p {
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* 리뷰 작성 폼 스타일 */
+.review_form {
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.review_form input, .review_form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
     border-radius: 5px;
-    margin-right: 5px;
+    background-color: #0a0a1a;
+    border: solid 1px white;
+    color: #fff;
 }
 
-#movie_release_date,
-#movie_runtime {
-    margin: 5px 0;
+.review_form input::placeholder, .review_form textarea::placeholder {
+    color: #bbb;
 }
 
-#movie_overview {
+.review_form button {
+    width: 104%;
+    padding: 10px;
+    background-color: #FFCA46;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.review_form button:hover {
+    background-color: #e6b800;
+}
+
+/* 리뷰 리스트 스타일 */
+.reviews {
     margin-top: 20px;
 }
 
-#movie_overview h2 {
-    margin-top: 0;
+.review_item {
+    padding: 10px;
+    border-bottom: 1px solid #3b3b3b;
+}
+
+.review_item:last-child {
+    border-bottom: none;
+}
+
+.review_author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.review_content {
+    line-height: 1.6;
 }

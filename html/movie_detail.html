@@ -1,32 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details</title>
     <link rel="stylesheet" href="/style/movie_detail.css">
 </head>
+
 <body>
-    <div id="movie_detail_container">
-        <div id="movie_header">
-            <img id="movie_poster" src="" alt="Movie Poster">
+    <header>
+        <div class="navigation-container">
+            <img src="/assets/logo/logo.png" alt="logo" class="logo" id="logo">
+          </div>
+    </header>
+
+
+    <div class="movie_detail_container" id="movie_detail_container">
+        <div class="movie_header" id="movie_header">
+            <img class="movie_poster" id="movie_poster" src="" alt="Movie Poster">
             <div id="movie_info">
-                <h1 id="movie_title"></h1>
-                <p id="movie_tagline"></p>
-                <div id="movie_rating">
-                    <span id="movie_vote_average"></span>/10
+                <h1 class="movie_title" id="movie_title"></h1>
+                <p class="movie_tagline" id="movie_tagline"></p>
+                <div class="movie_rating" id="movie_rating">
+                    <span class="movie_vote_average" id="movie_vote_average"></span>/10
                 </div>
-                <div id="movie_genres"></div>
-                <p id="movie_release_date"></p>
-                <p id="movie_runtime"></p>
+                <div class="movie_genres" id="movie_genres"></div>
+                <p class="movie_release_date" id="movie_release_date"></p>
+                <p class="movie_runtime" id="movie_runtime"></p>
             </div>
         </div>
-        <div id="movie_overview">
-            <h2>Overview</h2>
-            <p id="movie_overview_text"></p>
+        <div class="movie_overview" id="movie_overview">
+            <p class="movie_overview_text" id="movie_overview_text"></p>
+        </div>
+        <div class = "review_form" id="review_form">
+            <input type="text" id="review_author" placeholder="작성자">
+            <input type="password" id="review_password" placeholder="비밀번호">
+            <textarea id="review_content" placeholder="이 작품에 대한 내 평가를 남겨주세요!"></textarea>
+            <button id="submit_review">리뷰작성</button>
+        </div>
+        <div id="reviews">
+            <div class="review_item">
+                <div class="review_author">너무 무서워요 ㅠㅠ</div>
+                <div class="review_content">작성자: 엄준님</div>
+            </div>
+            <div class="review_item">
+                <div class="review_author">토시오 불쌍해요</div>
+                <div class="review_content">작성자: 참동길'사님</div>
+            </div>
         </div>
     </div>
     <script type="module" src="src/apikey.js"></script>
     <script type="module" src="/src/movie_detail.js"></script>
 </body>
+
 </html>

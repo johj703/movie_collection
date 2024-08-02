@@ -127,6 +127,7 @@ function removeAllSpaces(str) {
 // 개선된 검색 기능
 function searchMovies() {
   const QUERY = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
+
   // 유효성 검사: 검색어가 비어있는지 확인
   if (!QUERY) {
     Swal.fire({
@@ -141,12 +142,12 @@ function searchMovies() {
     MOVIE_CAROUSEL.style.display = "block";
     return;
   }
+
   // 모든 영화 카드 선택 및 검색결과가 있는지 추적하는 변수 세팅
   const CARDS = document.querySelectorAll(".card");
   let $hasResult = false;
   let $matchedMovies = []; // 일치하는 영화 제목을 저장할 배열
   const now = new Date().toISOString(); // 현재 시간을 ISO 형식으로 저장
-  let hasResult = false;
 
   // 검색어와 일치하는지 확인하는 함수
   CARDS.forEach((card, index) => {
@@ -155,22 +156,10 @@ function searchMovies() {
       card.style.display = "block";
       $hasResult = true;
       $matchedMovies.push({ title: $movies[index].title, time: now }); // 영화 제목과 검색 시간 추가
-      hasResult = true;
     } else {
       card.style.display = "none";
     }
   });
-
-  // 일치하는 영화 제목들을 로컬 스토리지에 저장
-  if ($hasResult) {
-    let $storedMovies = JSON.parse(localStorage.getItem("matchedMovies")) || [];
-    $storedMovies = $storedMovies.concat($matchedMovies); // 기존 검색 결과에 추가
-    // 검색 결과가 100개를 넘으면 오래된 항목 삭제
-    if ($storedMovies.length > 100) {
-      $storedMovies = $storedMovies.slice($storedMovies.length - 100);
-    }
-    localStorage.setItem("matchedMovies", JSON.stringify($storedMovies));
-  }
 
   // 검색 결과가 없을 경우 팝업창으로 알림
   if (!$hasResult) {
