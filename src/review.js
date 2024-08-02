@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore , collection, addDoc, query, orderBy ,onSnapshot }from 'firebase/firestore';
+import { getFirestore }from 'firebase/firestore';
+
+
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -20,6 +22,7 @@ const firebaseConfig = {
 // Firebase 인스턴스 초기화
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const analytics = getAnalytics(app);
 
 //리뷰폼제출 버튼에 이벤트 리스너 추가 . 
 document.querySelector('.review-Form').addEventListener('submit', async (event) => {
@@ -31,38 +34,24 @@ document.querySelector('.review-Form').addEventListener('submit', async (event) 
   const password =document.getElementById('password').value;
   const reviewContent = document.getElementById('review').value
 
-let doc={
-  user:user, //작성자
-  password:password , //비밀번호 
-  content: reviewContent//리뷰내용 
-};
+
+
+import { collection, addDoc } from "firebase/firestore"; 
 
 try {
-  // 리뷰 문서 추가 
-  await addDoc(collection(db, 'reviews'), doc);
-  console.log('리뷰가 추가되었습니다.');
-} catch (e) {
-  // 에러 발생시 에러 메세지
-  console.error('ERROR 404 ', e);
-}
-});
-
-// Function to load and display reviews
-const loadReviews = () => {
-  const q = query(collection(db, 'reviews'), orderBy('author', 'asc'));  //작성자 기준으로 정렬 
-  const unsubscribe = onSnapshot(q, (querySnapshot) => {
-    const reviewsContainer = document.getElementById('reviewsContainer');
-    reviewsContainer.innerHTML = ''; // Clear previous reviews
-    querySnapshot.forEach((doc) => {
-      const review = doc.data();
-      const reviewElement = document.createElement('div');
-      reviewElement.textContent = `${review.author}: ${review.content}`;
-      reviewsContainer.appendChild(reviewElement);
-    });
+  const docRef = await addDoc(collection(db, "reviews"), {
+    user: "user",//작성자
+    password: "password",//비밀번호
+    reviewContent: "review"//리뷰내용
   });
-};
+  console.log("리뷰가 등록되었습니다: ", docRef.id);//리뷰추가시 
+} catch (e) {
+  console.error("Error 404: ", e); //리뷰에러시
+}
 
-// Call loadReviews to load and display reviews when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-  loadReviews();
+import { collection, getDocs } from "firebase/firestore"; 
+//firestore 에서 reviews 컬렉선 모든 문서 가져오기 
+const querySnapshot = await getDocs(collection(db, "reviews"));
+querySnapshot.forEach((doc) => { //가져온 데이터 반복 
+  console.log(`${doc.id} => ${doc.data()}`);  //id 와 데이터를 콘솔에출력
 });
