@@ -37,7 +37,7 @@ function createMovieCard(movie) {
 async function displayMovies(containerId) {
   const MOVIES = await getPopularMovie();
   const CONTAINER = document.getElementById(containerId);
-  CONTAINER.innerHTML = ""; // Clear existing content
+  CONTAINER.innerHTML = ""; //error Uncaught (in promise) TypeError: Cannot set properties of null (setting 'innerHTML') at displayMovies
 
   MOVIES.forEach((movie) => {
     const CARD = createMovieCard(movie);
