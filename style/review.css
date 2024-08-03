@@ -1,10 +1,11 @@
 .review-Form .text {
 border-radius: 20px;
-display: center;
+display: flex;
 }
 
 body {
-background-color: white;
+background-color: black;
+color: white;
 margin: 0 auto;
 padding: auto;
 display: flex;
@@ -15,25 +16,35 @@ flex-direction: column;
 text-align: center;
 }
 
-.submit-button{
+.submitButton{
     border-radius: 20px;
-    display: center;
+    display: flex;
     width: auto;
+    color: yellow;
 }
 
 button{
     padding :10px;
     border: none;
     border-radius: 5px;
-    coolor:white;
+    color:white;
     cursor:pointer;
+    background-color: #ffd700;
+    width: 100%;
+    
 }
 
 .review-Form {
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 .infobox {
     width: 100%;
+}
+
+main {
+   width: 100%;
+   max-width: 400px;
 }
