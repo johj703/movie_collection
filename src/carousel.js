@@ -3,36 +3,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const navDots = document.querySelectorAll('.nav-dot');
     const slideContainer = document.querySelector('.carousel-slide');
     let currentIndex = 0;
-
-    function updateCarousel() {
-        const slideWidth = slides[0].clientWidth; // 첫 번째 슬라이드의 너비를 가져옴
-        slideContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`; // 슬라이드를 이동
-        navDots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentIndex); // 현재 슬라이드에 맞는 네비게이션 점을 활성화
-        });
-    }
+    let slideInterval;
 
     function showNextSlide() {
-        currentIndex = (currentIndex + 1) % slides.length; // 다음 슬라이드로 이동
+        currentIndex = (currentIndex + 1) % slides.length;
         updateCarousel();
     }
 
     function navigateToSlide(index) {
-        currentIndex = index; // 특정 슬라이드로 이동
+        currentIndex = index;
         updateCarousel();
+        clearInterval(slideInterval);
     }
 
-    // 네비게이션 점 클릭 시 슬라이드 변경
+    function updateCarousel() {
+        const slideWidth = slides[0].clientWidth;
+        slideContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        navDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    slideInterval = setInterval(showNextSlide, 2000);
+
+    updateCarousel();
+
     navDots.forEach((dot, index) => {
         dot.addEventListener('click', () => navigateToSlide(index));
     });
 
-    // 자동 슬라이드
-    setInterval(showNextSlide, 2000);
-
-    // 초기 슬라이드 업데이트
-    updateCarousel();
-
-    // 창 크기 조정 시 슬라이드 업데이트
     window.addEventListener('resize', updateCarousel);
 });

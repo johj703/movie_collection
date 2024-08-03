@@ -21,7 +21,7 @@ body {
 .card:hover {
   transform: scale(
     0.85
-  ); /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
+  ); 
 }
 
 .card_img {
@@ -67,6 +67,7 @@ body {
   position: relative;
   width: 100%;
   overflow: hidden;
+  transform: translateY(10%);
 }
 
 .movie-carousel-track {
