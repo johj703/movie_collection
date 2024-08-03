@@ -64,6 +64,7 @@ window.addEventListener("popstate", function () {
     document.querySelector(".container").style.display = "block";
     document.querySelector(".movie-carousel").style.display = "block";
     document.querySelector(".movies_container").style.display = "none";
+    document.getElementById("movies-container2").style.display = "none";
     displayMovies("movies-container");
   }
 });
