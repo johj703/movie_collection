@@ -62,21 +62,11 @@ function displayMovies() {
     POSTER.classList.add("card_img");
     CARD.appendChild(POSTER);
 
-    // 영화 제목 (현재 주석 처리됨)
-    // const TITLE = document.createElement("h2");
-    // TITLE.innerText = movie.title;
-    // CARD.appendChild(TITLE);
-
     // 영화 평점 뱃지 생성
     const RATING_BADGE = document.createElement("div");
     RATING_BADGE.innerText = `평점 : ${movie.vote_average.toFixed(1)} / 10`;
     RATING_BADGE.classList.add("reating_badge");
     CARD.appendChild(RATING_BADGE);
-
-    // // 영화 개요 (현재 주석 처리됨)
-    // const OVERVIEW = document.createElement("p");
-    // OVERVIEW.innerText = movie.overview;
-    // CARD.appendChild(OVERVIEW);
 
     // 영화 평점 생성
     const RATING = document.createElement("p");
@@ -125,7 +115,7 @@ function removeAllSpaces(str) {
 }
 
 // 개선된 검색 기능
-function searchMovies() {
+async function searchMovies() {
   const QUERY = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
 
   // 유효성 검사: 검색어가 비어있는지 확인
@@ -143,28 +133,33 @@ function searchMovies() {
     return;
   }
 
-  // 모든 영화 카드 선택 및 검색결과가 있는지 추적하는 변수 세팅
-  const CARDS = document.querySelectorAll(".card");
-  let $hasResult = false;
-  let $matchedMovies = []; // 일치하는 영화 제목을 저장할 배열
-  const now = new Date().toISOString(); // 현재 시간을 ISO 형식으로 저장
+  try {
+    const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+      QUERY
+    )}&language=ko-KR&page=1`;
+    console.log(`Fetching search results from: ${URL}`);
 
-  // 검색어와 일치하는지 확인하는 함수
-  CARDS.forEach((card, index) => {
-    const TITLE = removeAllSpaces($movies[index].title.toLowerCase());
-    if (TITLE.includes(QUERY)) {
-      card.style.display = "block";
-      $hasResult = true;
-      $matchedMovies.push({ title: $movies[index].title, time: now }); // 영화 제목과 검색 시간 추가
-    } else {
-      card.style.display = "none";
+    const RESPONSE = await fetch(URL, options);
+
+    if (!RESPONSE.ok) {
+      throw new Error(`HTTP error! status: ${RESPONSE.status}`);
     }
-  });
 
-  // 검색 결과가 없을 경우 팝업창으로 알림
-  if (!$hasResult) {
-    Swal.fire("검색 결과가 없습니다!", "정확히 입력해주세요.", "warning");
-    showAllCards();
+    const DATA = await RESPONSE.json();
+    console.log("Received search data:", DATA);
+
+    // 검색 결과가 없을 경우 팝업창으로 알림
+    if (DATA.results.length === 0) {
+      Swal.fire("검색 결과가 없습니다!", "정확히 입력해주세요.", "warning");
+      showAllCards();
+      return;
+    }
+
+    // 검색된 영화 목록을 전역 변수에 저장하고 화면에 표시
+    $movies = DATA.results;
+    displayMovies();
+  } catch (error) {
+    console.log("Error fetching search results:", error);
   }
 
   // 검색 결과에 따라 캐러셀 보이기/숨기기
