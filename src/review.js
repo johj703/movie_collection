@@ -1,20 +1,19 @@
-// Import the functions you need from the SDKs you need
+// 필요한 Firebase SDK 가져오기
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
 import {
   getFirestore,
   collection,
   addDoc,
-  query,
-  orderBy,
-  onSnapshot
+  getDocs
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
-import { db } from './firebase-config.js';
+
 console.log(1);
 
-// TODO: Add SDKs for Firebase products that you want to use
+// Firebase의 제품을 사용하기 위해 필요한 SDK 추가
 // https://firebase.google.com/docs/web/setup#available-libraries
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// Firebase 웹 앱의 설정
+// Firebase JS SDK v7.20.0 이상에서는 measurementId는 선택사항입니다.
 const firebaseConfig = {
   apiKey: "AIzaSyBbu7PSND0vXhPLkmxmPS5PQyrZbE9oOTo",
   authDomain: "teammovie-66f0f.firebaseapp.com",
@@ -34,44 +33,52 @@ const db = getFirestore(app);
 
 console.log(3);
 
-//리뷰폼제출 버튼에 이벤트 리스너 추가 .
-document
-  .querySelector(".review-Form")
-  .addEventListener("submit", async (event) => {
-    //새로고침막아주기
+// 리뷰 폼 제출 버튼에 이벤트 리스너 추가
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".review-Form").addEventListener("submit", async (event) => {
+    // 폼 제출 처리
     event.preventDefault();
-
-    //작성자 , 비밀번호 리뷰 ,html 가져오기
     const user = document.getElementById("user").value;
     const password = document.getElementById("password").value;
     const reviewContent = document.getElementById("review").value;
-
-    //리뷰를firestore에추가
+    
     try {
       const docRef = await addDoc(collection(db, "reviews"), {
-        user: "user", //작성자
-        password: "password", //비밀번호
-        reviewContent: "review", //리뷰내용
-        timestamp: new Date() //리뷰 작성시간 기록 
+        user: user,
+        password: password,
+        reviewContent: reviewContent,
       });
-      alert("리뷰가 등록되었습니다."); // alert창 띄워주기
+      console.log("리뷰가 등록되었습니다: ", docRef.id);
+      alert("리뷰가 등록되었습니다.");
+      fetchReviews();
     } catch (e) {
-      console.error("Error adding review: ", e); // 실패시 에러 표시 
+      console.error("리뷰 등록 중 오류 발생: ", e);
+      alert("리뷰 등록 중 오류 발생: " + e);
     }
   });
-//리뷰 가져오기  실시간 업뎃 
-const loadReviews = () => {
-  const q = query(collection(db, "reviews"), orderBy("timestamp", "desc")); //시간 내림차순으로 정렬 
-  const unsubscribe = onSnapshot(q, (querySnapshot) => { //리뷰데이터 변경 실시간 받아옴  , 리뷰가 변경 될 때 마다 querysnapshot 에 저장 됨
-    const reviewsContainer = document.getElementById('reviewsContainer');
-    reviewsContainer.innerHTML = ""; 
-    querySnapshot.forEach((doc) => {
-      const review = doc.data();
-      const reviewElement = document.createElement("div");
-      reviewElement.textContent = `${review.user}: ${review.reviewContent}`;
-      reviewsContainer.appendChild(reviewElement);
-    });
-  });
-};
+});
 
-loadReviews();
+// Firestore에서 리뷰 가져오기
+async function fetchReviews() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "reviews"));
+    const reviewsContainer = document.getElementById("reviewsContainer");
+    if (reviewsContainer) {
+      reviewsContainer.innerHTML = ""; // 기존 리뷰 내용 삭제
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const reviewElement = document.createElement("div");
+        reviewElement.classList.add("review");
+        reviewElement.innerHTML = `
+          <strong>작성자:</strong> ${data.user} <br>
+          <strong>리뷰:</strong> ${data.reviewContent} <br>
+        `;
+        reviewsContainer.appendChild(reviewElement);
+      });
+    } else {
+      console.error("Element with id 'reviews-container' not found.");
+    }
+  } catch (e) {
+    console.error("리뷰 가져오기 오류: ", e);
+  }
+}
