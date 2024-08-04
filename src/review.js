@@ -4,8 +4,11 @@ import {
   getFirestore,
   collection,
   addDoc,
+  query,
+  orderBy,
+  onSnapshot
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
-
+import { db } from './firebase-config.js';
 console.log(1);
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -49,17 +52,26 @@ document
         user: "user", //작성자
         password: "password", //비밀번호
         reviewContent: "review", //리뷰내용
+        timestamp: new Date() //리뷰 작성시간 기록 
       });
       alert("리뷰가 등록되었습니다."); // alert창 띄워주기
     } catch (e) {
       console.error("Error adding review: ", e); // 실패시 에러 표시 
     }
   });
+//리뷰 가져오기  실시간 업뎃 
+const loadReviews = () => {
+  const q = query(collection(db, "reviews"), orderBy("timestamp", "desc")); //시간 내림차순으로 정렬 
+  const unsubscribe = onSnapshot(q, (querySnapshot) => { //리뷰데이터 변경 실시간 받아옴  , 리뷰가 변경 될 때 마다 querysnapshot 에 저장 됨
+    const reviewsContainer = document.getElementById('reviewsContainer');
+    reviewsContainer.innerHTML = ""; 
+    querySnapshot.forEach((doc) => {
+      const review = doc.data();
+      const reviewElement = document.createElement("div");
+      reviewElement.textContent = `${review.user}: ${review.reviewContent}`;
+      reviewsContainer.appendChild(reviewElement);
+    });
+  });
+};
 
-//firestore 에서 reviews 컬렉선 모든 문서 가져오기  //
-// const querySnapshot = await getDocs(collection(db, "reviews"));
-// querySnapshot.forEach((doc) => { //가져온 데이터 반복
-//   console.log(`${doc.id} => ${doc.data()}`);  //id 와 데이터를 콘솔에출력
-// });
-
-// fetchReviews();
+loadReviews();
