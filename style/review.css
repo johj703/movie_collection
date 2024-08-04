@@ -22,15 +22,17 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
+    margin: auto;
+    border-radius:5px ;
+    width: 100%;
   }
 
-  .infobox input,
+  .infobox  input,
   textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 5px;
   }
 
   #submitButton {
@@ -55,4 +57,6 @@ body {
 
 .review {
     margin-bottom: 10px; 
+    width: 100%;
 }
+
