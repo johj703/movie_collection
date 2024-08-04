@@ -19,7 +19,7 @@ async function getPopularMovie() {
 // 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
 function createMovieCard(movie) {
   const CARD = document.createElement("div");
-  CARD.className = "card";
+  CARD.className = "movie-card ";
 
   const POSTERPATH = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -64,8 +64,8 @@ document.getElementById('views-link_Views').addEventListener('click', function (
   document.querySelector('.container').style.display = 'none';
   document.querySelector('.movie-carousel').style.display = 'none';
   document.querySelector('.movies_container').style.display = 'none';
-  document.querySelector('.movies-container2').style.display = 'flex'; // 일관된 요소 이름 사용
-  displayMovies('movies-container2'); // 명확한 컨테이너 ID 전달
+  document.querySelector('.movies-navigation-container').style.display = 'flex'; // 일관된 요소 이름 사용
+  displayMovies('movies-navigation-container'); // 명확한 컨테이너 ID 전달
   history.pushState(null, '', '#Views');
 });
 
@@ -75,11 +75,12 @@ window.addEventListener('popstate', function () {
     document.querySelector('.container').style.display = 'none';
     document.querySelector('.movie-carousel').style.display = 'none';
     document.querySelector('.movies_container').style.display = 'none';
-    document.querySelector('.movies-container2').style.display = 'flex';
+    document.querySelector('.movies-navigation-container').style.display = 'flex';
   } else {
     document.querySelector('.container').style.display = 'block';
     document.querySelector('.movie-carousel').style.display = 'block';
-    document.querySelector('.movies_container').style.display = 'flex';
-    document.querySelector('.movies-container2').style.display = 'none';
+    document.querySelector('.movies_container').style.display = 'none';
+    document.querySelector('.movies-navigation-container').style.display = 'none';
+
   }
 });

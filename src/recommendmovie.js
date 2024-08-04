@@ -8,11 +8,11 @@ const {
 // JSON 파일에서 영화 데이터를 불러오는 함수
 async function fetchMoviesFromJSON() {
   try {
-    const RESONSE = await fetch('/json/movies.json'); // 경로 수정
-    if (!RESONSE.ok) {
+    const RESPONSE = await fetch('/json/movies.json'); // 경로 수정
+    if (!RESPONSE.ok) {
       throw new Error('네트워크 응답이 올바르지 않습니다.');
     }
-    const MOVIES = await RESONSE.json();
+    const MOVIES = await RESPONSE.json();
     return MOVIES;
   } catch (error) {
     console.error('영화 데이터를 가져오는데 실패했습니다:', error);
@@ -39,7 +39,7 @@ async function fetchMovieDetails(movieId) {
 // 영화 데이터를 HTML로 변환하여 표시하는 함수
 async function displayMovies() {
   const MOVIES = await fetchMoviesFromJSON();
-  const MOVIESCONTAINER = document.getElementById('movies-container2');
+  const MOVIESCONTAINER = document.getElementById('movies-navigation-container');
   if (!MOVIESCONTAINER) {
     console.error('영화 컨테이너를 찾을 수 없습니다.');
     return;
@@ -54,7 +54,7 @@ async function displayMovies() {
       CARD.classList.add('movie-card');
       CARD.innerHTML = `
         <img src="https://image.tmdb.org/t/p/w500${MOVIEDATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${MOVIE.title} 포스터" class="movie-poster">
-    <div class="reating_badge">평점 : ${MOVIEDATA.vote_average.toFixed(1)} / 10</div>
+        <div class="reating_badge">평점 : ${MOVIEDATA.vote_average.toFixed(1)} / 10</div>
       `;
       MOVIESCONTAINER.appendChild(CARD);
 
@@ -71,9 +71,9 @@ document.getElementById('views-link_Choice').addEventListener('click', function 
   document.querySelector('.container').style.display = 'none';
   document.querySelector('.movie-carousel').style.display = 'none';
   document.querySelector('.movies_container').style.display = 'none';
-  document.querySelector('.movies-container2').style.display = 'flex';
+  document.querySelector('.movies-navigation-container').style.display = 'flex';
   displayMovies();
-  history.pushState(null, '', '#Views');
+  history.pushState(null, '', '#Choice');
 });
 
 // 뒤로가기 이벤트 처리
@@ -82,6 +82,6 @@ window.addEventListener('popstate', function () {
     document.querySelector('.container').style.display = 'block';
     document.querySelector('.movie-carousel').style.display = 'block';
     document.querySelector('.movies_container').style.display = 'flex';
-    document.querySelector('.movies-container2').style.display = 'none';
+    document.querySelector('.movies-navigation-container').style.display = 'none';
   }
 });
