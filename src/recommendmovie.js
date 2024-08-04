@@ -48,15 +48,19 @@ async function displayMovies() {
   moviesContainer.innerHTML = ''; // 기존 내용을 지우기
 
   for (const movie of movies) {
-    const movieData = await fetchMovieDetails(movie.id);
-    if (movieData) {
-      const card = document.createElement('div');
-      card.classList.add('movie-card');
-      card.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path || 'https://via.placeholder.com/200x300'}" alt="${movie.title} 포스터" class="movie-poster">
-    <div class="reating_badge">평점 : ${movieData.vote_average.toFixed(1)} / 10</div>
+    const MOVIEDATA = await fetchMovieDetails(movie.id);
+    if (MOVIEDATA) {
+      const CARD = document.createElement('div');
+      CARD.classList.add('movie-card');
+      CARD.innerHTML = `
+        <img src="https://image.tmdb.org/t/p/w500${MOVIEDATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${movie.title} 포스터" class="movie-poster">
+    <div class="reating_badge">평점 : ${MOVIEDATA.vote_average.toFixed(1)} / 10</div>
       `;
-      moviesContainer.appendChild(card);
+      moviesContainer.appendChild(CARD);
+
+      CARD.addEventListener("click", () => {
+        window.location.href = `/html/movie_detail.html?id=${movie.id}`;
+      });
     }
   }
 }

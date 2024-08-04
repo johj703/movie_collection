@@ -18,19 +18,23 @@ async function getPopularMovie() {
 
 // 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
 function createMovieCard(movie) {
-  const card = document.createElement("div");
-  card.className = "card";
+  const CARD = document.createElement("div");
+  CARD.className = "card";
 
-  const posterPath = movie.poster_path
+  const POSTERPATH = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : "https://via.placeholder.com/200x300";
 
-  card.innerHTML = `
-    <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
+  CARD.innerHTML = `
+    <img class="movie-poster" src="${POSTERPATH}" alt="${movie.title}">
     <div class="reating_badge">평점 : ${movie.vote_average.toFixed(1)} / 10</div>
   `;
 
-  return card;
+  CARD.addEventListener("click", () => {
+    window.location.href = `/html/movie_detail.html?id=${movie.id}`;
+  });
+
+  return CARD;
 }
 
 // 영화 데이터를 가져와서 화면에 표시하는 비동기 함수
