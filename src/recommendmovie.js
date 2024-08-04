@@ -1,10 +1,14 @@
-import { DEFAPIKEY } from "./apikey.js";
-const { API_KEY } = DEFAPIKEY;
+import {
+  DEFAPIKEY
+} from "./apikey.js";
+const {
+  API_KEY
+} = DEFAPIKEY;
 
 // JSON 파일에서 영화 데이터를 불러오는 함수
 async function fetchMoviesFromJSON() {
   try {
-    const response = await fetch('/json/movies.json');  // 경로 수정
+    const response = await fetch('/json/movies.json'); // 경로 수정
     if (!response.ok) {
       throw new Error('네트워크 응답이 올바르지 않습니다.');
     }
@@ -46,13 +50,13 @@ async function displayMovies() {
   for (const movie of movies) {
     const movieData = await fetchMovieDetails(movie.id);
     if (movieData) {
-      const movieItem = document.createElement('div');
-      movieItem.classList.add('movie-card');
-      movieItem.innerHTML = `
+      const card = document.createElement('div');
+      card.classList.add('movie-card');
+      card.innerHTML = `
         <img src="https://image.tmdb.org/t/p/w500${movieData.poster_path || 'https://via.placeholder.com/200x300'}" alt="${movie.title} 포스터" class="movie-poster">
-         <div class="movie-rating">평점 : ${movieData.vote_average.toFixed(1)} / 10</div>
+    <div class="reating_badge">평점 : ${movieData.vote_average.toFixed(1)} / 10</div>
       `;
-      moviesContainer.appendChild(movieItem);
+      moviesContainer.appendChild(card);
     }
   }
 }

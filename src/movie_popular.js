@@ -19,7 +19,7 @@ async function getPopularMovie() {
 // 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
 function createMovieCard(movie) {
   const card = document.createElement("div");
-  card.className = "movie-card";
+  card.className = "card";
 
   const posterPath = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -27,7 +27,7 @@ function createMovieCard(movie) {
 
   card.innerHTML = `
     <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-    <div class="movie-rating">평점 : ${movie.vote_average.toFixed(1)} / 10</div>
+    <div class="reating_badge">평점 : ${movie.vote_average.toFixed(1)} / 10</div>
   `;
 
   return card;
