@@ -12,8 +12,6 @@ console.log(1);
 // Firebase의 제품을 사용하기 위해 필요한 SDK 추가
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Firebase 웹 앱의 설정
-// Firebase JS SDK v7.20.0 이상에서는 measurementId는 선택사항입니다.
 const firebaseConfig = {
   apiKey: "AIzaSyBbu7PSND0vXhPLkmxmPS5PQyrZbE9oOTo",
   authDomain: "teammovie-66f0f.firebaseapp.com",

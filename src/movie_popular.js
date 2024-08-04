@@ -59,22 +59,27 @@ async function displayMovies(containerId) {
 displayMovies("movies-container");
 
 // 네비게이션 이벤트 리스너
-document.getElementById("views-link_Views").addEventListener("click", function (e) {
+document.getElementById('views-link_Views').addEventListener('click', function (e) {
   e.preventDefault();
-  document.querySelector(".container").style.display = "none";
-  document.querySelector(".movie-carousel").style.display = "none";
-  document.querySelector(".movies_containe").style.display = "flex";
-  displayMovies("movies-container2");
-  history.pushState(null, "", "#Views");
+  document.querySelector('.container').style.display = 'none';
+  document.querySelector('.movie-carousel').style.display = 'none';
+  document.querySelector('.movies_container').style.display = 'none';
+  document.querySelector('.movies-container2').style.display = 'flex'; // 일관된 요소 이름 사용
+  displayMovies('movies-container2'); // 명확한 컨테이너 ID 전달
+  history.pushState(null, '', '#Views');
 });
 
 // 뒤로가기 이벤트 처리
-window.addEventListener("popstate", function () {
-  if (location.hash !== "#Views") {
-    document.querySelector(".container").style.display = "block";
-    document.querySelector(".movie-carousel").style.display = "block";
-    document.querySelector(".movies_containe").style.display = "none";
-    document.getElementById("movies-container2").style.display = "none";
-    displayMovies("movies-container");
+window.addEventListener('popstate', function () {
+  if (location.hash === '#Views') {
+    document.querySelector('.container').style.display = 'none';
+    document.querySelector('.movie-carousel').style.display = 'none';
+    document.querySelector('.movies_container').style.display = 'none';
+    document.querySelector('.movies-container2').style.display = 'flex';
+  } else {
+    document.querySelector('.container').style.display = 'block';
+    document.querySelector('.movie-carousel').style.display = 'block';
+    document.querySelector('.movies_container').style.display = 'flex';
+    document.querySelector('.movies-container2').style.display = 'none';
   }
 });
