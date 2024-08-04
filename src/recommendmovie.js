@@ -8,12 +8,12 @@ const {
 // JSON 파일에서 영화 데이터를 불러오는 함수
 async function fetchMoviesFromJSON() {
   try {
-    const response = await fetch('/json/movies.json'); // 경로 수정
-    if (!response.ok) {
+    const RESONSE = await fetch('/json/movies.json'); // 경로 수정
+    if (!RESONSE.ok) {
       throw new Error('네트워크 응답이 올바르지 않습니다.');
     }
-    const movies = await response.json();
-    return movies;
+    const MOVIES = await RESONSE.json();
+    return MOVIES;
   } catch (error) {
     console.error('영화 데이터를 가져오는데 실패했습니다:', error);
     return [];
@@ -22,14 +22,14 @@ async function fetchMoviesFromJSON() {
 
 // 특정 영화 ID를 사용해 영화 정보를 가져오는 함수
 async function fetchMovieDetails(movieId) {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=ko-KR`;
+  const URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=ko-KR`;
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
+    const RESPONSE = await fetch(URL);
+    if (!RESPONSE.ok) {
       throw new Error('네트워크 응답이 올바르지 않습니다.');
     }
-    const movieData = await response.json();
-    return movieData;
+    const MOVIEDATA = await RESPONSE.json();
+    return MOVIEDATA;
   } catch (error) {
     console.error('영화 정보를 가져오는데 실패했습니다:', error);
     return null;
@@ -38,28 +38,28 @@ async function fetchMovieDetails(movieId) {
 
 // 영화 데이터를 HTML로 변환하여 표시하는 함수
 async function displayMovies() {
-  const movies = await fetchMoviesFromJSON();
-  const moviesContainer = document.getElementById('movies-container2');
-  if (!moviesContainer) {
+  const MOVIES = await fetchMoviesFromJSON();
+  const MOVIESCONTAINER = document.getElementById('movies-container2');
+  if (!MOVIESCONTAINER) {
     console.error('영화 컨테이너를 찾을 수 없습니다.');
     return;
   }
 
-  moviesContainer.innerHTML = ''; // 기존 내용을 지우기
+  MOVIESCONTAINER.innerHTML = ''; // 기존 내용을 지우기
 
-  for (const movie of movies) {
-    const MOVIEDATA = await fetchMovieDetails(movie.id);
+  for (const MOVIE of MOVIES) {
+    const MOVIEDATA = await fetchMovieDetails(MOVIE.id);
     if (MOVIEDATA) {
       const CARD = document.createElement('div');
       CARD.classList.add('movie-card');
       CARD.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w500${MOVIEDATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${movie.title} 포스터" class="movie-poster">
+        <img src="https://image.tmdb.org/t/p/w500${MOVIEDATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${MOVIE.title} 포스터" class="movie-poster">
     <div class="reating_badge">평점 : ${MOVIEDATA.vote_average.toFixed(1)} / 10</div>
       `;
-      moviesContainer.appendChild(CARD);
+      MOVIESCONTAINER.appendChild(CARD);
 
       CARD.addEventListener("click", () => {
-        window.location.href = `/html/movie_detail.html?id=${movie.id}`;
+        window.location.href = `/html/movie_detail.html?id=${MOVIE.id}`;
       });
     }
   }

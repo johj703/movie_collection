@@ -4,12 +4,12 @@ const { API_KEY } = DEFAPIKEY;
 // API 데이터 불러오기
 async function getPopularMovie() {
   try {
-    const response = await fetch(
+    const RESPONSE = await fetch(
       `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=ko-KR&page=1`
     );
-    const data = await response.json();
-    console.log("Popular movies:", data);
-    return data.results;
+    const DATA = await RESPONSE.json();
+    console.log("Popular movies:", DATA);
+    return DATA.results;
   } catch (error) {
     console.error("Error fetching popular movies:", error);
     return [];
@@ -39,19 +39,19 @@ function createMovieCard(movie) {
 
 // 영화 데이터를 가져와서 화면에 표시하는 비동기 함수
 async function displayMovies(containerId) {
-  const movies = await getPopularMovie();
-  const container = document.getElementById(containerId);
+  const MOVIES = await getPopularMovie();
+  const COTAUNER = document.getElementById(containerId);
 
-  if (!container) {
+  if (!COTAUNER) {
     console.error(`Container with ID '${containerId}' not found.`);
     return;
   }
 
-  container.innerHTML = ""; // Clear previous content
+  COTAUNER.innerHTML = ""; // Clear previous content
 
-  movies.forEach((movie) => {
-    const card = createMovieCard(movie);
-    container.appendChild(card);
+  MOVIES.forEach((movie) => {
+    const CARD = createMovieCard(movie);
+    COTAUNER.appendChild(CARD);
   });
 }
 
@@ -63,7 +63,7 @@ document.getElementById("views-link_Views").addEventListener("click", function (
   e.preventDefault();
   document.querySelector(".container").style.display = "none";
   document.querySelector(".movie-carousel").style.display = "none";
-  document.querySelector(".movies_container").style.display = "flex";
+  document.querySelector(".movies_containe").style.display = "flex";
   displayMovies("movies-container2");
   history.pushState(null, "", "#Views");
 });
@@ -73,7 +73,7 @@ window.addEventListener("popstate", function () {
   if (location.hash !== "#Views") {
     document.querySelector(".container").style.display = "block";
     document.querySelector(".movie-carousel").style.display = "block";
-    document.querySelector(".movies_container").style.display = "none";
+    document.querySelector(".movies_containe").style.display = "none";
     document.getElementById("movies-container2").style.display = "none";
     displayMovies("movies-container");
   }
