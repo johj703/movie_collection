@@ -1,25 +1,39 @@
-const slides = document.querySelectorAll('.carousel-slide img');
-const navDots = document.querySelectorAll('.nav-dot');
-let currentIndex = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    const SLIDES = document.querySelectorAll('.carousel-slide img');
+    const NAVDOTS = document.querySelectorAll('.nav-dot');
+    const SLIDECONTAINER = document.querySelector('.carousel-slide');
+    let $currentIndex = 0;
+    let $slideInterval;
 
-function showNextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
+    function showNextSlide() {
+        $currentIndex = ($currentIndex + 1) % SLIDES.length;
+        updateCarousel();
+    }
+
+    function navigateToSlide(index) {
+        $currentIndex = index;
+        updateCarousel();
+        clearInterval($slideInterval);
+        $slideInterval = setInterval(showNextSlide, 10000);
+    }
+
+    function updateCarousel() {
+        const SLIDEWIDTH = SLIDES[0].clientWidth;
+        SLIDECONTAINER.style.transform = `translateX(-${$currentIndex * SLIDEWIDTH}px)`;
+        NAVDOTS.forEach((dot, index) => {
+            dot.classList.toggle('active', index === $currentIndex);
+        });
+    }
+
+    $slideInterval = setInterval(showNextSlide, 10000);
+
     updateCarousel();
-}
 
-function navigateToSlide(index) {
-    currentIndex = index;
-    updateCarousel();
-}
-
-function updateCarousel() {
-    const slideWidth = slides[0].clientWidth;
-    document.querySelector('.carousel-slide').style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    navDots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex);
+    NAVDOTS.forEach((dot, index) => {
+        dot.addEventListener('click', () => navigateToSlide(index));
     });
-}
 
-setInterval(showNextSlide, 2000);
+    window.addEventListener('resize', updateCarousel);
 
-updateCarousel();
+    window.navigateToSlide = navigateToSlide;
+});

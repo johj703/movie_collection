@@ -1,0 +1,63 @@
+.movies-navigation-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 70px;
+  padding: 20px;
+}
+
+.movie-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* box-shadow => [수평 오프셋][수직 오프셋][블러 반경][그림자 색상] */
+  transition: transform 0.2s; /* 카드에 마우스를 올렸을 때, hover 기능이 0.2초 느리게 작동되게 해서 자연스럽게 표현이 되도록 효과를 준다!*/
+  cursor: pointer; /* 카드 위에 마우스를 올렸을 때, 마우스 커서가 손가락으로 변경된다! */
+  margin-bottom: 20px;
+  transform: scale(0.75);
+  margin: auto -20px;
+}
+
+.movie-card:hover {
+  transform: scale(0.85);
+  box-shadow: 0 4px 8px #fff; /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
+}
+
+.movie-poster {
+  max-width: 300px;
+  max-height: 540px;
+
+  min-width: 290px;
+  min-height: 515.5px;
+}
+
+.rating_badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  background: rgba(255, 215, 0, 0.7);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(3.9px);
+  -webkit-backdrop-filter: blur(3.9px);
+  border: 1px solid rgba(255, 215, 0, 0.55);
+}
+
+/* 최고의 평점 캐러셀 디자인 추가*/
+#top-rated-movie-carousel-track {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* 너이영 추천 캐러셀 디자인 추가 */
+#choice-movie-carousel-track {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* gap: 20px;
+  padding: 20px 0; */
+}

@@ -6,13 +6,15 @@
     border: 1px solid rgba(10, 10, 26, 0.43);
     padding: 0px 20px;
     max-height: 70px;
-    min-width: 2340px;
+    min-width: 1870px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     bottom: auto;
     position: fixed;
+    bottom: 92.5%;
+    z-index: 1002;
 }
 
 .search-container {
@@ -22,6 +24,7 @@
 
 .search-container input {
     padding: 10px;
+    color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
@@ -43,7 +46,7 @@
 }
 
 .search-container button:hover {
-    background-color: yellowgreen;
+    background-color: #FFCA46;
 }
 
 .navigation-container {
@@ -62,9 +65,7 @@
 }
 
 .navigation-container a:hover {
-    background-color: #575757;
-    border-radius: 5px;
-    color: #fff;
+     color: #FFCA46;  
 }
 
 .navigation-container a:not(:last-child)::after {
@@ -82,4 +83,5 @@
     width: 114px;
     height: auto;
     margin-right: 20px;
+    cursor: pointer;
 }
