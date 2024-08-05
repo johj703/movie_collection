@@ -18,7 +18,8 @@ body {
 .logo {
   width: 114px;
   height: auto;
-  margin-right: 20px;
+  padding: 0 20px;
+  
 }
 
 /* 영화 헤더 스타일 */
@@ -39,9 +40,12 @@ body {
 }
 
 .movie_poster {
-  max-width: 100%;
+  max-width: 40%;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-right: 356px;
+  position: relative;
+  top: 210px;
+  
 }
 
 .movie_overview {
@@ -117,4 +121,14 @@ body {
 
 .review_content {
   line-height: 1.6;
+}
+
+#movie_info {
+  text-align: right;
+
+}
+
+.navigation-container {
+  padding: 0px 20px;
+  margin: 0;
 }
