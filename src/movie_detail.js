@@ -1,10 +1,10 @@
 const options = {
     method: 'GET',
     headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ODVhN2QxNzMwNDgxMTM4MTNkZTkwNGRmOWYzNGE3ZiIsIm5iZiI6MTcyMjQ3MjA2OS4wMjgxNzksInN1YiI6IjY1ZmQ0Y2FkNzcwNzAwMDE3YzBhODE2ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h0yI-BCYvo6NK5GkkkATJlPPx95OeQquyoIAuv5ijMQ'
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ODVhN2QxNzMwNDgxMTM4MTNkZTkwNGRmOWYzNGE3ZiIsIm5iZiI6MTcyMjQ3MjA2OS4wMjgxNzksInN1YiI6IjY1ZmQ0Y2FkNzcwNzAwMDE3YzBhODE2ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h0yI-BCYvo6NK5GkkkATJlPPx95OeQquyoIAuv5ijMQ'
     }
-  };
+    };
   
   fetch('https://api.themoviedb.org/3/movie/movie_id?language=en-US', options)
     .then(response => response.json())
