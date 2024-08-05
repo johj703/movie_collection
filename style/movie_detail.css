@@ -18,7 +18,8 @@ body {
 .logo {
   width: 114px;
   height: auto;
-  margin-right: 20px;
+  padding: 0 20px;
+  
 }
 
 /* 영화 헤더 스타일 */
@@ -39,9 +40,12 @@ body {
 }
 
 .movie_poster {
-  max-width: 100%;
+  max-width: 40%;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-right: 356px;
+  position: relative;
+  top: 210px;
+  
 }
 
 .movie_overview {
@@ -137,4 +141,34 @@ body {
 .delete_review {
   background-color: #dc3545; 
   right: 10px; 
+}
+
+.review_item button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  bottom: 10px; 
+}
+
+.edit_review {
+  background-color: #28a745; 
+  right: 80px; 
+}
+
+.delete_review {
+  background-color: #dc3545; 
+  right: 10px; 
+}
+
+#movie_info {
+  text-align: right;
+
+}
+
+.navigation-container {
+  padding: 0px 20px;
+  margin: 0;
 }
