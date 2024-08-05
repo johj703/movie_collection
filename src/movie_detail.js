@@ -28,18 +28,18 @@ async function getMovieDetails() {
             throw new Error(`HTTP error! status: ${RESPONSE.status}`);
         }
 
-        const movie = await RESPONSE.json();
-        console.log("Received movie details:", movie);
+        const MOVIE = await RESPONSE.json();
+        console.log("Received movie details:", MOVIE);
 
         // 영화 상세 정보를 페이지에 표시
-        MOVIEPOSTER.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-        MOVIETITLE.textContent = movie.title;
-        MOIVETAHLINE.textContent = movie.tagline;
-        MOIVEVOTEAVERAGE.textContent = "평점 : " + movie.vote_average.toFixed(1);
-        MOVIEGENRES.innerHTML = movie.genres.map(genre => `<span class="genre">${genre.name}</span>`).join(', ');
-        MOIVERELEASEDATE.textContent = `상영날짜 ${movie.release_date}`;
-        MOIVERUNTIME.textContent = `상영시간: ${movie.runtime} 분`;
-        MOIVEOVERVIEWTEXT.textContent = movie.overview;
+        MOVIEPOSTER.src = `https://image.tmdb.org/t/p/w500/${MOVIE.poster_path}`;
+        MOVIETITLE.textContent = MOVIE.title;
+        MOIVETAHLINE.textContent = MOVIE.tagline;
+        MOIVEVOTEAVERAGE.textContent = "평점 : " + MOVIE.vote_average.toFixed(1);
+        MOVIEGENRES.innerHTML = MOVIE.genres.map(genre => `<span class="genre">${genre.name}</span>`).join(', ');
+        MOIVERELEASEDATE.textContent = `상영날짜 ${MOVIE.release_date}`;
+        MOIVERUNTIME.textContent = `상영시간: ${MOVIE.runtime} 분`;
+        MOIVEOVERVIEWTEXT.textContent = MOVIE.overview;
     } catch (error) {
         console.log("Error fetching movie details:", error);
     }

@@ -52,4 +52,3 @@ document.getElementById('submitButton').addEventListener('click',(event) =>{
       // ..
     });
   })
-

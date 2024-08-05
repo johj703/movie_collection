@@ -1,2 +1,49 @@
-# Auto detect text files and perform LF normalization
+# 기본 동작을 설정하여 줄바꿈을 자동으로 표준화합니다.
 * text=auto
+
+# 텍스트 파일로 선언하여 체크아웃할 때 운영 체제에 맞게 줄바꿈을 변환하도록 합니다.
+*.c text
+*.h text
+*.cpp text
+*.hpp text
+*.cs text
+*.java text
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.py text
+*.html text
+*.css text
+*.scss text
+*.md text
+*.json text
+*.yml text
+*.yaml text
+*.xml text
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# 바이너리 파일로 선언하여 자동 줄바꿈 표준화에서 제외합니다.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.bz2 binary
+*.exe binary
+*.dll binary
+
+# 쉘 스크립트와 배치 파일의 줄바꿈을 지정합니다.
+*.sh eol=lf
+*.bat eol=crlf
+
+# 잠금 파일(package-lock.json, yarn.lock)의 일관된 줄바꿈을 유지합니다.
+package-lock.json text eol=lf
+yarn.lock text eol=lf
+
+# .gitattributes 파일 자체를 텍스트 파일로 처리하고 줄바꿈을 LF로 지정합니다.
+.gitattributes text eol=lf

@@ -5,31 +5,30 @@
     display: flex;
     justify-content: center;
     background-color: transparent;
-    
+    transform: translateY(85px);
 }
 
 .carousel-subcontainer {
     width: 100%;
-    min-width: 1500px;
-    max-width: 1600px;
+    max-width: 1500px; /* 최대 너비 */
     height: 500px;
     overflow: hidden;
     position: relative;
     border-radius: 15px;
-    margin: 70px;
+    margin: 70px auto; /* 중앙 정렬 */
+    transform:scale(1.27);
 }
 
 .carousel-slide {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    width: 300%;
 }
 
 .carousel-slide img {
-    width: 100%;
+    width: 1500px;
     height: 500px;
     border-radius: 15px;
-    object-fit: fill;
+    object-fit: cover; /* 이미지 비율 유지 */
 }
 
 .carousel-nav {
@@ -52,4 +51,36 @@
 
 .nav-dot.active {
     background-color: #FFCA46;
+}
+
+.shortcuts, .information {
+    position: absolute;
+    padding: 5px 10px; /* 크기 축소 */
+    background-color: #FFCA46;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 14px; /* 글꼴 크기 축소 */
+    font-weight: bold;
+    width: 97px;
+    height: 36px;
+}
+
+.shortcuts:hover, .information:hover {
+    background-color: #FFA500;
+    transform: scale(1.05);
+}
+
+.shortcuts {
+    bottom: 20px;
+    left: 20px;
+}
+
+.information {
+    bottom: 20px;
+    left: 130px; /* 바로가기 버튼 옆에 배치 */
 }

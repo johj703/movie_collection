@@ -15,13 +15,14 @@ body {
   cursor: pointer; /* 카드 위에 마우스를 올렸을 때, 마우스 커서가 손가락으로 변경된다! */
   margin-bottom: 20px;
   transform: scale(0.75);
-  margin: auto -35px;
+  margin: auto -20px;
 }
 
 .card:hover {
   transform: scale(
     0.85
-  ); /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
+  ); 
+  box-shadow: 4px 5px rgba(255, 255, 255, 0.5); /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
 }
 
 .card_img {
@@ -67,6 +68,7 @@ body {
   position: relative;
   width: 100%;
   overflow: hidden;
+  transform: translateY(15%);
 }
 
 .movie-carousel-track {

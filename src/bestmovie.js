@@ -5,7 +5,7 @@ const { API_KEY } = DEFAPIKEY;
 async function getPopularMovie() {
   try {
     const RESPONSE = await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=ko-KR&page=1`
+     `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
     );
     const DATA = await RESPONSE.json();
     console.log("Popular movies:", DATA);
@@ -59,19 +59,19 @@ async function displayMovies(containerId) {
 displayMovies("movies-container");
 
 // 네비게이션 이벤트 리스너
-document.getElementById('views-link_Views').addEventListener('click', function (e) {
+document.getElementById('views-link_Hot').addEventListener('click', function (e) {
   e.preventDefault();
   document.querySelector('.container').style.display = 'none';
   document.querySelector('.movie-carousel').style.display = 'none';
   document.querySelector('.movies_container').style.display = 'none';
   document.querySelector('.movies-navigation-container').style.display = 'flex'; // 일관된 요소 이름 사용
   displayMovies('movies-navigation-container'); // 명확한 컨테이너 ID 전달
-  history.pushState(null, '', '#Views');
+  history.pushState(null, '', '#Hot');
 });
 
 // 뒤로가기 이벤트 처리
 window.addEventListener('popstate', function () {
-  if (location.hash === '#Views') {
+  if (location.hash === '#Hot') {
     document.querySelector('.container').style.display = 'none';
     document.querySelector('.movie-carousel').style.display = 'none';
     document.querySelector('.movies_container').style.display = 'none';
