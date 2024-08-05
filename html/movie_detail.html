@@ -6,13 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details</title>
     <link rel="stylesheet" href="/style/movie_detail.css">
+
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+        * {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <div class="navigation-container">
             <img src="/assets/logo/logo.png" alt="logo" class="logo" id="logo">
-          </div>
+        </div>
     </header>
 
 
@@ -33,7 +41,7 @@
         <div class="movie_overview" id="movie_overview">
             <p class="movie_overview_text" id="movie_overview_text"></p>
         </div>
-        <div class = "review_form" id="review_form">
+        <div class="review_form" id="review_form">
             <input type="text" id="review_author" placeholder="작성자">
             <input type="password" id="review_password" placeholder="비밀번호">
             <textarea id="review_content" placeholder="이 작품에 대한 내 평가를 남겨주세요!"></textarea>
@@ -52,6 +60,7 @@
     </div>
     <script type="module" src="src/apikey.js"></script>
     <script type="module" src="/src/movie_detail.js"></script>
+    <script type="module" src="/src/review.js"></script>
 </body>
 
 </html>

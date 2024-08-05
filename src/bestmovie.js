@@ -1,11 +1,11 @@
 import { DEFAPIKEY } from "./apikey.js";
-const { API_KEY } = DEFAPIKEY;
+const { API_KEY, BASEURL } = DEFAPIKEY;
 
 // API 데이터 불러오기
 async function getPopularMovie() {
   try {
     const RESPONSE = await fetch(
-     `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
+     `${BASEURL}3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`
     );
     const DATA = await RESPONSE.json();
     console.log("Popular movies:", DATA);

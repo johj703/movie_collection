@@ -16,6 +16,7 @@
   cursor: pointer; /* 카드 위에 마우스를 올렸을 때, 마우스 커서가 손가락으로 변경된다! */
   margin-bottom: 20px;
   transform: scale(0.75);
+  margin: auto -20px;
 }
 
 .movie-card:hover {

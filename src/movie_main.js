@@ -1,6 +1,6 @@
 // API키와 옵션 임포트
 import { DEFAPIKEY } from "./apikey.js";
-const { API_KEY, options } = DEFAPIKEY;
+const { API_KEY, options, BASEURL } = DEFAPIKEY;
 
 // 영화 데이터를 저장할 전역 배열
 let $movies = [];
@@ -22,7 +22,7 @@ let $currentIndex = 0;
 // 영화 데이터를 가져오는 비동기 함수
 async function getMovies() {
   try {
-    const URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
+    const URL = `${BASEURL}3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
     console.log(`Fetching data from: ${URL}`);
 
     const RESPONSE = await fetch(URL, options);
@@ -65,7 +65,7 @@ function displayMovies() {
     // 영화 평점 뱃지 생성
     const RATING_BADGE = document.createElement("div");
     RATING_BADGE.innerText = `평점 : ${movie.vote_average.toFixed(1)} / 10`;
-    RATING_BADGE.classList.add("reating_badge");
+    RATING_BADGE.classList.add("rating_badge");
     CARD.appendChild(RATING_BADGE);
 
     // 영화 평점 생성
@@ -81,6 +81,13 @@ function displayMovies() {
     // 완성된 카드를 컨테이너에 추가
     MOVIE_CAROUSEL_TRACK.appendChild(CARD);
   });
+
+  // 앞부분의 카드들을 끝부분에 복제
+  for (let i = 0; i < 4; i++) {
+    const CLONE = MOVIE_CAROUSEL_TRACK.children[i].cloneNode(true);
+    MOVIE_CAROUSEL_TRACK.appendChild(CLONE);
+  }
+
   updateCarousel(); // 캐러셀 업데이트 호출
 }
 
@@ -89,26 +96,34 @@ function updateCarousel() {
   const TRACK_WIDTH = MOVIE_CAROUSEL_TRACK.offsetWidth;
   const CARD_WIDTH = TRACK_WIDTH / 4; // 4개 카드가 한 줄에 표시되므로
 
-  // 현재 인덱스에 따른 위치 계산
   let translateXValue = -($currentIndex * CARD_WIDTH);
+  MOVIE_CAROUSEL_TRACK.style.transition = 'transform 0.5s ease-in-out';
+  MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
 
-  // 위치가 -3330.25px을 초과하면 처음으로 이동
-  if (translateXValue <= -3430.25) {
-    getMovies(); // 처음 데이터를 다시 불러오기
-    $currentIndex = 0;
-    translateXValue = 0;
+  // 위치가 마지막 복제본으로 이동했을 때 원래 첫 카드로 즉시 이동
+  if ($currentIndex >= $movies.length) {
+    setTimeout(() => {
+      MOVIE_CAROUSEL_TRACK.style.transition = 'none';
+      $currentIndex = 0;
+      translateXValue = -($currentIndex * CARD_WIDTH);
+      MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
+    }, 500); // 애니메이션 시간과 동일하게 설정
   }
 
-  MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
+  // 위치가 첫 번째 복제본으로 이동했을 때 원래 마지막 카드로 즉시 이동
+  if ($currentIndex < 0) {
+    setTimeout(() => {
+      MOVIE_CAROUSEL_TRACK.style.transition = 'none';
+      $currentIndex = $movies.length - 1;
+      translateXValue = -($currentIndex * CARD_WIDTH);
+      MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
+    }, 500); // 애니메이션 시간과 동일하게 설정
+  }
 }
 
 // 이전 버튼 클릭 이벤트 리스너 추가
 PREV_MOVIE_BTN.addEventListener("click", () => {
-  if ($currentIndex > 0) {
-    $currentIndex--;
-  } else {
-    $currentIndex = $movies.length - 4; // 처음 카드일 경우 마지막 카드로 이동
-  }
+  $currentIndex--;
   updateCarousel();
 });
 
@@ -143,7 +158,7 @@ async function searchMovies() {
   }
 
   try {
-    const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
+    const URL = `${BASEURL}3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
       QUERY
     )}&language=ko-KR&page=1`;
     console.log(`Fetching search results from: ${URL}`);
