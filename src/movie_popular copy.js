@@ -37,7 +37,156 @@ function createMovieCard(movie) {
   return CARD;
 }
 
-// 영화 데이터를 가져와서 화면에 표시하는 비동기 함수
+// 최고의 평점 영화를 캐러셀에 표시하는 함수
+async function displayTopRatedMoviesCarousel() {
+  const MOVIES = await getTopRatedMovies();
+  const CAROUSEL_TRACK = document.getElementById(
+    'top-rated-movie-carousel-track'
+  );
+
+  if (!CAROUSEL_TRACK) {
+    console.error('Top rated movie carousel track not found.');
+    return;
+  }
+
+  // CAROUSEL_TRACK.innerHTML = '<h3 style="color: white"><최고의 평점></h3>'; // Reset content
+
+  MOVIES.forEach((movie) => {
+    const CARD = createMovieCard(movie);
+    CAROUSEL_TRACK.appendChild(CARD);
+  });
+
+  setupCarouselNavigation(
+    'top-rated-movie-carousel-track',
+    'prevTopRatedMovieBtn',
+    'nextTopRatedMovieBtn'
+  );
+}
+
+// 캐러셀 네비게이션 설정 함수
+function setupCarouselNavigation(trackId, prevBtnId, nextBtnId) {
+  const CAROUSEL_TRACK = document.getElementById(trackId);
+  const prevBtn = document.getElementById(prevBtnId);
+  const nextBtn = document.getElementById(nextBtnId);
+
+  if (!CAROUSEL_TRACK || !prevBtn || !nextBtn) {
+    console.error('Carousel elements not found.');
+    return;
+  }
+
+  const scrollAmount = CAROUSEL_TRACK.offsetWidth;
+
+  nextBtn.addEventListener('click', () => {
+    CAROUSEL_TRACK.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth',
+    });
+  });
+
+  prevBtn.addEventListener('click', () => {
+    CAROUSEL_TRACK.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth',
+    });
+  });
+}
+
+// 페이지 요소 표시/숨김 함수
+function togglePageElements(page) {
+  const container = document.querySelector('.container');
+  const carousels = document.querySelectorAll(
+    '.movie-carousel, .carousel-container'
+  );
+  const moviesContainer = document.querySelector('.movies_container');
+  const navigationContainer = document.querySelector(
+    '.movies-navigation-container'
+  );
+
+  container.style.display = 'none';
+  carousels.forEach((carousel) => (carousel.style.display = 'none'));
+  moviesContainer.style.display = 'none';
+  navigationContainer.style.display = 'none';
+
+  switch (page) {
+    case 'main':
+      container.style.display = 'block';
+      carousels.forEach((carousel) => (carousel.style.display = 'block'));
+      break;
+    case 'views':
+    case 'hot':
+    case 'choice':
+      navigationContainer.style.display = 'flex';
+      break;
+  }
+}
+
+// 네비게이션 이벤트 리스너
+document
+  .getElementById('views-link_Views')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('views');
+    displayMovies('movies-navigation-container');
+    history.pushState(null, '', '#Views');
+  });
+
+document
+  .getElementById('views-link_Hot')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('hot');
+    // 여기에 인기급상승 영화 표시 로직 추가
+    history.pushState(null, '', '#Hot');
+  });
+
+document
+  .getElementById('views-link_Choice')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('choice');
+    // 여기에 너이영 추천 영화 표시 로직 추가
+    history.pushState(null, '', '#Choice');
+  });
+
+// 메인 페이지로 돌아가는 함수
+function returnToMainPage() {
+  togglePageElements('main');
+  displayTopRatedMoviesCarousel(); // 메인 페이지로 돌아갈 때 최고의 평점 캐러셀 다시 표시
+  history.pushState(null, '', '/');
+}
+
+// 로고 클릭 이벤트 리스너
+document.getElementById('logo').addEventListener('click', function (e) {
+  e.preventDefault();
+  returnToMainPage();
+});
+
+// 뒤로가기 이벤트 처리
+window.addEventListener('popstate', function () {
+  switch (location.hash) {
+    case '#Views':
+      togglePageElements('views');
+      displayMovies('movies-navigation-container');
+      break;
+    case '#Hot':
+      togglePageElements('hot');
+      // 인기급상승 영화 표시 로직 추가
+      break;
+    case '#Choice':
+      togglePageElements('choice');
+      // 너이영 추천 영화 표시 로직 추가
+      break;
+    default:
+      returnToMainPage();
+  }
+});
+
+// 초기 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', function () {
+  returnToMainPage();
+});
+
+// 최고의 평점 영화 표시 함수
 async function displayMovies(containerId) {
   const MOVIES = await getTopRatedMovies();
   const CONTAINER = document.getElementById(containerId);
@@ -53,108 +202,11 @@ async function displayMovies(containerId) {
     const CARD = createMovieCard(movie);
     CONTAINER.appendChild(CARD);
   });
+
+  // 컨테이너 스타일 조정
+  CONTAINER.style.display = 'flex';
+  CONTAINER.style.flexWrap = 'wrap';
+  CONTAINER.style.justifyContent = 'center';
+  CONTAINER.style.gap = '20px';
+  CONTAINER.style.padding = '20px';
 }
-
-// 최고의 평점 영화를 캐러셀에 표시하는 함수
-async function displayTopRatedMoviesCarousel() {
-  const MOVIES = await getTopRatedMovies();
-  const CAROUSEL_TRACK = document.getElementById(
-    'top-rated-movie-carousel-track'
-  );
-
-  if (!CAROUSEL_TRACK) {
-    console.error('Top rated movie carousel track not found.');
-    return;
-  }
-
-  CAROUSEL_TRACK.innerHTML = '<h3 style="color: white"><최고의 평점></h3>'; // Reset content
-
-  MOVIES.forEach((movie) => {
-    const CARD = createMovieCard(movie);
-    CAROUSEL_TRACK.appendChild(CARD);
-  });
-
-  // 캐러셀 네비게이션 기능 추가
-  const prevBtn = document.getElementById('prevTopRatedMovieBtn');
-  const nextBtn = document.getElementById('nextTopRatedMovieBtn');
-  let scrollPosition = 0;
-
-  nextBtn.addEventListener('click', () => {
-    scrollPosition += 200; // Adjust this value based on your card width
-    CAROUSEL_TRACK.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth',
-    });
-  });
-
-  prevBtn.addEventListener('click', () => {
-    scrollPosition -= 200; // Adjust this value based on your card width
-    CAROUSEL_TRACK.scrollTo({
-      left: scrollPosition,
-      behavior: 'smooth',
-    });
-  });
-}
-
-// 페이지 요소 표시/숨김 함수
-function togglePageElements(showTopRated) {
-  const container = document.querySelector('.container');
-  const popularCarousel = document.querySelector('#movie-carousel');
-  const topRatedCarousel = document.querySelector('#top-rated-movie-carousel');
-  const moviesContainer = document.querySelector('.movies_container');
-  const navigationContainer = document.querySelector(
-    '.movies-navigation-container'
-  );
-
-  if (showTopRated) {
-    container.style.display = 'none';
-    popularCarousel.style.display = 'none';
-    topRatedCarousel.style.display = 'none';
-    moviesContainer.style.display = 'none';
-    navigationContainer.style.display = 'flex';
-  } else {
-    container.style.display = 'block';
-    popularCarousel.style.display = 'block';
-    topRatedCarousel.style.display = 'block';
-    moviesContainer.style.display = 'none';
-    navigationContainer.style.display = 'none';
-  }
-}
-
-// 네비게이션 이벤트 리스너
-document
-  .getElementById('views-link_Views')
-  .addEventListener('click', function (e) {
-    e.preventDefault();
-    togglePageElements(true);
-    displayMovies('movies-navigation-container');
-    history.pushState(null, '', '#Views');
-  });
-
-// 메인 페이지로 돌아가는 함수
-function returnToMainPage() {
-  togglePageElements(false);
-  history.pushState(null, '', '/');
-}
-
-// 로고 클릭 이벤트 리스너
-document.getElementById('logo').addEventListener('click', function (e) {
-  e.preventDefault();
-  returnToMainPage();
-});
-
-// 뒤로가기 이벤트 처리
-window.addEventListener('popstate', function () {
-  if (location.hash === '#Views') {
-    togglePageElements(true);
-    displayMovies('movies-navigation-container');
-  } else {
-    returnToMainPage();
-  }
-});
-
-// 초기 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', function () {
-  togglePageElements(false);
-  displayTopRatedMoviesCarousel(); // 최고의 평점 캐러셀 표시
-});

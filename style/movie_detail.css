@@ -1,118 +1,120 @@
 /* 기본 스타일 */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #0a0a1a;
-    color: #fff;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0a0a1a;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
 /* 컨테이너 스타일 */
 .movie_detail_container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .logo {
-    width: 114px;
-    height: auto;
-    margin-right: 20px;
+  width: 114px;
+  height: auto;
+  margin-right: 20px;
 }
 
 /* 영화 헤더 스타일 */
 .movie_header {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .movie_title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .movie_rating {
-    font-size: 18px;
-    margin-bottom: 10px;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .movie_poster {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .movie_overview {
-    background-color: #120F1E;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  background-color: #120f1e;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .movie_overview p {
-    color: #ffffff;
-    line-height: 1.6;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
 /* 리뷰 작성 폼 스타일 */
 .review_form {
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
-.review_form input, .review_form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #0a0a1a;
-    border: solid 1px white;
-    color: #fff;
+.review_form input,
+.review_form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0a0a1a;
+  border: solid 1px white;
+  color: #fff;
 }
 
-.review_form input::placeholder, .review_form textarea::placeholder {
-    color: #bbb;
+.review_form input::placeholder,
+.review_form textarea::placeholder {
+  color: #bbb;
 }
 
 .review_form button {
-    width: 104%;
-    padding: 10px;
-    background-color: #FFCA46;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
+  width: 104%;
+  padding: 10px;
+  background-color: #ffca46;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .review_form button:hover {
-    background-color: #e6b800;
+  background-color: #e6b800;
 }
 
 /* 리뷰 리스트 스타일 */
 .reviews {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .review_item {
-    padding: 10px;
-    border-bottom: 1px solid #3b3b3b;
+  padding: 10px;
+  border-bottom: 1px solid #3b3b3b;
 }
 
 .review_item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .review_author {
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .review_content {
-    line-height: 1.6;
+  line-height: 1.6;
 }

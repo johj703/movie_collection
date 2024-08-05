@@ -45,3 +45,19 @@
   -webkit-backdrop-filter: blur(3.9px);
   border: 1px solid rgba(255, 215, 0, 0.55);
 }
+
+/* 최고의 평점 캐러셀 디자인 추가*/
+#top-rated-movie-carousel-track {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* 너이영 추천 캐러셀 디자인 추가 */
+#choice-movie-carousel-track {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* gap: 20px;
+  padding: 20px 0; */
+}
