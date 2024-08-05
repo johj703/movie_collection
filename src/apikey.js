@@ -19,4 +19,6 @@ const FIREBASECONFIG = {
   measurementId: "G-TJ9V2VGZZ6"
 };
 
-export const  DEFAPIKEY= { API_KEY, options, FIREBASECONFIG };
+const BASEURL = "https://api.themoviedb.org/";
+
+export const DEFAPIKEY = { API_KEY, options, FIREBASECONFIG, BASEURL };

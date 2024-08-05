@@ -1,14 +1,10 @@
-import {
-  DEFAPIKEY
-} from "./apikey.js";
-const {
-  API_KEY
-} = DEFAPIKEY;
+import { DEFAPIKEY } from './apikey.js';
+const { API_KEY } = DEFAPIKEY;
 
 // JSON 파일에서 영화 데이터를 불러오는 함수
 async function fetchMoviesFromJSON() {
   try {
-    const RESPONSE = await fetch('/json/movies.json'); // 경로 수정
+    const RESPONSE = await fetch('/json/movies.json');
     if (!RESPONSE.ok) {
       throw new Error('네트워크 응답이 올바르지 않습니다.');
     }
@@ -36,52 +32,191 @@ async function fetchMovieDetails(movieId) {
   }
 }
 
+// 영화 카드 생성 함수
+function createMovieCard(movieData) {
+  const CARD = document.createElement('div');
+  CARD.classList.add('movie-card');
+  CARD.innerHTML = `
+    <img src="https://image.tmdb.org/t/p/w500${
+      movieData.poster_path || 'https://via.placeholder.com/200x300'
+    }" alt="${movieData.title} 포스터" class="movie-poster">
+    <div class="rating_badge">평점 : ${movieData.vote_average.toFixed(
+      1
+    )} / 10</div>
+  `;
+  CARD.addEventListener('click', () => {
+    window.location.href = `/html/movie_detail.html?id=${movieData.id}`;
+  });
+  return CARD;
+}
+
 // 영화 데이터를 HTML로 변환하여 표시하는 함수
-async function displayMovies() {
+async function displayMovies(containerId) {
   const MOVIES = await fetchMoviesFromJSON();
-  const MOVIESCONTAINER = document.getElementById('movies-navigation-container');
-  if (!MOVIESCONTAINER) {
-    console.error('영화 컨테이너를 찾을 수 없습니다.');
+  const CONTAINER = document.getElementById(containerId);
+  if (!CONTAINER) {
+    console.error(`컨테이너 ${containerId}를 찾을 수 없습니다.`);
     return;
   }
 
-  MOVIESCONTAINER.innerHTML = ''; // 기존 내용을 지우기
+  CONTAINER.innerHTML = ''; // 기존 내용을 지우기
 
   for (const MOVIE of MOVIES) {
     const MOVIEDATA = await fetchMovieDetails(MOVIE.id);
     if (MOVIEDATA) {
-      const CARD = document.createElement('div');
-      CARD.classList.add('movie-card');
-      CARD.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w500${MOVIEDATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${MOVIE.title} 포스터" class="movie-poster">
-        <div class="reating_badge">평점 : ${MOVIEDATA.vote_average.toFixed(1)} / 10</div>
-      `;
-      MOVIESCONTAINER.appendChild(CARD);
-
-      CARD.addEventListener("click", () => {
-        window.location.href = `/html/movie_detail.html?id=${MOVIE.id}`;
-      });
+      const CARD = createMovieCard(MOVIEDATA);
+      CONTAINER.appendChild(CARD);
     }
   }
 }
 
-// 네비게이션 링크 클릭 이벤트 처리
-document.getElementById('views-link_Choice').addEventListener('click', function (e) {
+// 캐러셀에 영화 표시 함수
+async function displayMoviesCarousel(carouselId) {
+  const MOVIES = await fetchMoviesFromJSON();
+  const CAROUSEL = document.getElementById(carouselId);
+  if (!CAROUSEL) {
+    console.error(`캐러셀 ${carouselId}를 찾을 수 없습니다.`);
+    return;
+  }
+
+  // CAROUSEL.innerHTML = '<h3 style="color: white"><너이영 추천></h3>'; // Reset content
+
+  for (const MOVIE of MOVIES) {
+    const MOVIEDATA = await fetchMovieDetails(MOVIE.id);
+    if (MOVIEDATA) {
+      const CARD = createMovieCard(MOVIEDATA);
+      CAROUSEL.appendChild(CARD);
+    }
+  }
+
+  setupCarouselNavigation(carouselId);
+}
+
+// 캐러셀 네비게이션 설정 함수
+function setupCarouselNavigation(carouselId) {
+  const CAROUSEL = document.getElementById(carouselId);
+  const PREV_BTN = document.querySelector(
+    `#${carouselId.replace('-track', '')} .prev-btn`
+  );
+  const NEXT_BTN = document.querySelector(
+    `#${carouselId.replace('-track', '')} .next-btn`
+  );
+
+  if (!CAROUSEL || !PREV_BTN || !NEXT_BTN) {
+    console.error('캐러셀 요소를 찾을 수 없습니다.');
+    return;
+  }
+
+  const scrollAmount = CAROUSEL.offsetWidth;
+
+  NEXT_BTN.addEventListener('click', () => {
+    CAROUSEL.scrollBy({
+      left: scrollAmount,
+      behavior: 'smooth',
+    });
+  });
+
+  PREV_BTN.addEventListener('click', () => {
+    CAROUSEL.scrollBy({
+      left: -scrollAmount,
+      behavior: 'smooth',
+    });
+  });
+}
+
+// 페이지 요소 표시/숨김 함수 수정
+function togglePageElements(page) {
+  const container = document.querySelector('.container');
+  const carousels = document.querySelectorAll('.movie-carousel');
+  const moviesContainer = document.querySelector('.movies_container');
+  const navigationContainer = document.querySelector(
+    '.movies-navigation-container'
+  );
+
+  container.style.display = 'none';
+  carousels.forEach((carousel) => (carousel.style.display = 'none'));
+  moviesContainer.style.display = 'none';
+  navigationContainer.style.display = 'none';
+
+  switch (page) {
+    case 'main':
+      container.style.display = 'block';
+      carousels.forEach((carousel) => (carousel.style.display = 'block'));
+      break;
+    case 'choice':
+      navigationContainer.style.display = 'flex';
+      break;
+    case 'hot':
+    case 'views':
+      // 인기급상승과 최고의 평점 페이지에서는 캐러셀을 숨깁니다
+      container.style.display = 'block';
+      moviesContainer.style.display = 'flex';
+      break;
+  }
+}
+
+// 네비게이션 이벤트 리스너 추가
+document
+  .getElementById('views-link_Hot')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('hot');
+    // 여기에 인기급상승 영화를 표시하는 로직을 추가하세요
+    history.pushState(null, '', '#Hot');
+  });
+
+document
+  .getElementById('views-link_Views')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('views');
+    // 여기에 최고의 평점 영화를 표시하는 로직을 추가하세요
+    history.pushState(null, '', '#Views');
+  });
+
+document
+  .getElementById('views-link_Choice')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('choice');
+    displayMovies('movies-navigation-container');
+    history.pushState(null, '', '#Choice');
+  });
+
+// 메인 페이지로 돌아가는 함수
+function returnToMainPage() {
+  togglePageElements('main');
+  displayMoviesCarousel('choice-movie-carousel-track');
+  history.pushState(null, '', '/');
+}
+
+// 로고 클릭 이벤트 리스너
+document.getElementById('logo').addEventListener('click', function (e) {
   e.preventDefault();
-  document.querySelector('.container').style.display = 'none';
-  document.querySelector('.movie-carousel').style.display = 'none';
-  document.querySelector('.movies_container').style.display = 'none';
-  document.querySelector('.movies-navigation-container').style.display = 'flex';
-  displayMovies();
-  history.pushState(null, '', '#Choice');
+  returnToMainPage();
 });
 
-// 뒤로가기 이벤트 처리
+// 뒤로가기 이벤트 처리 수정
 window.addEventListener('popstate', function () {
-  if (location.hash !== '#Views') {
-    document.querySelector('.container').style.display = 'block';
-    document.querySelector('.movie-carousel').style.display = 'block';
-    document.querySelector('.movies_container').style.display = 'flex';
-    document.querySelector('.movies-navigation-container').style.display = 'none';
+  switch (location.hash) {
+    case '#Choice':
+      togglePageElements('choice');
+      displayMovies('movies-navigation-container');
+      break;
+    case '#Hot':
+      togglePageElements('hot');
+      // 여기에 인기급상승 영화를 표시하는 로직을 추가하세요
+      break;
+    case '#Views':
+      togglePageElements('views');
+      // 여기에 최고의 평점 영화를 표시하는 로직을 추가하세요
+      break;
+    default:
+      returnToMainPage();
   }
+});
+
+// 초기 페이지 로드 시 실행
+document.addEventListener('DOMContentLoaded', function () {
+  returnToMainPage();
 });

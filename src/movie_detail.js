@@ -1,6 +1,6 @@
 // API키와 옵션 임포트
-import { DEFAPIKEY } from "./apikey.js";
-const { API_KEY, options } = DEFAPIKEY;
+import { API_KEY, options } from "./apikey.js";
+const { API_KEY, options} = DEFAPIKEY;
 
 // 영화 ID를 URL 쿼리 파라미터에서 가져오기
 const URLPARAMS = new URLSearchParams(window.location.search);
