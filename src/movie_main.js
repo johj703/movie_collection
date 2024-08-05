@@ -94,6 +94,7 @@ function updateCarousel() {
 
   // 위치가 -3330.25px을 초과하면 처음으로 이동
   if (translateXValue <= -3430.25) {
+    getMovies(); // 처음 데이터를 다시 불러오기
     $currentIndex = 0;
     translateXValue = 0;
   }
@@ -101,15 +102,15 @@ function updateCarousel() {
   MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
 }
 
-// 이전 버튼 클릭 이벤트 리스너 추가PREV_MOVIE_BTN.addEventListener("click", () => {
-  PREV_MOVIE_BTN.addEventListener("click", () => {
-    if ($currentIndex > 0) {
-      $currentIndex--;
-    } else {
-      $currentIndex = $movies.length - 4; // 처음 카드일 경우 마지막 카드로 이동
-    }
-    updateCarousel();
-  });
+// 이전 버튼 클릭 이벤트 리스너 추가
+PREV_MOVIE_BTN.addEventListener("click", () => {
+  if ($currentIndex > 0) {
+    $currentIndex--;
+  } else {
+    $currentIndex = $movies.length - 4; // 처음 카드일 경우 마지막 카드로 이동
+  }
+  updateCarousel();
+});
 
 // 다음 버튼 클릭 이벤트 리스너 추가
 NEXT_MOVIE_BTN.addEventListener("click", () => {
