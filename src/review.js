@@ -10,8 +10,8 @@ import {
 import { API_KEY, options, FIREBASECONFIG, BASEURL } from "./apikey.js";
 const { API_KEY, options, FIREBASECONFIG, BASEURL } = DEFAPIKEY;
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebaseConfig.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 console.log(1);
 
@@ -68,3 +68,28 @@ async function fetchReviews() {
     console.error("리뷰 가져오기 오류: ", e);
   }
 }
+
+document.getElementById('submitButton').addEventListener('click', (event) => {
+
+  //새로고침막기
+  event.preventDefault()
+
+  //html 에서 정보 받아오기 
+  const user = document.getElementById('userName').value
+  const password = document.getElementById('passworldLogin').value
+  const auth = getAuth();
+  createUserWithUserAndPassword(user, password)
+    .then((userCredential) => {
+      console.log(userCredential)
+      // Signed in //정상작동
+      const user = userCredential.user;
+    })
+
+    //실패시
+    .catch((error) => {
+      console.log('error')
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+})
