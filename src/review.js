@@ -13,52 +13,54 @@ const MOVIEID = new URLSearchParams(window.location.search).get('id');
 
 // HTML 요소 가져오기
 const elements = {
-  moviePoster: document.getElementById("movie_poster"),
-  movieTitle: document.getElementById("movie_title"),
-  movieTagline: document.getElementById("movie_tagline"),
-  movieVoteAverage: document.getElementById("movie_vote_average"),
-  movieGenres: document.getElementById("movie_genres"),
-  movieReleaseDate: document.getElementById("movie_release_date"),
-  movieRuntime: document.getElementById("movie_runtime"),
-  movieOverviewText: document.getElementById("movie_overview_text"),
   submitReviewButton: document.getElementById("submit_review"),
-  reviewsContainer: document.getElementById("reviews")
+  reviewsContainer: document.getElementById("reviews"),
+  reviewAuthor: document.getElementById("review_author"),
+  reviewPassword: document.getElementById("review_password"),
+  reviewContent: document.getElementById("review_content")
 };
 
-// 영화 상세 정보를 페이지에 표시
-const displayMovieDetails = (movie) => {
-  elements.moviePoster.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-  elements.movieTitle.textContent = movie.title;
-  elements.movieTagline.textContent = movie.tagline;
-  elements.movieVoteAverage.textContent = `평점: ${movie.vote_average.toFixed(1)}`;
-  elements.movieGenres.innerHTML = movie.genres.map(genre => `<span class="genre">${genre.name}</span>`).join(', ');
-  elements.movieReleaseDate.textContent = `상영날짜: ${movie.release_date}`;
-  elements.movieRuntime.textContent = `상영시간: ${movie.runtime} 분`;
-  elements.movieOverviewText.textContent = movie.overview;
-};
-
-// 영화 상세 정보 가져오기
-const fetchMovieDetails = async () => {
-  try {
-    const response = await fetch(`${BASEURL}3/movie/${MOVIEID}?api_key=${API_KEY}&language=ko-KR`, options);
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-    const movie = await response.json();
-    displayMovieDetails(movie);
-  } catch (error) {
-    console.error("Error fetching movie details:", error);
-  }
+// 리뷰 작성자 이름을 마스킹 처리하는 함수
+const maskName = (name) => {
+    if (name.length <= 2) {
+        return name[0] + '*';
+    } else if (name.length === 3) {
+        return name[0] + '*' + name[2];
+    } else {
+        return name[0] + '*'.repeat(name.length - 2) + name[name.length - 1];
+    }
 };
 
 // 리뷰 폼 제출 처리
 const submitReview = async (event) => {
   event.preventDefault();
-  const user = document.getElementById("review_author").value;
-  const password = document.getElementById("review_password").value;
-  const reviewContent = document.getElementById("review_content").value;
+
+  const user = elements.reviewAuthor.value;
+  const password = elements.reviewPassword.value;
+  const reviewContent = elements.reviewContent.value;
+
+  // 입력 필드가 비어 있는지 확인
+  if (!user || !password || !reviewContent) {
+    Swal.fire({
+      icon: 'warning',
+      title: '모든 필드를 채워주세요!',
+      text: '작성자, 비밀번호, 평가 내용을 입력해주세요.',
+      confirmButtonText: '확인'
+    });
+    return;
+  }
 
   try {
     await addDoc(collection(db, "reviews"), { movieId: MOVIEID, user, password, reviewContent });
-    alert("리뷰가 등록되었습니다.");
+    
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "리뷰가 등록되었습니다.",
+      showConfirmButton: false,
+      timer: 1500
+    });
+
     fetchReviews();
   } catch (e) {
     console.error("리뷰 등록 중 오류 발생:", e);
@@ -71,7 +73,7 @@ const createReviewElement = (data, reviewId) => {
   const reviewElement = document.createElement("div");
   reviewElement.classList.add("review_item");
   reviewElement.innerHTML = `
-    <div class="review_author">${data.user}</div>
+    <div class="review_author">${maskName(data.user)}</div>
     <div class="review_content">${data.reviewContent}</div>
     <button class="edit_review" data-id="${reviewId}">수정</button>
     <button class="delete_review" data-id="${reviewId}">삭제</button>
@@ -96,54 +98,142 @@ const attachReviewEventListeners = () => {
   elements.reviewsContainer.querySelectorAll(".edit_review").forEach(button => {
     button.addEventListener("click", async (event) => {
       const reviewId = event.target.getAttribute("data-id");
-      const newContent = prompt("수정할 리뷰 내용을 입력하세요:");
-      if (newContent) {
-        try {
-          await updateDoc(doc(db, "reviews", reviewId), { reviewContent: newContent });
-          alert("리뷰가 수정되었습니다.");
-          fetchReviews();
-        } catch (e) {
-          console.error("리뷰 수정 중 오류 발생:", e);
-          alert("리뷰 수정 중 오류 발생: " + e);
-        }
-      }
+      Swal.fire({
+        title: '수정할 리뷰 내용을 입력하세요:',
+        input: 'textarea',
+        inputValue: event.target.parentElement.querySelector('.review_content').innerText,
+        showCancelButton: true,
+        confirmButtonText: '수정',
+        showLoaderOnConfirm: true,
+        preConfirm: async (newContent) => {
+          try {
+            const reviewDoc = doc(db, "reviews", reviewId);
+            const reviewSnapshot = await getDocs(query(collection(db, "reviews"), where("__name__", "==", reviewId)));
+            const reviewData = reviewSnapshot.docs[0].data();
+
+            const { value: password } = await Swal.fire({
+              title: '비밀번호를 입력하세요:',
+              input: 'password',
+              inputAttributes: {
+                autocapitalize: 'off',
+                required: true
+              },
+              showCancelButton: true,
+              confirmButtonText: '확인',
+            });
+
+            if (password === reviewData.password) {
+              await updateDoc(reviewDoc, { reviewContent: newContent });
+              
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "리뷰가 수정되었습니다.",
+                showConfirmButton: false,
+                timer: 1500
+              });
+
+              fetchReviews();
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: '비밀번호가 일치하지 않습니다.',
+                confirmButtonText: '확인'
+              });
+            }
+          } catch (e) {
+            console.error("리뷰 수정 중 오류 발생:", e);
+            Swal.fire({
+              icon: 'error',
+              title: '리뷰 수정 중 오류 발생',
+              text: e.toString(),
+              confirmButtonText: '확인'
+            });
+          }
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      });
     });
   });
 
   elements.reviewsContainer.querySelectorAll(".delete_review").forEach(button => {
     button.addEventListener("click", async (event) => {
       const reviewId = event.target.getAttribute("data-id");
-      if (confirm("정말로 이 리뷰를 삭제하시겠습니까?")) {
-        try {
-          await deleteDoc(doc(db, "reviews", reviewId));
-          alert("리뷰가 삭제되었습니다.");
-          fetchReviews();
-        } catch (e) {
-          console.error("리뷰 삭제 중 오류 발생:", e);
-          alert("리뷰 삭제 중 오류 발생: " + e);
+      const password = await Swal.fire({
+        title: '비밀번호를 입력하세요:',
+        input: 'password',
+        inputAttributes: {
+          autocapitalize: 'off',
+          required: true
+        },
+        showCancelButton: true,
+        confirmButtonText: '확인',
+      });
+
+      if (!password.value) return;
+
+      try {
+        const reviewDoc = doc(db, "reviews", reviewId);
+        const reviewSnapshot = await getDocs(query(collection(db, "reviews"), where("__name__", "==", reviewId)));
+        const reviewData = reviewSnapshot.docs[0].data();
+
+        if (password.value === reviewData.password) {
+          const result = await Swal.fire({
+            title: '정말로 이 리뷰를 삭제하시겠습니까?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '삭제',
+            cancelButtonText: '취소'
+          });
+
+          if (result.isConfirmed) {
+            await deleteDoc(reviewDoc);
+            
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "리뷰가 삭제되었습니다.",
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            fetchReviews();
+          }
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: '비밀번호가 일치하지 않습니다.',
+            confirmButtonText: '확인'
+          });
         }
+      } catch (e) {
+        console.error("리뷰 삭제 중 오류 발생:", e);
+        Swal.fire({
+          icon: 'error',
+          title: '리뷰 삭제 중 오류 발생',
+          text: e.toString(),
+          confirmButtonText: '확인'
+        });
       }
     });
   });
 };
 
-// Firestore에서 리뷰 가져오기
+// 리뷰 가져오기
 const fetchReviews = async () => {
   try {
     const q = query(collection(db, "reviews"), where("movieId", "==", MOVIEID));
     const querySnapshot = await getDocs(q);
     updateReviews(querySnapshot);
-  } catch (e) {
-    console.error("리뷰 가져오기 오류:", e);
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
   }
 };
 
 // 초기화 함수
-const initialize = () => {
-  fetchMovieDetails();
+const init = () => {
   elements.submitReviewButton.addEventListener("click", submitReview);
   fetchReviews();
 };
 
-// 페이지 로드 시 초기화 호출
-document.addEventListener("DOMContentLoaded", initialize);
+document.addEventListener("DOMContentLoaded", init);

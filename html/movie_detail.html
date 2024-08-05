@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Details</title>
     <link rel="stylesheet" href="/style/movie_detail.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
@@ -42,20 +45,18 @@
             <p class="movie_overview_text" id="movie_overview_text"></p>
         </div>
         <div class="review_form" id="review_form">
-            <input type="text" id="review_author" placeholder="작성자">
-            <input type="password" id="review_password" placeholder="비밀번호">
-            <textarea id="review_content" placeholder="이 작품에 대한 내 평가를 남겨주세요!"></textarea>
+            <div class="form_field">
+                <input type="text" id="review_author" placeholder="작성자">
+            </div>
+            <div class="form_field">
+                <input type="password" id="review_password" placeholder="비밀번호">
+            </div>
+            <div class="form_field">
+                <textarea id="review_content" placeholder="이 작품에 대한 내 평가를 남겨주세요!"></textarea>
+            </div>
             <button id="submit_review">리뷰작성</button>
         </div>
         <div id="reviews">
-            <div class="review_item">
-                <div class="review_author">너무 무서워요 ㅠㅠ</div>
-                <div class="review_content">작성자: 엄준님</div>
-            </div>
-            <div class="review_item">
-                <div class="review_author">토시오 불쌍해요</div>
-                <div class="review_content">작성자: 참동길'사님</div>
-            </div>
         </div>
     </div>
     <script type="module" src="src/apikey.js"></script>

@@ -118,3 +118,23 @@ body {
 .review_content {
   line-height: 1.6;
 }
+
+.review_item button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  bottom: 10px; 
+}
+
+.edit_review {
+  background-color: #28a745; 
+  right: 80px; 
+}
+
+.delete_review {
+  background-color: #dc3545; 
+  right: 10px; 
+}
