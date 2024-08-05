@@ -71,7 +71,7 @@
 }
 
 .shortcuts:hover, .information:hover {
-    background-color: #FFA500;
+    background-color: #df9204;
     transform: scale(1.05);
 }
 
