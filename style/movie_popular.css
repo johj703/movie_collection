@@ -1,13 +1,12 @@
 .movies-navigation-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 30px;
-  padding: 40px;
+  justify-content: center;
+  gap: 70px;
+  padding: 20px;
 }
 
 .movie-card {
-  color: white;
   display: flex;
   flex-direction: column;
   border-radius: 10px;

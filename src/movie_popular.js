@@ -1,11 +1,11 @@
 import { DEFAPIKEY } from './apikey.js';
-const { API_KEY } = DEFAPIKEY;
+const { API_KEY,BASEURL } = DEFAPIKEY;
 
 // API 데이터 불러오기
 async function getTopRatedMovies() {
   try {
     const RESPONSE = await fetch(
-      `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=ko-KR&page=1`
+      `${BASEURL}3/movie/top_rated?api_key=${API_KEY}&language=ko-KR&page=1`
     );
     const DATA = await RESPONSE.json();
     console.log('Top rated movies:', DATA);
@@ -207,6 +207,6 @@ async function displayMovies(containerId) {
   CONTAINER.style.display = 'flex';
   CONTAINER.style.flexWrap = 'wrap';
   CONTAINER.style.justifyContent = 'center';
-  CONTAINER.style.gap = '20px';
+  CONTAINER.style.gap = '70px';
   CONTAINER.style.padding = '20px';
 }

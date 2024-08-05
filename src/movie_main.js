@@ -1,148 +1,134 @@
 // API키와 옵션 임포트
 import { DEFAPIKEY } from "./apikey.js";
-const { API_KEY, options, BASEURL } = DEFAPIKEY;
+const { API_KEY, OPTIONS, BASEURL } = DEFAPIKEY;
 
-// 영화 데이터를 저장할 전역 배열
+// 전역 변수
 let $movies = [];
+let $current_index = 0;
 
-// HTML에서 영화 카드를 표시할 컨테이너 요소를 가져옴
-const MOVIE_CAROUSEL_TRACK = document.getElementById("movie-carousel-track");
-const MAIN_CAROUSEL_CONTAINER = document.getElementById(
-  "main-carousel-container"
-);
-const MOVIE_CAROUSEL = document.getElementById("movie-carousel");
-const SEARCH_INPUT = document.getElementById("search-input");
-const SEARCH_BUTTON = document.getElementById("search-button");
-const PREV_MOVIE_BTN = document.getElementById("prevMovieBtn");
-const NEXT_MOVIE_BTN = document.getElementById("nextMovieBtn");
-const LOGO = document.getElementById("logo");
-
-let $currentIndex = 0;
+// DOM 요소 가져오기
+const DOM_ELEMENTS = {
+  movieCarouselTrack: document.getElementById("movie-carousel-track"),
+  mainCarouselContainer: document.getElementById("carousel-container"),
+  movieCarousel: document.getElementById("movie-carousel"),
+  topRatedMovieCarousel: document.getElementById("top-rated-movie-carousel"),
+  choiceMovieCarousel: document.getElementById("choice-movie-carousel"),
+  searchInput: document.getElementById("search-input"),
+  searchButton: document.getElementById("search-button"),
+  prevMovieBtn: document.getElementById("prevMovieBtn"),
+  nextMovieBtn: document.getElementById("nextMovieBtn"),
+  logo: document.getElementById("logo"),
+  movieSearchContainer: document.querySelector(".movie-search-container"),
+  moviesNavigationContainer: document.getElementById("movies-navigation-container")
+};
 
 // 영화 데이터를 가져오는 비동기 함수
-async function getMovies() {
+const fetchMovies = async () => {
+  const URL = `${BASEURL}3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
   try {
-    const URL = `${BASEURL}3/movie/popular?api_key=${API_KEY}&language=ko-KR&page=1`;
-    console.log(`Fetching data from: ${URL}`);
-
-    const RESPONSE = await fetch(URL, options);
-
-    if (!RESPONSE.ok) {
-      throw new Error(`HTTP error! status: ${RESPONSE.status}`);
-    }
-
+    const RESPONSE = await fetch(URL, OPTIONS);
+    if (!RESPONSE.ok) throw new Error(`HTTP error! status: ${RESPONSE.status}`);
     const DATA = await RESPONSE.json();
-    console.log("Received data:", DATA);
-
-    // 파싱된 데이터에서 영화 목록을 추출하여 전역 변수에 저장
     $movies = DATA.results;
-    // 영화를 화면에 표시하는 함수를 호출
-    displayMovies();
-  } catch (error) {
-    console.log("Error fetching movies:", error);
+    displayMovies(); // 화면에 영화 표시
+  } catch (ERROR) {
+    console.error("Error fetching movies:", ERROR);
   }
-}
+};
 
-// 영화를 화면에 출력하는 함수
-function displayMovies() {
-  // 기존 내용 지우기
-  MOVIE_CAROUSEL_TRACK.innerHTML = "";
+// 영화 카드를 생성하는 함수
+const createMovieCard = (MOVIE) => {
+  const CARD = document.createElement("div");
+  CARD.classList.add("card");
 
-  // 각 영화 객체에 대해 반복함(forEach 사용)
-  $movies.forEach((movie) => {
-    // 새로운 div 요소를 생성하여 카드를 만듬
-    const CARD = document.createElement("div");
-    // CARD div 요소에 클래스네임 추가
-    CARD.classList.add("card");
+  const POSTER = document.createElement("img");
+  POSTER.src = `https://image.tmdb.org/t/p/w500/${MOVIE.poster_path}`;
+  POSTER.alt = MOVIE.title;
+  POSTER.classList.add("card_img");
+  CARD.appendChild(POSTER);
 
-    // 영화 이미지
-    const POSTER = document.createElement("img");
-    POSTER.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
-    POSTER.alt = movie.title;
-    POSTER.classList.add("card_img");
-    CARD.appendChild(POSTER);
+  const RATING_BADGE = document.createElement("div");
+  RATING_BADGE.innerText = `평점 : ${MOVIE.vote_average.toFixed(1)} / 10`;
+  RATING_BADGE.classList.add("rating_badge");
+  CARD.appendChild(RATING_BADGE);
 
-    // 영화 평점 뱃지 생성
-    const RATING_BADGE = document.createElement("div");
-    RATING_BADGE.innerText = `평점 : ${movie.vote_average.toFixed(1)} / 10`;
-    RATING_BADGE.classList.add("rating_badge");
-    CARD.appendChild(RATING_BADGE);
-
-    // 영화 평점 생성
-    const RATING = document.createElement("p");
-    RATING.innerText = `평점: ${movie.vote_average}`;
-    CARD.appendChild(RATING);
-
-    // 카드 클릭 이벤트 추가
-    CARD.addEventListener("click", () => {
-      window.location.href = `/html/movie_detail.html?id=${movie.id}`;
-    });
-
-    // 완성된 카드를 컨테이너에 추가
-    MOVIE_CAROUSEL_TRACK.appendChild(CARD);
+  CARD.addEventListener("click", () => {
+    window.location.href = `/html/movie_detail.html?id=${MOVIE.id}`;
   });
 
-  // 앞부분의 카드들을 끝부분에 복제
-  for (let i = 0; i < 4; i++) {
-    const CLONE = MOVIE_CAROUSEL_TRACK.children[i].cloneNode(true);
-    MOVIE_CAROUSEL_TRACK.appendChild(CLONE);
-  }
+  return CARD;
+};
+
+// 영화 데이터를 화면에 출력하는 함수
+const displayMovies = () => {
+  const { movieCarouselTrack } = DOM_ELEMENTS;
+  movieCarouselTrack.innerHTML = "";
+
+  $movies.forEach((MOVIE) => {
+    const CARD = createMovieCard(MOVIE);
+    movieCarouselTrack.appendChild(CARD);
+  });
+
+  // 캐러셀에 무한 스크롤을 위한 카드 복제
+  Array.from(movieCarouselTrack.children).slice(0, 4).forEach((CHILD) => {
+    movieCarouselTrack.appendChild(CHILD.cloneNode(true));
+  });
 
   updateCarousel(); // 캐러셀 업데이트 호출
-}
+};
 
-// 캐러셀을 이동시키는 함수
-function updateCarousel() {
-  const TRACK_WIDTH = MOVIE_CAROUSEL_TRACK.offsetWidth;
-  const CARD_WIDTH = TRACK_WIDTH / 4; // 4개 카드가 한 줄에 표시되므로
+// 캐러셀 업데이트 함수
+const updateCarousel = () => {
+  const { movieCarouselTrack } = DOM_ELEMENTS;
+  const TRACK_WIDTH = movieCarouselTrack.offsetWidth;
+  const CARD_WIDTH = TRACK_WIDTH / 4;
 
-  let translateXValue = -($currentIndex * CARD_WIDTH);
-  MOVIE_CAROUSEL_TRACK.style.transition = 'transform 0.5s ease-in-out';
-  MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
+  movieCarouselTrack.style.transition = 'transform 0.5s ease-in-out';
+  movieCarouselTrack.style.transform = `translateX(${- $current_index * CARD_WIDTH}px)`;
 
-  // 위치가 마지막 복제본으로 이동했을 때 원래 첫 카드로 즉시 이동
-  if ($currentIndex >= $movies.length) {
+  if ($current_index >= $movies.length || $current_index < 0) {
     setTimeout(() => {
-      MOVIE_CAROUSEL_TRACK.style.transition = 'none';
-      $currentIndex = 0;
-      translateXValue = -($currentIndex * CARD_WIDTH);
-      MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
-    }, 500); // 애니메이션 시간과 동일하게 설정
+      movieCarouselTrack.style.transition = 'none';
+      $current_index = ($current_index >= $movies.length) ? 0 : $movies.length - 1;
+      movieCarouselTrack.style.transform = `translateX(${- $current_index * CARD_WIDTH}px)`;
+    }, 500);
   }
+};
 
-  // 위치가 첫 번째 복제본으로 이동했을 때 원래 마지막 카드로 즉시 이동
-  if ($currentIndex < 0) {
-    setTimeout(() => {
-      MOVIE_CAROUSEL_TRACK.style.transition = 'none';
-      $currentIndex = $movies.length - 1;
-      translateXValue = -($currentIndex * CARD_WIDTH);
-      MOVIE_CAROUSEL_TRACK.style.transform = `translateX(${translateXValue}px)`;
-    }, 500); // 애니메이션 시간과 동일하게 설정
-  }
-}
+// 버튼 클릭 이벤트 리스너 추가
+const setupButtonEvents = () => {
+  const { prevMovieBtn, nextMovieBtn } = DOM_ELEMENTS;
 
-// 이전 버튼 클릭 이벤트 리스너 추가
-PREV_MOVIE_BTN.addEventListener("click", () => {
-  $currentIndex--;
-  updateCarousel();
-});
+  prevMovieBtn.addEventListener("click", () => {
+    $current_index--;
+    updateCarousel();
+  });
 
-// 다음 버튼 클릭 이벤트 리스너 추가
-NEXT_MOVIE_BTN.addEventListener("click", () => {
-  $currentIndex++;
-  updateCarousel();
-});
+  nextMovieBtn.addEventListener("click", () => {
+    $current_index++;
+    updateCarousel();
+  });
+};
+
+// 검색 결과를 검색 컨테이너에 렌더링하는 함수
+const renderMovies = () => {
+  const { movieSearchContainer } = DOM_ELEMENTS;
+  movieSearchContainer.innerHTML = "";
+
+  $movies.forEach((MOVIE) => {
+    const CARD = createMovieCard(MOVIE);
+    movieSearchContainer.appendChild(CARD);
+  });
+};
 
 // 문자열에서 모든 공백을 제거하는 함수
-function removeAllSpaces(str) {
-  return str.replace(/\s+/g, "");
-}
+const removeAllSpaces = (STR) => STR.replace(/\s+/g, "");
 
-// 개선된 검색 기능
-async function searchMovies() {
-  const QUERY = removeAllSpaces(SEARCH_INPUT.value.trim().toLowerCase());
+// 검색 기능을 업데이트하여 검색된 영화만 표시
+const searchMovies = async () => {
+  const { searchInput, movieSearchContainer, mainCarouselContainer, movieCarousel, topRatedMovieCarousel, choiceMovieCarousel } = DOM_ELEMENTS;
+  const QUERY = removeAllSpaces(searchInput.value.trim().toLowerCase());
 
-  // 유효성 검사: 검색어가 비어있는지 확인
   if (!QUERY) {
     Swal.fire({
       position: "center",
@@ -151,66 +137,88 @@ async function searchMovies() {
       showConfirmButton: false,
       timer: 1500,
     });
-    showAllCards();
-    MAIN_CAROUSEL_CONTAINER.style.display = "block";
-    MOVIE_CAROUSEL.style.display = "block";
+    showAllCards(); // 모든 카드 보이기
+    toggleMainCarousels(true);
     return;
   }
 
   try {
-    const URL = `${BASEURL}3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(
-      QUERY
-    )}&language=ko-KR&page=1`;
-    console.log(`Fetching search results from: ${URL}`);
-
-    const RESPONSE = await fetch(URL, options);
-
-    if (!RESPONSE.ok) {
-      throw new Error(`HTTP error! status: ${RESPONSE.status}`);
-    }
-
+    const URL = `${BASEURL}3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(QUERY)}&language=ko-KR&page=1`;
+    const RESPONSE = await fetch(URL, OPTIONS);
+    if (!RESPONSE.ok) throw new Error(`HTTP error! status: ${RESPONSE.status}`);
     const DATA = await RESPONSE.json();
-    console.log("Received search data:", DATA);
 
-    // 검색 결과가 없을 경우 팝업창으로 알림
     if (DATA.results.length === 0) {
       Swal.fire("검색 결과가 없습니다!", "정확히 입력해주세요.", "warning");
-      showAllCards();
+      showAllCards(); // 모든 카드 보이기
+      toggleMainCarousels(true);
       return;
     }
 
-    // 검색된 영화 목록을 전역 변수에 저장하고 화면에 표시
     $movies = DATA.results;
-    displayMovies();
-  } catch (error) {
-    console.log("Error fetching search results:", error);
+    renderMovies(); // 검색 결과를 렌더링
+    toggleMainCarousels(false); // 메인 캐러셀 숨기기
+  } catch (ERROR) {
+    console.error("Error fetching search results:", ERROR);
   }
-
-  // 검색 결과에 따라 캐러셀 보이기/숨기기
-  if (MAIN_CAROUSEL_CONTAINER && MOVIE_CAROUSEL) {
-    MAIN_CAROUSEL_CONTAINER.style.display = "none";
-    MOVIE_CAROUSEL.style.display = "none";
-  }
-}
+};
 
 // 모든 카드를 표시하는 함수
-function showAllCards() {
-  const CARDS = document.querySelectorAll(".card");
-  CARDS.forEach((card) => (card.style.display = "block"));
-}
+const showAllCards = () => {
+  document.querySelectorAll(".card").forEach((CARD) => CARD.style.display = "block");
+};
+
+// 메인 캐러셀을 토글하는 함수
+const toggleMainCarousels = (SHOW) => {
+  const DISPLAY_STYLE = SHOW ? "block" : "none";
+  const { mainCarouselContainer, movieCarousel, topRatedMovieCarousel, choiceMovieCarousel, moviesNavigationContainer } = DOM_ELEMENTS;
+
+  mainCarouselContainer?.style.setProperty('display', DISPLAY_STYLE);
+  movieCarousel?.style.setProperty('display', DISPLAY_STYLE);
+  topRatedMovieCarousel?.style.setProperty('display', DISPLAY_STYLE);
+  choiceMovieCarousel?.style.setProperty('display', DISPLAY_STYLE);
+  moviesNavigationContainer?.style.setProperty('display', SHOW ? "block" : "flex");
+};
 
 // 로고 클릭 시 페이지 리로드
-LOGO.addEventListener("click", () => {
-  location.reload();
-});
+const setupLogoClick = () => {
+  DOM_ELEMENTS.logo.addEventListener("click", () => location.reload());
+};
 
-// 검색 버튼 클릭시 이벤트리스너 추가
-SEARCH_BUTTON.addEventListener("click", searchMovies);
-SEARCH_INPUT.addEventListener("keypress", (event) => {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    searchMovies();
-  }
-});
+// 검색 버튼 클릭 시 이벤트 리스너 추가
+const setupSearchButton = () => {
+  DOM_ELEMENTS.searchButton.addEventListener("click", searchMovies);
+};
 
-getMovies();
+// 엔터 키 입력 시 검색 기능 호출
+const setupSearchInput = () => {
+  DOM_ELEMENTS.searchInput.addEventListener("keypress", async (EVENT) => {
+    if (EVENT.key === "Enter") {
+      EVENT.preventDefault();
+      await searchMovies();
+    }
+  });
+};
+
+// 영화 카테고리 링크 클릭 시 처리
+const setupCategoryLinks = () => {
+  ["views-link_Hot", "views-link_Views", "views-link_Choice"].forEach((ID) => {
+    document.getElementById(ID).addEventListener("click", () => {
+      DOM_ELEMENTS.movieSearchContainer.innerHTML = "";
+      toggleMainCarousels(true);
+    });
+  });
+};
+
+// 페이지 로딩 시 초기 설정
+const initializePage = () => {
+  fetchMovies();
+  setupButtonEvents();
+  setupLogoClick();
+  setupSearchButton();
+  setupSearchInput();
+  setupCategoryLinks();
+};
+
+// 페이지 로딩 시 초기 설정 호출
+initializePage()

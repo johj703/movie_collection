@@ -8,6 +8,7 @@
   <link rel="icon" href="/assets/logo/logo.png" type="image/x-icon" />
   <link rel="stylesheet" href="style/reset.css" />
   <link rel="stylesheet" href="style/main.css" />
+  <link rel="stylesheet" href="/style/search.css" />
   <link rel="stylesheet" href="style/navigation.css" />
   <link rel="stylesheet" href="/style/carousel.css" />
   <link rel="stylesheet" href="/style/movie_popular.css" />
@@ -19,9 +20,7 @@
       font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
     }
   </style>
-  <!-- SweetAlert2 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
-  <!-- SweetAlert2 JS -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
@@ -43,7 +42,8 @@
       </form>
     </div>
   </header>
-  <div class="container">
+
+  <div class="container" id="carousel-container">
     <div class="carousel-container">
       <div class="carousel-subcontainer" aria-live="polite">
         <div class="carousel-slide">
@@ -84,6 +84,10 @@
     </div>
     <section class="movies_container" id="movies_container"></section>
   </div>
+  <div class="moive-main-container">
+    
+  </div>
+  <div class="movie-search-container"></div>
 
   <div class="movie-carousel" id="movie-carousel">
     <h3 style="color: white">
