@@ -64,21 +64,21 @@ async function fetchReviews() {
     const querySnapshot = await getDocs(collection(db, "reviews"));
     const reviewsContainer = document.getElementById("reviewsContainer");
     if (reviewsContainer) {
-      reviewsContainer.innerHTML = ""; // 기존 리뷰 내용 삭제
+     
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         const reviewElement = document.createElement("div");
         reviewElement.classList.add("review");
         reviewElement.innerHTML = `
-          <strong>작성자:</strong> ${data.user} <br>
-          <strong>리뷰:</strong> ${data.reviewContent} <br>
-        `;
+        <strong> ${data.reviewContent}</strong> <br>
+          작성자: ${data.user} <br>
+          `;
         reviewsContainer.appendChild(reviewElement);
       });
     } else {
       console.error("Element with id 'reviews-container' not found.");
     }
   } catch (e) {
-    console.error("리뷰 가져오기 오류: ", e);
+    console.error("리뷰 가져오기 오류: ", e); 
   }
 }
