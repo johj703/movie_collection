@@ -22,30 +22,36 @@ body {
   
 }
 
-/* 영화 헤더 스타일 */
 .movie_header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.movie_title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.movie_rating {
-  font-size: 18px;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 .movie_poster {
-  max-width: 40%;
-  border-radius: 10px;
-  margin-right: 356px;
-  position: relative;
-  top: 210px;
-  
+  max-width: 300px;
+  width: 100%;
+  border-radius: 15px;
+  margin-right: 20px;
+}
+
+.movie_details {
+  max-width: 600px;
+}
+
+.movie_title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.movie_rating {
+  font-size: 20px;
+  color: #ff9900;
+  margin-bottom: 15px;
 }
 
 .movie_overview {
@@ -164,8 +170,8 @@ body {
 }
 
 #movie_info {
-  text-align: right;
-
+  text-align: left;
+  margin-left: 15%;
 }
 
 .navigation-container {
