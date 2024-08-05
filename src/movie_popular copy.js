@@ -49,7 +49,7 @@ async function displayTopRatedMoviesCarousel() {
     return;
   }
 
-  CAROUSEL_TRACK.innerHTML = '<h3 style="color: white"><최고의 평점></h3>'; // Reset content
+  // CAROUSEL_TRACK.innerHTML = '<h3 style="color: white"><최고의 평점></h3>'; // Reset content
 
   MOVIES.forEach((movie) => {
     const CARD = createMovieCard(movie);
@@ -94,24 +94,23 @@ function setupCarouselNavigation(trackId, prevBtnId, nextBtnId) {
 // 페이지 요소 표시/숨김 함수
 function togglePageElements(page) {
   const container = document.querySelector('.container');
-  const popularCarousel = document.querySelector('#movie-carousel');
-  const topRatedCarousel = document.querySelector('#top-rated-movie-carousel');
+  const carousels = document.querySelectorAll(
+    '.movie-carousel, .carousel-container'
+  );
   const moviesContainer = document.querySelector('.movies_container');
   const navigationContainer = document.querySelector(
     '.movies-navigation-container'
   );
 
   container.style.display = 'none';
-  popularCarousel.style.display = 'none';
-  topRatedCarousel.style.display = 'none';
+  carousels.forEach((carousel) => (carousel.style.display = 'none'));
   moviesContainer.style.display = 'none';
   navigationContainer.style.display = 'none';
 
   switch (page) {
     case 'main':
       container.style.display = 'block';
-      popularCarousel.style.display = 'block';
-      topRatedCarousel.style.display = 'block';
+      carousels.forEach((carousel) => (carousel.style.display = 'block'));
       break;
     case 'views':
     case 'hot':
@@ -203,4 +202,11 @@ async function displayMovies(containerId) {
     const CARD = createMovieCard(movie);
     CONTAINER.appendChild(CARD);
   });
+
+  // 컨테이너 스타일 조정
+  CONTAINER.style.display = 'flex';
+  CONTAINER.style.flexWrap = 'wrap';
+  CONTAINER.style.justifyContent = 'center';
+  CONTAINER.style.gap = '20px';
+  CONTAINER.style.padding = '20px';
 }

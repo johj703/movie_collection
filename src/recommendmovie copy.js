@@ -79,7 +79,7 @@ async function displayMoviesCarousel(carouselId) {
     return;
   }
 
-  CAROUSEL.innerHTML = '<h3 style="color: white"><너이영 추천></h3>'; // Reset content
+  // CAROUSEL.innerHTML = '<h3 style="color: white"><너이영 추천></h3>'; // Reset content
 
   for (const MOVIE of MOVIES) {
     const MOVIEDATA = await fetchMovieDetails(MOVIE.id);
@@ -124,7 +124,7 @@ function setupCarouselNavigation(carouselId) {
   });
 }
 
-// 페이지 요소 표시/숨김 함수
+// 페이지 요소 표시/숨김 함수 수정
 function togglePageElements(page) {
   const container = document.querySelector('.container');
   const carousels = document.querySelectorAll('.movie-carousel');
@@ -146,10 +146,34 @@ function togglePageElements(page) {
     case 'choice':
       navigationContainer.style.display = 'flex';
       break;
+    case 'hot':
+    case 'views':
+      // 인기급상승과 최고의 평점 페이지에서는 캐러셀을 숨깁니다
+      container.style.display = 'block';
+      moviesContainer.style.display = 'flex';
+      break;
   }
 }
 
-// 네비게이션 이벤트 리스너
+// 네비게이션 이벤트 리스너 추가
+document
+  .getElementById('views-link_Hot')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('hot');
+    // 여기에 인기급상승 영화를 표시하는 로직을 추가하세요
+    history.pushState(null, '', '#Hot');
+  });
+
+document
+  .getElementById('views-link_Views')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    togglePageElements('views');
+    // 여기에 최고의 평점 영화를 표시하는 로직을 추가하세요
+    history.pushState(null, '', '#Views');
+  });
+
 document
   .getElementById('views-link_Choice')
   .addEventListener('click', function (e) {
@@ -172,13 +196,23 @@ document.getElementById('logo').addEventListener('click', function (e) {
   returnToMainPage();
 });
 
-// 뒤로가기 이벤트 처리
+// 뒤로가기 이벤트 처리 수정
 window.addEventListener('popstate', function () {
-  if (location.hash === '#Choice') {
-    togglePageElements('choice');
-    displayMovies('movies-navigation-container');
-  } else {
-    returnToMainPage();
+  switch (location.hash) {
+    case '#Choice':
+      togglePageElements('choice');
+      displayMovies('movies-navigation-container');
+      break;
+    case '#Hot':
+      togglePageElements('hot');
+      // 여기에 인기급상승 영화를 표시하는 로직을 추가하세요
+      break;
+    case '#Views':
+      togglePageElements('views');
+      // 여기에 최고의 평점 영화를 표시하는 로직을 추가하세요
+      break;
+    default:
+      returnToMainPage();
   }
 });
 
