@@ -8,7 +8,18 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
 console.log(1);
+// 필요한 Firebase SDK 가져오기
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
 
+console.log(1);
+
+// Firebase의 제품을 사용하기 위해 필요한 SDK 추가
 // Firebase의 제품을 사용하기 위해 필요한 SDK 추가
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -20,8 +31,12 @@ const firebaseConfig = {
   messagingSenderId: "607236733584",
   appId: "1:607236733584:web:62d6974161c28ffa187615",
   measurementId: "G-TJ9V2VGZZ6",
+  measurementId: "G-TJ9V2VGZZ6",
 };
 
+console.log(2);
+
+// Firebase 인스턴스 초기화
 console.log(2);
 
 // Firebase 인스턴스 초기화
