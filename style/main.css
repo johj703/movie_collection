@@ -7,9 +7,9 @@
     text-align: center;
   }
   .movie_poster {
-    max-width: 100%;
-    margin-right: 0;
-    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    max-height: 800px;
   }
   .movie_title {
     font-size: 24px;
@@ -31,13 +31,9 @@
   .slide-item {
     position: relative;
     width: 100%;
+    margin-right: 8px; /* 카드 간격을 줄이기 위한 설정 */
   }
 
-  .slide-item {
-    position: relative;
-    width: 100%;
-  }
-  
   .shortcuts, .information {
     position: absolute;
     left: 10px;
@@ -46,7 +42,7 @@
   }
   
   .movie-carousel-track {
-    width: 390px;
+    width: 100%; /* 수정: 390px에서 100%로 변경하여 반응형 디자인 지원 */
     display: flex; /* 가로로 스크롤을 가능하게 함 */
     overflow-x: auto; /* 수평 스크롤 허용 */
     overflow-y: hidden; /* 수직 스크롤 방지 */
@@ -61,9 +57,6 @@
   .navigation-container {
     width: 100%;
   }
-}
-.information {
-  left: 120px;
 }
 
 @media only screen and (min-width: 390px) {
@@ -138,4 +131,16 @@ body {
 .movie-carousel-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
+}
+
+.rank_badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
 }

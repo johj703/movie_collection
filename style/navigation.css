@@ -4,23 +4,31 @@
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(6.6px);
   border: 1px solid rgba(10, 10, 26, 0.43);
-  padding: 0px 20px;
-  max-height: 70px;
-  /* min-width: 1870px;*/
-  width: 97.8%; /* 수정 필요한거 같아서 mid-width 대신 width추가*/
+  padding: 10px 20px;
+  width: 100%;
+  height: 100px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  bottom: auto;
   position: fixed;
-  bottom: 92.5%;
+  top: 0;
+  left: 0;
   z-index: 1002;
+  box-sizing: border-box;
+  align-content: center;
+}
+
+.logo-nav-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
 }
 
 .search-container {
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: flex-end;
 }
 
 .search-container input {
@@ -29,15 +37,16 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 10px;
-  min-width: 500px;
+  width: 500px;
+  max-width: 100%;
   background-color: #0a0a1a;
 }
 
 .search-container button {
-  padding: 10px 15px;
+  padding: 10px;
   background-color: #211d2b;
   border: none;
-  border-radius: 100%;
+  border-radius: 50%;
   color: white;
   cursor: pointer;
   width: 45px;
@@ -60,9 +69,10 @@
   color: #ffffff;
   text-decoration: none;
   padding: 5px 10px;
-  transition: background-color 0.3s, color 0.3s;
+  transition: color 0.3s;
   font-weight: bold;
   position: relative;
+  white-space: nowrap;
 }
 
 .navigation-container a:hover {
@@ -72,7 +82,7 @@
 .navigation-container a:not(:last-child)::after {
   content: '';
   position: absolute;
-  right: -10px;
+  right: -15px;
   top: 50%;
   transform: translateY(-50%);
   width: 1px;
@@ -87,83 +97,78 @@
   cursor: pointer;
 }
 
-/* 반응형 CSS 추가 */
-/* 갤럭시 폴드5 접었을 때(최대 너비 384px) */
-@media (max-width: 20%) { /* 일반적인 1920픽셀 화면 너비의 20% */
-    .header-container {
-        min-width: 100%;
-        padding: 0px 10px;
-        max-height: 60px;
-        font-size: 14px;
-        bottom: 0;
-    }
-
-    container {
-        padding-top: 70px;  /* 헤더 공간 확보 */
-    }
-  }
-
-/* 갤럭시 폴드5 폈을 때(최소 너비 1768px) */
-@media (min-width: 92%) { /* 일반적인 1920픽셀 화면 너비의 92% */
-    .header-container {
-        min-width: 100%;
-        padding: 0px 20px;
-        max-height: 70px;
-        font-size: 16px;
-        bottom: auto; /* 위치 원래대로 */
-        position: fixed;
-        bottom: 92.5%;
-    }
-}
-
-/* 태블릿 (최소 너비 481px, 최대 너비 1024px) */
-@media (min-width: 25%) and (max-width: 53%) { /* 일반적인 1920px 화면 너비의 25% ~ 53% */
-    .header-container {
-        min-width: 100%;
-        padding: 0px 15px;
-        max-height: 70px;
-        font-size: 15px;
-        bottom: auto; /* 위치 원래대로 */
-        position: fixed;
-        bottom: 92.5%;
-    }
-}
-
-/* 네비게이션바 반응형 css 16:9 추가 */
-@media screen and (max-width: 1920px) {
+@media screen and (max-width: 1024px) {
   .header-container {
-    min-width: 97%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
   }
 
-  .search-container input {
-    min-width: 400px; /* 검색창의 최소 너비*/
-    width: 30%;
+  .logo-nav-container {
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .navigation-container {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    flex-direction: row;
   }
 
   .navigation-container a {
-    margin: 0 10px; /* 네비게이션바 텍스트 간격 줄임 */
+    font-size: 14px;
+    margin: 0 10px;
   }
 
   .navigation-container img {
-    width: 100px; /* 로고 너비 줄임 */
+    width: 80px;
+    margin-right: 10px;
   }
-}
 
-@media screen and (max-width: 1920px) {
-  .header-container {
-    min-width: 97%;
+  .search-container {
+    width: 100%;
+    justify-content: center;
+    transform: translateY(-45%);
   }
 
   .search-container input {
-    min-width: 400px; /* 검색창의 최소 너비*/
-    width: 30%;
+    width: calc(100% - 55px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navigation-container a {
+    font-size: 12px;
+    margin: 0 5px;
+    padding: 5px;
+    
+  }
+
+  .navigation-container a:not(:last-child)::after {
+    right: -5px;
+    height: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navigation-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center
   }
 
   .navigation-container a {
-    margin: 0 10px; /* 네비게이션바 텍스트 간격 줄임 */
+    margin: 5px;
   }
 
-  .navigation-container img {
-    width: 100px; /* 로고 너비 줄임 */
+  .navigation-container a:not(:last-child)::after {
+    display: none;
+  }
+
+  .search-container button {
+    width: 40px;
+    height: 40px;
   }
 }
