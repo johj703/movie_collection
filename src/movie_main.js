@@ -182,15 +182,16 @@ const showAllCards = () => {
 
 // 메인 캐러셀을 토글하는 함수
 const toggleMainCarousels = (SHOW) => {
-  const { mainCarouselContainer, movieCarousel, topRatedMovieCarousel, choiceMovieCarousel, moviesNavigationContainer } = DOM_ELEMENTS;
+  const { mainCarouselContainer, movieCarousel, topRatedMovieCarousel, choiceMovieCarousel, moviesNavigationContainer, movieSearchContainer } = DOM_ELEMENTS;
 
-  const displayClass = SHOW ? 'visible' : 'hidden';
+  const displayClass = SHOW ? 'flex' : 'none'; 
 
-  mainCarouselContainer.classList.toggle('hidden', !SHOW);
-  movieCarousel.classList.toggle('hidden', !SHOW);
-  topRatedMovieCarousel.classList.toggle('hidden', !SHOW);
-  choiceMovieCarousel.classList.toggle('hidden', !SHOW);
-  moviesNavigationContainer.classList.toggle('hidden', !SHOW);
+  mainCarouselContainer.style.display = displayClass;
+  movieCarousel.style.display = displayClass;
+  topRatedMovieCarousel.style.display = displayClass;
+  choiceMovieCarousel.style.display = displayClass;
+  moviesNavigationContainer.style.display = displayClass;
+  movieSearchContainer.style.display = SHOW ? 'none' : 'flex';
 };
 
 // 로고 클릭 시 페이지 리로드
@@ -225,6 +226,9 @@ const setupCategoryLinks = () => {
 
 // 페이지 로딩 시 초기 설정
 const initializePage = () => {
+  // 초기 상태에서 검색 컨테이너 숨기기
+  DOM_ELEMENTS.movieSearchContainer.style.display = 'none';
+
   fetchMovies();
   setupButtonEvents();
   setupLogoClick();

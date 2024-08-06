@@ -96,3 +96,39 @@
     font-size: 22px; /* 화살표 크기 늘림 */
   }
 }
+/* 모바일 환경 (최대 너비 767px) */
+@media screen and (min-width: 360px) {
+  
+  .movie-search-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개의 카드 배치 */
+    gap: 10px; /* 카드 사이의 간격 설정 */
+    padding: 10px;
+  }
+  
+  .movies-navigation-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 한 줄에 2개의 카드 배치 */
+    gap: 10px; /* 카드 사이의 간격 설정 */
+    padding: 10px;
+  }
+}
+
+/* 테블릿 환경 (최대 너비 1024px) */
+@media screen and (min-width: 1024px) {
+
+  .movie-search-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개의 카드 배치 */
+    gap: 15px; /* 카드 사이의 간격 설정 */
+    padding: 15px;
+  }
+
+  .movies-navigation-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;
+    padding: 15px;
+  }
+
+}

@@ -1,5 +1,4 @@
 /* 모바일 규격 12pro 390*844  */
-
 @media screen and (max-width: 767px) {
 
   .movie_poster {
@@ -28,13 +27,6 @@
     position: relative;
     width: 100%;
     margin-right: 8px; /* 카드 간격을 줄이기 위한 설정 */
-  }
-
-  .shortcuts, .information {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: auto;
   }
   
   .movie-carousel-track {
