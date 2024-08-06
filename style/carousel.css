@@ -20,8 +20,8 @@
 }
 
 .carousel-slide {
-    display: flex;
-    transition: transform 1.5s ease-in-out;
+  display: flex;
+  transition: transform 1.5s ease-in-out;
 }
 
 .carousel-slide img {
