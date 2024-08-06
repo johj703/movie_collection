@@ -62,16 +62,16 @@
   padding: 20px 0; */
 }
 
-/* 최고의 평점 영화 캐러셀 반응형 css 추가 */
+/* 최고의 평점 영화 캐러셀 반응형 css 16:9 추가 */
 @media screen and (max-width: 1920px) {
   .movies_container {
-    max-width: 95%;
+    max-width: 90%;
     margin: 0 auto;
   }
 
   .movie-card {
-    width: calc(20% - 10px); /* 카드 너비 조절 */
-    margin: 5px; /* 좌우 상하 마진을 줄임 */
+    width: 18.5%;
+    margin: 1% 0.01% 2%; /* 카드 간격 넓히기*/
   }
 
   .movie-poster {
@@ -80,32 +80,8 @@
     max-height: 800px;
   }
 
-  .movie-carousel h3 {
-    font-size: 24px; /* 폰트 크기 조절 */
-    padding: 1% 0;
-    transform: translate(2%, 80%);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 90%;
-  }
-
-  .movie-carousel {
-    transform: translateY(5%);
-  }
-
-  .movie-carousel-track {
-    justify-content: flex-start; /* 시작점부터 카드 배치 */
-    gap: 10px; /* 캐러셀 내 카드 간격 설정 */
-  }
-
   .movie-carousel-nav button {
-    padding: 15px;
-    font-size: 18px;
-  }
-
-  .rating_badge {
-    font-size: 14px;
-    padding: 2% 4%;
+    padding: 20px; /* 캐러셀 버튼 크기 커지게 */
+    font-size: 22px; /* 화살표 크기 늘림 */
   }
 }

@@ -6,7 +6,8 @@
   border: 1px solid rgba(10, 10, 26, 0.43);
   padding: 0px 20px;
   max-height: 70px;
-  min-width: 1870px;
+  /* min-width: 1870px;*/
+  width: 97.8%; /* 수정 필요한거 같아서 mid-width 대신 width추가*/
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -86,25 +87,22 @@
   cursor: pointer;
 }
 
-/* 네비게이션바 반응형 css 추가 */
+/* 네비게이션바 반응형 css 16:9 추가 */
 @media screen and (max-width: 1920px) {
   .header-container {
-    min-width: 95%;
-    /* min-width: 85%; */
-
-    max-width: 1820px;
+    min-width: 97%;
   }
 
   .search-container input {
-    min-width: 400px;
+    min-width: 400px; /* 검색창의 최소 너비*/
     width: 30%;
   }
 
   .navigation-container a {
-    margin: 0 10px;
+    margin: 0 10px; /* 네비게이션바 텍스트 간격 줄임 */
   }
 
   .navigation-container img {
-    width: 100px;
+    width: 100px; /* 로고 너비 줄임 */
   }
 }
