@@ -87,54 +87,17 @@
   left: 130px; /* 바로가기 버튼 옆에 배치 */
 }
 
-/* 메인 캐러셀 반응형 css 16:9 추가(이건 어려워서 챗지피티 힘빌림) */
-/* @media screen and (max-width: 1920px) {
+/* 메인 캐러셀 반응형 css 16:9 추가 */
+@media screen and (max-width: 1920px) {
   .carousel-subcontainer {
     width: 78.125vw;
-    max-width: 1500px;
-    height: calc(78.125vw * 0.3333);
-    max-height: 500px;
-    transform: scale(1.27);
+    max-width: 1500px; /* 캐러셀이 너무 커지는 것을 방지 */
+    height: calc(78.125vw * 0.3333); /* 16:9를 유지하기 위함 */
   }
 
   .carousel-slide img {
     width: 78.125vw;
-    height: calc(78.125vw * 0.3333);
-    max-width: 1500px;
-    max-height: 500px;
+    max-width: 1500px; /* 캐러셀이 너무 커지는 것을 방지 */
+    height: calc(78.125vw * 0.3333); /* 16:9를 유지하기 위함 */
   }
-
-  .slide-item {
-    position: relative;
-  }
-
-  .slide-item:nth-child(1) .shortcuts,
-  .slide-item:nth-child(1) .information {
-    top: 20px;
-    right: 20px;
-  }
-
-  .slide-item:nth-child(1) .information {
-    right: 120px;
-  }
-
-  .slide-item:nth-child(2) .shortcuts,
-  .slide-item:nth-child(2) .information {
-    top: 20px;
-    right: 20px;
-  }
-
-  .slide-item:nth-child(2) .information {
-    right: 120px;
-  }
-
-  .slide-item:nth-child(3) .shortcuts,
-  .slide-item:nth-child(3) .information {
-    top: 20px;
-    right: 20px;
-  }
-
-  .slide-item:nth-child(3) .information {
-    right: 120px;
-  }
-} */
+}
