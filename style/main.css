@@ -33,49 +33,35 @@
     width: 100%;
   }
 
-<<<<<<< HEAD
-.slide-item {
-  position: relative;
-  width: 100%;
-}
-
-.shortcuts, .information {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  width: auto;
-}
-.movie-carousel-track {
-  width: 390px;
-  display: flex; /* 가로로 스크롤을 가능하게 함 */
-  overflow-x: auto; /* 수평 스크롤 허용 */
-  overflow-y: hidden; /* 수직 스크롤 방지 */
-  white-space: nowrap; /* 요소가 한 줄로 유지되게 함 */
-  cursor: grab; /* 드래그 가능한 커서 */
-}
-
-.movie-carousel-track.dragging {
-  cursor: grabbing; /* 드래그 중 커서 */
-}
-.navigation-container {
-  width: 100%;
-}
-=======
-  .shortcuts,
-  .information {
+  .slide-item {
+    position: relative;
+    width: 100%;
+  }
+  
+  .shortcuts, .information {
     position: absolute;
     left: 10px;
     top: 10px;
     width: auto;
   }
+  
   .movie-carousel-track {
     width: 390px;
+    display: flex; /* 가로로 스크롤을 가능하게 함 */
+    overflow-x: auto; /* 수평 스크롤 허용 */
+    overflow-y: hidden; /* 수직 스크롤 방지 */
+    white-space: nowrap; /* 요소가 한 줄로 유지되게 함 */
+    cursor: grab; /* 드래그 가능한 커서 */
   }
+  
+  .movie-carousel-track.dragging {
+    cursor: grabbing; /* 드래그 중 커서 */
+  }
+  
   .navigation-container {
     width: 100%;
   }
->>>>>>> 11706d04edee62c5baaf1f6de6a6857b2b2a7c4c
-}
+  
 .information {
   left: 120px;
 }
@@ -188,4 +174,98 @@ body {
   border-radius: 5px;
   font-size: 14px;
   font-weight: bold;
+}
+
+/* 메인 인기급상승 카드 캐러셀 반응형 css 16:9 추가 */
+@media screen and (max-width: 1920px) {
+  .movies_container {
+    max-width: 90%;
+    margin: 0 auto; /* 좌우 여백 자동으로 설정하여 중앙 배치 */
+  }
+
+  .card {
+    width: 18.5%;
+    margin: 1% 0.01% 2%; /* 카드 간격 넓히기*/
+  }
+
+  .card_img {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+  }
+
+  .movie-carousel-nav button {
+    padding: 20px; /* 캐러셀 버튼 크기 커지게 */
+    font-size: 22px; /* 화살표 크기 늘림 */
+  }
+}
+
+.rank_badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* 반응형 CSS 추가 */
+/* 갤럭시 폴드5 접었을 때(최대 너비 384px) */
+@media (max-width: 20%) {
+  .movie_carousel {
+    width: 100%;
+  }
+
+  .movie_carousel_track {
+    flex-direction: column;
+  }
+
+  .movie_carousel_nav button {
+    padding: 5px;
+  }
+
+  .movie_carousel h3 {
+    font-size: 1.2em;
+  }
+}
+
+/* 갤럭시 폴드5 폈을 때(최소 너비 1768px) */
+@media (min-width: 92%) {
+  .movie-carousel {
+    width: 100%;
+  }
+
+  .movie-carousel-track {
+    flex-direction: row;
+  }
+
+  .movie-carousel-nav button {
+    padding: 10px;
+  }
+
+  .movie-carousel h3 {
+    font-size: 1.5em;
+  }
+}
+
+/* 태블릿 (최소 너비 481px, 최대 너비 1024px) */
+@media (min-width: 25%) and (max-width: 53%) {
+  .movie-carousel {
+    width: 100%;
+  }
+
+  .movie-carousel-track {
+    flex-direction: row;
+  }
+
+  .movie-carousel-nav button {
+    padding: 7px;
+  }
+
+  .movie-carousel h3 {
+    font-size: 1.3em;
+  }
 }
