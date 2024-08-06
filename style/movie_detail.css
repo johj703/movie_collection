@@ -1,31 +1,81 @@
-//모바일 규격 
+
+/* 캐러셀 관련 스타일 */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%; /* 전체 너비를 부모에 맞춤 */
+}
+//모바일 규격 12pro 390*844 
 
 @media screen and (max-width:390px) {
+.header-container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
 }
+.movie_poster {
+  max-width: 100%;
+  margin-right: 0;
+  margin-bottom: 10px;
 
-@media (max-width:844px) {
+}
+.movie_title {
+  font-size: 24px;
+}
+
+.movie_rating {
+  font-size: 18px;
+}
+
+.review_form button {
+  width: 100%;
+}
+
+.carousel-slide {
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-item {
+  position: relative;
+  width: 390px;
+}
+
+.shortcuts, .information {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: auto;
+}
+.movie-carousel-track {
+  width: 390px;
+}
+.navigation-container {
+  width: 100%;
+}
+}
+.information {
+  left: 120px;
+}
+}
+
 
 }
 //landscape 
-@media screen and (orientation: landscape){
-
-}
-    img {
-      display: block;
-      width: 1000%;
-      max-width: 100%;
-      maring:0 auto;
-    }
-
+@media only screen and (min-width: 390px) and (orientation: landscape) {
   
+  .carousel-slide {
+    flex-direction: row;
+  }
+  .movie-carousel-track {
+    flex-direction: row;
+  }
+}
       
     
 
-*{
-  margin: 0;
-  padding: 0;
-}
+
 
 /* 기본 스타일 */
 body {
