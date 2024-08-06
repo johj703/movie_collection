@@ -1,13 +1,12 @@
 .movies-navigation-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 30px;
-  padding: 40px;
+  justify-content: center;
+  gap: 70px;
+  padding: 20px;
 }
 
 .movie-card {
-  color: white;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
@@ -16,13 +15,12 @@
   cursor: pointer; /* 카드 위에 마우스를 올렸을 때, 마우스 커서가 손가락으로 변경된다! */
   margin-bottom: 20px;
   transform: scale(0.75);
+  margin: auto -20px;
 }
 
 .movie-card:hover {
-  transform: scale(
-    0.85
-  );
-  box-shadow: 0 4px 8px #fff ; /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
+  transform: scale(0.85);
+  box-shadow: 0 4px 8px #fff; /* 카드에 마우스를 올렸을 때, 카드의 크기가 1.05배 커진다! */
 }
 
 .movie-poster {
@@ -33,7 +31,7 @@
   min-height: 515.5px;
 }
 
-.movie-rating {
+.rating_badge {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -46,4 +44,20 @@
   backdrop-filter: blur(3.9px);
   -webkit-backdrop-filter: blur(3.9px);
   border: 1px solid rgba(255, 215, 0, 0.55);
+}
+
+/* 최고의 평점 캐러셀 디자인 추가*/
+#top-rated-movie-carousel-track {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* 너이영 추천 캐러셀 디자인 추가 */
+#choice-movie-carousel-track {
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* gap: 20px;
+  padding: 20px 0; */
 }

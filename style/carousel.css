@@ -71,7 +71,7 @@
 }
 
 .shortcuts:hover, .information:hover {
-    background-color: #FFA500;
+    background-color: #df9204;
     transform: scale(1.05);
 }
 
@@ -83,4 +83,44 @@
 .information {
     bottom: 20px;
     left: 130px; /* 바로가기 버튼 옆에 배치 */
+}
+
+/* 반응형 CSS 추가 */
+/* 갤럭시 폴드5 접었을 때(최대 너비 384px) */
+@media (max-width: 20%) {
+    .shortcuts {
+        left: 2%;
+        top: 2%;
+    }
+
+    .information {
+        left: 12%;
+        top: 2%;
+    }
+}
+
+/* 갤럭시 폴드5 폈을 때(최소 너비 1768px) */
+@media (min-width: 92%) {
+    .shortcuts {
+        left: 2%;
+        top: 2%;
+    }
+
+    .information {
+        left: 12%;
+        top: 2%;
+    }
+}
+
+/* 태블릿 (최소 너비 481px, 최대 너비 1024px) */
+@media (min-width: 25%) and (max-width: 53%) {
+    .shortcuts {
+        left: 2%;
+        top: 2%;
+    }
+
+    .information {
+        left: 12%;
+        top: 2%;
+    }
 }
