@@ -99,46 +99,93 @@ body {
   }
 }
 
-//12pro 화면 
+// 12pro 화면 
 @media screen and (max-width: 390px) {
-  .movie-container //헤더 스타일 조정  {
+  .header-container //헤더 스타일 조정  {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    
   }
-  .search-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-  }
-  .slide-item {
-    max-width: 100%;
-    margin-right: 0;
+  .navigation-container {
     margin-bottom: 10px;
   }
+  }
+  #logo {
+    height: 40px;
+  }
+  .navigation-container a {
+    margin: 5px 0;
+  }
+  #search-input {
+    width: 150px;
+  }
+
+  #search-button {
+    padding 5px 10px;
+  }
+  .movie-carousel h3 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
   .card {
-    max-width: 100%;
-    margin-right: 0;
-    margin-bottom: 10px;
+    transform: scale(0.7);
+    margin: auto;
   }
+
+  .card_img {
+    max-width: 100%;
+    max-height: auto;
+  }
+.carousel-slide img {
+ 
+  width:100%;
+  position: relative;
 }
+  .movie-carousel-nav button {
+    padding: 8px;
+  }
+
 
 //landscape 눕ㅎㅕ서 
-@media screen and (orientation: landscape) {
-  .movie_header {
-    flex-direction: row; 
+@media screen and (max-width: 844px) and (orientation: landscape) {
+  .header-container {
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
-  .movie_poster {
-    max-width: 200px;
-    margin-right: 20px;
+  #logo {
+    height: 60px;
   }
-  .movie-carousel-track {
-    flex-direction: row;
+
+  .navigation-container {
+    margin-bottom: 0;
   }
-  .slide-item {
-    width: 50%;
+
+  #search-input {
+    width: 200px;
   }
+
+  #search-button {
+    padding: 8px 12px;
   }
+
+  .movie-carousel h3 {
+    font-size: 1.4rem;
+    text-align: left;
+  }
+
+  .card {
+    transform: scale(0.8);
+  }
+
+  .card_img {
+    max-width: 320px;
+    max-height: 580px;
+  }
+
+  .movie-carousel-nav button {
+    padding: 12px;
+  }
+}
