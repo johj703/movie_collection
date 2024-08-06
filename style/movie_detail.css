@@ -5,7 +5,7 @@
   overflow: hidden;
   width: 100%; /* 전체 너비를 부모에 맞춤 */
 }
-//모바일 규격 12pro 390*844 
+/* //모바일 규격 12pro 390*844  */
 
 @media screen and (max-width:390px) {
 .header-container {
@@ -58,11 +58,8 @@
 .information {
   left: 120px;
 }
-}
 
-
-}
-//landscape 
+/* //landscape  */
 @media only screen and (min-width: 390px) and (orientation: landscape) {
   
   .carousel-slide {
