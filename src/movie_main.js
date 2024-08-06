@@ -127,13 +127,10 @@ const renderMovies = () => {
   });
 };
 
-// 문자열에서 모든 공백을 제거하는 함수
-const removeAllSpaces = (STR) => STR.replace(/\s+/g, "");
-
 // 검색 기능을 업데이트하여 검색된 영화만 표시
 const searchMovies = async () => {
   const { searchInput, movieSearchContainer, mainCarouselContainer, movieCarousel, topRatedMovieCarousel, choiceMovieCarousel } = DOM_ELEMENTS;
-  const QUERY = removeAllSpaces(searchInput.value.trim().toLowerCase());
+  const QUERY = searchInput.value.trim().toLowerCase();
 
   if (!QUERY) {
     Swal.fire({
