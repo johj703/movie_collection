@@ -99,19 +99,28 @@ const updateCarousel = () => {
   }
 };
 
+// 버튼 클릭 시 캐러셀 스크롤 조정
+const scrollCarousel = (direction) => {
+  const { movieCarouselTrack } = DOM_ELEMENTS;
+  const TRACK_WIDTH = movieCarouselTrack.offsetWidth;
+  const CARD_WIDTH = TRACK_WIDTH / 4;
+  const MAX_INDEX = $movies.length - 1;
+
+  if (direction === 'right') {
+    $current_index = ($current_index >= MAX_INDEX) ? 0 : $current_index + 1;
+  } else if (direction === 'left') {
+    $current_index = ($current_index <= 0) ? MAX_INDEX : $current_index - 1;
+  }
+
+  updateCarousel();
+};
+
 // 버튼 클릭 이벤트 리스너 추가
 const setupButtonEvents = () => {
   const { prevMovieBtn, nextMovieBtn } = DOM_ELEMENTS;
 
-  prevMovieBtn.addEventListener("click", () => {
-    $current_index--;
-    updateCarousel();
-  });
-
-  nextMovieBtn.addEventListener("click", () => {
-    $current_index++;
-    updateCarousel();
-  });
+  prevMovieBtn.addEventListener("click", () => scrollCarousel('left'));
+  nextMovieBtn.addEventListener("click", () => scrollCarousel('right'));
 };
 
 // 검색 결과를 검색 컨테이너에 렌더링하는 함수
