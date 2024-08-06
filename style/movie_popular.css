@@ -72,3 +72,27 @@
   /* gap: 20px;
   padding: 20px 0; */
 }
+
+/* 최고의 평점 영화 캐러셀 반응형 css 16:9 추가 */
+@media screen and (max-width: 1920px) {
+  .movies_container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .movie-card {
+    width: 18.5%;
+    margin: 1% 0.01% 2%; /* 카드 간격 넓히기*/
+  }
+
+  .movie-poster {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+  }
+
+  .movie-carousel-nav button {
+    padding: 20px; /* 캐러셀 버튼 크기 커지게 */
+    font-size: 22px; /* 화살표 크기 늘림 */
+  }
+}

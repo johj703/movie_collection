@@ -79,7 +79,7 @@ body {
   margin: 0; /* 제목의 기본 마진을 제거합니다 */
   padding: 0.5rem 0; /* 제목의 위아래 패딩을 설정합니다 */
   text-align: left; /* 제목을 중앙 정렬합니다 */
-  transform: translate(2%,98%);
+  transform: translate(2%, 98%);
 }
 
 .card {
@@ -129,6 +129,30 @@ body {
 .movie-carousel-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
+}
+
+/* 메인 인기급상승 카드 캐러셀 반응형 css 16:9 추가 */
+@media screen and (max-width: 1920px) {
+  .movies_container {
+    max-width: 90%;
+    margin: 0 auto; /* 좌우 여백 자동으로 설정하여 중앙 배치 */
+  }
+
+  .card {
+    width: 18.5%;
+    margin: 1% 0.01% 2%; /* 카드 간격 넓히기*/
+  }
+
+  .card_img {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+  }
+
+  .movie-carousel-nav button {
+    padding: 20px; /* 캐러셀 버튼 크기 커지게 */
+    font-size: 22px; /* 화살표 크기 늘림 */
+  }
 }
 
 .rank_badge {

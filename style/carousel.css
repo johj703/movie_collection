@@ -1,22 +1,22 @@
 .carousel-container {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    background-color: transparent;
-    transform: translateY(85px);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+  transform: translateY(85px);
 }
 
 .carousel-subcontainer {
-    width: 100%;
-    max-width: 1500px; /* 최대 너비 */
-    height: 500px;
-    overflow: hidden;
-    position: relative;
-    border-radius: 15px;
-    margin: 70px auto; /* 중앙 정렬 */
-    transform:scale(1.27);
+  width: 100%;
+  max-width: 1500px; /* 최대 너비 */
+  height: 500px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+  margin: 70px auto; /* 중앙 정렬 */
+  transform: scale(1.27);
 }
 
 .carousel-slide {
@@ -25,62 +25,116 @@
 }
 
 .carousel-slide img {
-    width: 1500px;
-    height: 500px;
-    border-radius: 15px;
-    object-fit: cover; /* 이미지 비율 유지 */
+  width: 1500px;
+  height: 500px;
+  border-radius: 15px;
+  object-fit: cover; /* 이미지 비율 유지 */
 }
 
 .carousel-nav {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
 }
 
 .nav-dot {
-    width: 8px;
-    height: 8px;
-    background-color: white;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
 }
 
 .nav-dot.active {
-    background-color: #FFCA46;
+  background-color: #ffca46;
 }
 
-.shortcuts, .information {
-    position: absolute;
-    padding: 5px 10px; /* 크기 축소 */
-    background-color: #FFCA46;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    z-index: 10;
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 14px; /* 글꼴 크기 축소 */
-    font-weight: bold;
-    width: 97px;
-    height: 36px;
+.shortcuts,
+.information {
+  position: absolute;
+  padding: 5px 10px; /* 크기 축소 */
+  background-color: #ffca46;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 14px; /* 글꼴 크기 축소 */
+  font-weight: bold;
+  width: 97px;
+  height: 36px;
 }
 
-.shortcuts:hover, .information:hover {
-    background-color: #df9204;
-    transform: scale(1.05);
+.shortcuts:hover,
+.information:hover {
+  background-color: #df9204;
+  transform: scale(1.05);
 }
 
 .shortcuts {
-    bottom: 20px;
-    left: 20px;
+  bottom: 20px;
+  left: 20px;
 }
 
 .information {
-    bottom: 20px;
-    left: 130px; /* 바로가기 버튼 옆에 배치 */
+  bottom: 20px;
+  left: 130px; /* 바로가기 버튼 옆에 배치 */
 }
+
+/* 메인 캐러셀 반응형 css 16:9 추가(이건 어려워서 챗지피티 힘빌림) */
+/* @media screen and (max-width: 1920px) {
+  .carousel-subcontainer {
+    width: 78.125vw;
+    max-width: 1500px;
+    height: calc(78.125vw * 0.3333);
+    max-height: 500px;
+    transform: scale(1.27);
+  }
+
+  .carousel-slide img {
+    width: 78.125vw;
+    height: calc(78.125vw * 0.3333);
+    max-width: 1500px;
+    max-height: 500px;
+  }
+
+  .slide-item {
+    position: relative;
+  }
+
+  .slide-item:nth-child(1) .shortcuts,
+  .slide-item:nth-child(1) .information {
+    top: 20px;
+    right: 20px;
+  }
+
+  .slide-item:nth-child(1) .information {
+    right: 120px;
+  }
+
+  .slide-item:nth-child(2) .shortcuts,
+  .slide-item:nth-child(2) .information {
+    top: 20px;
+    right: 20px;
+  }
+
+  .slide-item:nth-child(2) .information {
+    right: 120px;
+  }
+
+  .slide-item:nth-child(3) .shortcuts,
+  .slide-item:nth-child(3) .information {
+    top: 20px;
+    right: 20px;
+  }
+
+  .slide-item:nth-child(3) .information {
+    right: 120px;
+  }
+} */
