@@ -1,35 +1,39 @@
-
 /* 모바일 규격 12pro 390*844  */
 
-@media screen and (max-width:767px) {
-.header-container {
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+@media screen and (max-width: 767px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .movie_poster {
+    max-width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .movie_title {
+    font-size: 24px;
+  }
 
-}
-.movie_poster {
-  max-width: 100%;
-  margin-right: 0;
-  margin-bottom: 10px;
-}
-.movie_title {
-  font-size: 24px;
-}
+  .movie_rating {
+    font-size: 18px;
+  }
 
-.movie_rating {
-  font-size: 18px;
-}
+  .review_form button {
+    width: 100%;
+  }
 
-.review_form button {
-  width: 100%;
-}
+  .carousel-slide {
+    display: flex;
+    flex-direction: column;
+  }
 
-.carousel-slide {
-  display: flex;
-  flex-direction: column;
-}
+  .slide-item {
+    position: relative;
+    width: 100%;
+  }
 
+<<<<<<< HEAD
 .slide-item {
   position: relative;
   width: 100%;
@@ -56,17 +60,29 @@
 .navigation-container {
   width: 100%;
 }
+=======
+  .shortcuts,
+  .information {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: auto;
+  }
+  .movie-carousel-track {
+    width: 390px;
+  }
+  .navigation-container {
+    width: 100%;
+  }
+>>>>>>> 11706d04edee62c5baaf1f6de6a6857b2b2a7c4c
 }
 .information {
   left: 120px;
 }
 
-@media only screen and (min-width: 390px)
-{
- 
+@media only screen and (min-width: 390px) {
 }
-@media (max-width:844px) {
-
+@media (max-width: 844px) {
 }
 
 body {
@@ -159,7 +175,6 @@ body {
   .movie-carousel-nav button {
     padding: 20px; /* 캐러셀 버튼 크기 커지게 */
     font-size: 22px; /* 화살표 크기 늘림 */
-    z-index: 1000;
   }
 }
 
