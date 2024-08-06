@@ -82,3 +82,61 @@ body {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
+
+/* 반응형 CSS 추가 */
+/* 갤럭시 폴드5 접었을 때(최대 너비 384px) */
+@media (max-width: 20%) {
+  .movie_carousel {
+    width: 100%;
+  }
+
+  .movie_carousel_track {
+    flex-direction: column;
+  }
+
+  .movie_carousel_nav button {
+    padding: 5px;
+  }
+
+  .movie_carousel h3 {
+    font-size: 1.2em;
+  }
+}
+
+/* 갤럭시 폴드5 폈을 때(최소 너비 1768px) */
+@media (min-width: 92%) {
+  .movie-carousel {
+    width: 100%;
+  }
+
+  .movie-carousel-track {
+    flex-direction: row;
+  }
+
+  .movie-carousel-nav button {
+    padding: 10px;
+  }
+
+  .movie-carousel h3 {
+    font-size: 1.5em;
+  }
+}
+
+/* 태블릿 (최소 너비 481px, 최대 너비 1024px) */
+@media (min-width: 25%) and (max-width: 53%) {
+  .movie-carousel {
+    width: 100%;
+  }
+
+  .movie-carousel-track {
+    flex-direction: row;
+  }
+
+  .movie-carousel-nav button {
+    padding: 7px;
+  }
+
+  .movie-carousel h3 {
+    font-size: 1.3em;
+  }
+}
