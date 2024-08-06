@@ -87,11 +87,18 @@
   left: 130px; /* 바로가기 버튼 옆에 배치 */
 }
 
-/* 미디어 쿼리 */
-@media (max-width: 1920px) {
+/* 메인 캐러셀 반응형 css 추가 */
+@media screen and (max-width: 1920px) {
   .carousel-container {
-    width: 69%;
-    max-width: 1600px;
-    margin: 0 9.5%;
+    width: 78.125%;
+    max-width: 1500px;
+    margin: 0 auto;
+    transform: translateY(85px);
+  }
+
+  .carousel-subcontainer {
+    width: 100%;
+    height: 500px;
+    margin: 70px auto;
   }
 }

@@ -82,3 +82,50 @@ body {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
+
+/* 메인 인기급상승 카드 캐러셀 반응형 css 추가 */
+@media screen and (max-width: 1920px) {
+  .movies_container {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .card {
+    width: 18.5%; /* 카드 너비를 18%에서 18.5%로 약간 늘림 */
+    margin: 1% 0.1% 2%; /* 좌우 마진을 1%에서 0.1%로 줄임 */
+  }
+
+  .card_img {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+  }
+
+  .movie-carousel h3 {
+    font-size: 28px; /* 전체적으로 글자 크기를 줄임 */
+    padding: 1% 0;
+    transform: translate(2%, 80%);
+    white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 함 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 ...으로 표시 */
+    max-width: 90%; /* 최대 너비를 제한 */
+  }
+
+  .movie-carousel {
+    transform: translateY(5%);
+  }
+
+  .movie-carousel-track {
+    justify-content: space-around;
+  }
+
+  .movie-carousel-nav button {
+    padding: 20px; /* 패딩을 15px에서 20px로 늘림 */
+    font-size: 22px; /* 글자 크기를 18px에서 22px로 늘림 */
+  }
+
+  .rating_badge {
+    font-size: 16px;
+    padding: 2% 4%;
+  }
+}
