@@ -32,7 +32,6 @@ const CREATE_MOVIE_CARD = (MOVIE_DATA) => {
   CARD.classList.add('movie-card');
   CARD.innerHTML = `
     <img src="https://image.tmdb.org/t/p/w500${MOVIE_DATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${MOVIE_DATA.title} 포스터" class="movie-poster">
-    <div class="rating_badge">평점 : ${MOVIE_DATA.vote_average.toFixed(1)} / 10</div>
   `;
   CARD.addEventListener('click', () => {
     window.location.href = `/html/movie_detail.html?id=${MOVIE_DATA.id}`;

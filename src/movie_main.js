@@ -36,8 +36,8 @@ const fetchMovies = async () => {
   }
 };
 
-// 영화 카드를 생성하는 함수
-const createMovieCard = (MOVIE) => {
+// 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
+const createMovieCard = (MOVIE, RANK) => {
   const CARD = document.createElement("div");
   CARD.classList.add("card");
 
@@ -47,10 +47,12 @@ const createMovieCard = (MOVIE) => {
   POSTER.classList.add("card_img");
   CARD.appendChild(POSTER);
 
-  const RATING_BADGE = document.createElement("div");
-  RATING_BADGE.innerText = `평점 : ${MOVIE.vote_average.toFixed(1)} / 10`;
-  RATING_BADGE.classList.add("rating_badge");
-  CARD.appendChild(RATING_BADGE);
+  if (RANK) {
+    const RANK_BADGE = document.createElement("div");
+    RANK_BADGE.innerText = `${RANK}위`;
+    RANK_BADGE.classList.add("rank_badge");
+    CARD.appendChild(RANK_BADGE);
+  }
 
   CARD.addEventListener("click", () => {
     window.location.href = `/html/movie_detail.html?id=${MOVIE.id}`;
@@ -64,8 +66,10 @@ const displayMovies = () => {
   const { movieCarouselTrack } = DOM_ELEMENTS;
   movieCarouselTrack.innerHTML = "";
 
-  $movies.forEach((MOVIE) => {
-    const CARD = createMovieCard(MOVIE);
+  $movies.forEach((MOVIE, index) => {
+    // 상위 10개의 영화에 순위를 부여
+    const RANK = index < 10 ? index + 1 : null;
+    const CARD = createMovieCard(MOVIE, RANK);
     movieCarouselTrack.appendChild(CARD);
   });
 
@@ -115,8 +119,10 @@ const renderMovies = () => {
   const { movieSearchContainer } = DOM_ELEMENTS;
   movieSearchContainer.innerHTML = "";
 
-  $movies.forEach((MOVIE) => {
-    const CARD = createMovieCard(MOVIE);
+  $movies.forEach((MOVIE, index) => {
+    // 상위 10개의 영화에 순위를 부여
+    const RANK = index < 10 ? index + 1 : null;
+    const CARD = createMovieCard(MOVIE, RANK);
     movieSearchContainer.appendChild(CARD);
   });
 };
@@ -138,7 +144,7 @@ const searchMovies = async () => {
       timer: 1500,
     });
     showAllCards(); // 모든 카드 보이기
-    toggleMainCarousels(true);
+    toggleMainCarousels(true); // 메인 캐러셀 보이기
     return;
   }
 
@@ -151,7 +157,7 @@ const searchMovies = async () => {
     if (DATA.results.length === 0) {
       Swal.fire("검색 결과가 없습니다!", "정확히 입력해주세요.", "warning");
       showAllCards(); // 모든 카드 보이기
-      toggleMainCarousels(true);
+      toggleMainCarousels(true); // 메인 캐러셀 보이기
       return;
     }
 
@@ -177,7 +183,7 @@ const toggleMainCarousels = (SHOW) => {
   movieCarousel?.style.setProperty('display', DISPLAY_STYLE);
   topRatedMovieCarousel?.style.setProperty('display', DISPLAY_STYLE);
   choiceMovieCarousel?.style.setProperty('display', DISPLAY_STYLE);
-  moviesNavigationContainer?.style.setProperty('display', SHOW ? "block" : "flex");
+  moviesNavigationContainer?.style.setProperty('display', SHOW ? "block" : "none");
 };
 
 // 로고 클릭 시 페이지 리로드
@@ -205,7 +211,7 @@ const setupCategoryLinks = () => {
   ["views-link_Hot", "views-link_Views", "views-link_Choice"].forEach((ID) => {
     document.getElementById(ID).addEventListener("click", () => {
       DOM_ELEMENTS.movieSearchContainer.innerHTML = "";
-      toggleMainCarousels(true);
+      toggleMainCarousels(true); // 메인 캐러셀 보이기
     });
   });
 };
@@ -221,4 +227,4 @@ const initializePage = () => {
 };
 
 // 페이지 로딩 시 초기 설정 호출
-initializePage()
+initializePage();
