@@ -89,4 +89,9 @@
 
 /* 미디어 쿼리 */
 @media (max-width: 1920px) {
+  .carousel-container {
+    width: 69%;
+    max-width: 1600px;
+    margin: 0 9.5%;
+  }
 }

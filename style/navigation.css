@@ -89,8 +89,8 @@
 /* 미디어 쿼리 */
 @media (max-width: 1920px) {
   .header-container {
-    width: 85%;
-    min-width: 85%; /* min-width를 조정하여 너비 줄임 */
+    width: 86%;
+    min-width: 86%; /* min-width를 조정하여 너비 줄임 */
     max-width: 1536px;
   }
 }
