@@ -1,5 +1,5 @@
 import { DEFAPIKEY } from './apikey.js';
-const { API_KEY,BASEURL } = DEFAPIKEY;
+const { API_KEY, BASEURL } = DEFAPIKEY;
 
 // JSON 파일에서 영화 데이터를 불러오는 함수
 const FETCH_MOVIES_FROM_JSON = async () => {
@@ -26,6 +26,14 @@ const FETCH_MOVIE_DETAILS = async (MOVIE_ID) => {
   }
 };
 
+// 뱃지 생성 함수
+const CREATE_BADGE = (NAME) => {
+  const BADGE = document.createElement('span');
+  BADGE.classList.add('movie-badge');
+  BADGE.textContent = NAME;
+  return BADGE;
+};
+
 // 영화 카드 생성 함수
 const CREATE_MOVIE_CARD = (MOVIE_DATA) => {
   const CARD = document.createElement('div');
@@ -33,9 +41,14 @@ const CREATE_MOVIE_CARD = (MOVIE_DATA) => {
   CARD.innerHTML = `
     <img src="https://image.tmdb.org/t/p/w500${MOVIE_DATA.poster_path || 'https://via.placeholder.com/200x300'}" alt="${MOVIE_DATA.title} 포스터" class="movie-poster">
   `;
+
+  const BADGE = CREATE_BADGE(MOVIE_DATA.name); // `name` 필드가 추가된 영화 데이터 사용
+  CARD.appendChild(BADGE);
+
   CARD.addEventListener('click', () => {
     window.location.href = `/html/movie_detail.html?id=${MOVIE_DATA.id}`;
   });
+
   return CARD;
 };
 
@@ -54,6 +67,8 @@ const DISPLAY_MOVIES = async (CONTAINER_ID) => {
   for (const MOVIE of MOVIES) {
     const MOVIE_DATA = await FETCH_MOVIE_DETAILS(MOVIE.id);
     if (MOVIE_DATA) {
+      // MOVIE 데이터에 name을 추가합니다.
+      MOVIE_DATA.name = MOVIE.name;
       const CARD = CREATE_MOVIE_CARD(MOVIE_DATA);
       CONTAINER.appendChild(CARD);
     }
@@ -70,12 +85,11 @@ const DISPLAY_MOVIES_CAROUSEL = async (CAROUSEL_ID) => {
     return;
   }
 
-  // Reset content if needed
-  // CAROUSEL.innerHTML = '<h3 style="color: white"><너이영 추천></h3>';
-
   for (const MOVIE of MOVIES) {
     const MOVIE_DATA = await FETCH_MOVIE_DETAILS(MOVIE.id);
     if (MOVIE_DATA) {
+      // MOVIE 데이터에 name을 추가합니다.
+      MOVIE_DATA.name = MOVIE.name;
       const CARD = CREATE_MOVIE_CARD(MOVIE_DATA);
       CAROUSEL.appendChild(CARD);
     }
