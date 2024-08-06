@@ -182,14 +182,15 @@ const showAllCards = () => {
 
 // 메인 캐러셀을 토글하는 함수
 const toggleMainCarousels = (SHOW) => {
-  const DISPLAY_STYLE = SHOW ? "block" : "none";
   const { mainCarouselContainer, movieCarousel, topRatedMovieCarousel, choiceMovieCarousel, moviesNavigationContainer } = DOM_ELEMENTS;
 
-  mainCarouselContainer?.style.setProperty('display', DISPLAY_STYLE);
-  movieCarousel?.style.setProperty('display', DISPLAY_STYLE);
-  topRatedMovieCarousel?.style.setProperty('display', DISPLAY_STYLE);
-  choiceMovieCarousel?.style.setProperty('display', DISPLAY_STYLE);
-  moviesNavigationContainer?.style.setProperty('display', SHOW ? "block" : "none");
+  const displayClass = SHOW ? 'visible' : 'hidden';
+
+  mainCarouselContainer.classList.toggle('hidden', !SHOW);
+  movieCarousel.classList.toggle('hidden', !SHOW);
+  topRatedMovieCarousel.classList.toggle('hidden', !SHOW);
+  choiceMovieCarousel.classList.toggle('hidden', !SHOW);
+  moviesNavigationContainer.classList.toggle('hidden', !SHOW);
 };
 
 // 로고 클릭 시 페이지 리로드
