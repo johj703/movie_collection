@@ -1,3 +1,32 @@
+//모바일 규격 
+
+@media screen and (max-width:390px) {
+
+}
+
+@media (max-width:844px) {
+
+}
+//landscape 
+@media screen and (orientation: landscape){
+
+}
+    img {
+      display: block;
+      width: 1000%;
+      max-width: 100%;
+      maring:0 auto;
+    }
+
+  
+      
+    
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
 /* 기본 스타일 */
 body {
   font-family: Arial, sans-serif;
