@@ -20,22 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
     function navigateToSlide(index) {
         currentIndex = index;
         updateCarousel();
-        clearInterval(slideInterval);
-        slideInterval = setInterval(showNextSlide, 10000);
+        resetInterval();
     }
 
     function updateCarousel() {
-        const slideWidth = SLIDES[0].clientWidth;
+        const slideWidth = SLIDECONTAINER.clientWidth;
         SLIDECONTAINER.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        updateNavDots();
+    }
+
+    function updateNavDots() {
         NAVDOTS.forEach((dot, index) => {
             dot.classList.toggle('active', index === currentIndex);
         });
     }
 
     function initializeCarousel() {
-        const totalWidth = SLIDES.length * SLIDES[0].clientWidth;
-        SLIDECONTAINER.style.width = `${totalWidth}px`;
         updateCarousel();
+        resetInterval();
+    }
+
+    function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(showNextSlide, 3000);
     }
 
     function createButtons() {
@@ -50,10 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
             buttonContainer.style.justifyContent = 'space-between';
             buttonContainer.style.pointerEvents = 'auto';
 
-            // 현재 슬라이드의 버튼을 가져옵니다.
             const { id, movieId } = BUTTONS[index];
             
-            // '바로가기' 버튼 생성
             const shortcutsButton = document.createElement('button');
             shortcutsButton.classList.add('shortcuts');
             shortcutsButton.id = id;
@@ -62,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = `/html/movie_detail.html?id=${movieId}`;
             };
 
-            // '상세정보' 버튼 생성
             const informationButton = document.createElement('button');
             informationButton.classList.add('information');
             informationButton.id = `information_${id}`;
@@ -79,23 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function addImageClickEvents() {
-        if (window.innerWidth <= 1024) { // 모바일 및 태블릿 환경
-            SLIDES.forEach((slide, index) => {
-                const { movieId } = BUTTONS[index];
-                slide.addEventListener('click', () => {
+        SLIDES.forEach((slide, index) => {
+            const { movieId } = BUTTONS[index];
+            if (window.innerWidth <= 1024) {
+                // 모바일 및 태블릿 환경
+                slide.style.cursor = 'pointer';
+                slide.onclick = () => {
                     window.location.href = `/html/movie_detail.html?id=${movieId}`;
-                });
-            });
-        } else {
-            // 모바일 및 태블릿 환경이 아닐 경우 클릭 이벤트를 제거
-            SLIDES.forEach(slide => {
-                const newSlide = slide.cloneNode(true); // 슬라이드 복제
-                slide.parentElement.replaceChild(newSlide, slide); // 기존 슬라이드를 새로운 슬라이드로 교체
-            });
-        }
+                };
+            } else {
+                // PC 환경
+                slide.style.cursor = 'default';
+                slide.onclick = null;
+            }
+        });
     }
-
-    slideInterval = setInterval(showNextSlide, 10000);
 
     initializeCarousel();
 
@@ -105,12 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', () => {
         updateCarousel();
-        addImageClickEvents(); // 화면 크기 변경 시 클릭 이벤트 재설정
+        addImageClickEvents();
     });
 
     createButtons();
-
-    addImageClickEvents(); // 페이지 로드 시 클릭 이벤트 추가
+    addImageClickEvents();
 
     window.navigateToSlide = navigateToSlide;
 });
