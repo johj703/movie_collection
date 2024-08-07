@@ -37,22 +37,15 @@ const fetchMovies = async () => {
 };
 
 // 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
-const createMovieCard = (MOVIE, RANK) => {
+const createMovieCard = (MOVIE) => {
   const CARD = document.createElement("div");
-  CARD.classList.add("card");
+  CARD.classList.add("movie-card");
 
   const POSTER = document.createElement("img");
   POSTER.src = `https://image.tmdb.org/t/p/w500/${MOVIE.poster_path}`;
   POSTER.alt = MOVIE.title;
-  POSTER.classList.add("card_img");
+  POSTER.classList.add("movie-poster");
   CARD.appendChild(POSTER);
-
-  if (RANK) {
-    const RANK_BADGE = document.createElement("div");
-    RANK_BADGE.innerText = `${RANK}위`;
-    RANK_BADGE.classList.add("rank_badge");
-    CARD.appendChild(RANK_BADGE);
-  }
 
   CARD.addEventListener("click", () => {
     window.location.href = `/html/movie_detail.html?id=${MOVIE.id}`;

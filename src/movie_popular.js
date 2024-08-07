@@ -17,17 +17,10 @@ async function getTopRatedMovies() {
 }
 
 // 단일 영화 객체를 받아 HTML 카드로 변환하는 함수
-function createMovieCard(movie, RANK) {
+function createMovieCard(movie) {
   const CARD = document.createElement('div');
   CARD.className = 'movie-card';
   CARD.style.position = 'relative'; // 뱃지 위치 설정
-
-  if (RANK) {
-    const RANK_BADGE = document.createElement("div");
-    RANK_BADGE.innerText = `${RANK}위`;
-    RANK_BADGE.className = 'rank_badge';
-    CARD.appendChild(RANK_BADGE);
-  }
 
   const POSTERPATH = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
