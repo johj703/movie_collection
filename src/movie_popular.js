@@ -1,5 +1,5 @@
 import { DEFAPIKEY } from './apikey.js';
-const { API_KEY,BASEURL } = DEFAPIKEY;
+const { API_KEY, BASEURL } = DEFAPIKEY;
 
 // API 데이터 불러오기
 async function getTopRatedMovies() {
@@ -20,14 +20,14 @@ async function getTopRatedMovies() {
 function createMovieCard(movie) {
   const CARD = document.createElement('div');
   CARD.className = 'movie-card';
+  CARD.style.position = 'relative'; // 뱃지 위치 설정
 
   const POSTERPATH = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : 'https://via.placeholder.com/200x300';
 
-  CARD.innerHTML = `
+  CARD.innerHTML += `
     <img class="movie-poster" src="${POSTERPATH}" alt="${movie.title}">
-    <div class="rating_badge">평점 : ${movie.vote_average.toFixed(1)} / 10</div>
   `;
 
   CARD.addEventListener('click', () => {
@@ -40,19 +40,18 @@ function createMovieCard(movie) {
 // 최고의 평점 영화를 캐러셀에 표시하는 함수
 async function displayTopRatedMoviesCarousel() {
   const MOVIES = await getTopRatedMovies();
-  const CAROUSEL_TRACK = document.getElementById(
-    'top-rated-movie-carousel-track'
-  );
+  const CAROUSEL_TRACK = document.getElementById('top-rated-movie-carousel-track');
 
   if (!CAROUSEL_TRACK) {
     console.error('Top rated movie carousel track not found.');
     return;
   }
 
-  // CAROUSEL_TRACK.innerHTML = '<h3 style="color: white"><최고의 평점></h3>'; // Reset content
+  CAROUSEL_TRACK.innerHTML = ''; // 기존 내용 제거
 
-  MOVIES.forEach((movie) => {
-    const CARD = createMovieCard(movie);
+  MOVIES.forEach((movie, index) => {
+    const RANK = index < 10 ? index + 1 : null; // 1부터 10까지 순위 부여
+    const CARD = createMovieCard(movie, RANK);
     CAROUSEL_TRACK.appendChild(CARD);
   });
 
@@ -63,7 +62,6 @@ async function displayTopRatedMoviesCarousel() {
   );
 }
 
-// 캐러셀 네비게이션 설정 함수
 function setupCarouselNavigation(trackId, prevBtnId, nextBtnId) {
   const CAROUSEL_TRACK = document.getElementById(trackId);
   const prevBtn = document.getElementById(prevBtnId);
@@ -74,18 +72,36 @@ function setupCarouselNavigation(trackId, prevBtnId, nextBtnId) {
     return;
   }
 
-  const scrollAmount = CAROUSEL_TRACK.offsetWidth;
+  // 카드의 너비를 동적으로 계산
+  const CARD_WIDTH = CAROUSEL_TRACK.children[0]?.offsetWidth || 0;
+  // 트랙의 너비
+  const TRACK_WIDTH = CAROUSEL_TRACK.scrollWidth;
+
+  // 스크롤 시 최댓값과 최솟값을 설정
+  const MAX_SCROLL_LEFT = TRACK_WIDTH - CAROUSEL_TRACK.clientWidth;
+
+  let currentScroll = 0;
 
   nextBtn.addEventListener('click', () => {
-    CAROUSEL_TRACK.scrollBy({
-      left: scrollAmount,
+    // 오른쪽으로 스크롤
+    currentScroll += CARD_WIDTH;
+    if (currentScroll > MAX_SCROLL_LEFT) {
+      currentScroll = MAX_SCROLL_LEFT; // 최대 스크롤 위치 제한
+    }
+    CAROUSEL_TRACK.scrollTo({
+      left: currentScroll,
       behavior: 'smooth',
     });
   });
 
   prevBtn.addEventListener('click', () => {
-    CAROUSEL_TRACK.scrollBy({
-      left: -scrollAmount,
+    // 왼쪽으로 스크롤
+    currentScroll -= CARD_WIDTH;
+    if (currentScroll < 0) {
+      currentScroll = 0; // 최소 스크롤 위치 제한
+    }
+    CAROUSEL_TRACK.scrollTo({
+      left: currentScroll,
       behavior: 'smooth',
     });
   });
@@ -94,13 +110,9 @@ function setupCarouselNavigation(trackId, prevBtnId, nextBtnId) {
 // 페이지 요소 표시/숨김 함수
 function togglePageElements(page) {
   const container = document.querySelector('.container');
-  const carousels = document.querySelectorAll(
-    '.movie-carousel, .carousel-container'
-  );
+  const carousels = document.querySelectorAll('.movie-carousel, .carousel-container');
   const moviesContainer = document.querySelector('.movies_container');
-  const navigationContainer = document.querySelector(
-    '.movies-navigation-container'
-  );
+  const navigationContainer = document.querySelector('.movies-navigation-container');
 
   container.style.display = 'none';
   carousels.forEach((carousel) => (carousel.style.display = 'none'));
@@ -198,8 +210,9 @@ async function displayMovies(containerId) {
 
   CONTAINER.innerHTML = ''; // Clear previous content
 
-  MOVIES.forEach((movie) => {
-    const CARD = createMovieCard(movie);
+  MOVIES.forEach((movie, index) => {
+    const RANK = index < 10 ? index + 1 : null; // 1부터 10까지 순위 부여
+    const CARD = createMovieCard(movie, RANK);
     CONTAINER.appendChild(CARD);
   });
 

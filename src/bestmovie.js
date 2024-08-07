@@ -25,7 +25,7 @@ const createMovieCard = (movie) => {
 
   card.innerHTML = `
     <img class="movie-poster" src="${posterPath}" alt="${movie.title}">
-    <div class="rating-badge">평점 : ${movie.vote_average.toFixed(1)} / 10</div>
+  
   `;
 
   card.addEventListener("click", () => {
